@@ -36,7 +36,7 @@ export function SectorsSection() {
           viewport={{ once: true }}
           className="flex flex-col items-center gap-3 text-center"
         >
-          <h2 className="section-heading-inverse text-white/80">SECTORES QUE ATENDEMOS</h2>
+          <h2 className="section-heading-inverse">SECTORES QUE ATENDEMOS</h2>
           <span className="section-accent" />
           <p className="mt-1 text-xl font-normal text-white/80 sm:text-2xl md:text-[28px]">
             Soluciones claves por industria

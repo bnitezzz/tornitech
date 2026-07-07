@@ -75,7 +75,12 @@
   .bg-brand-dark     { background-color: #3c4456; }
   .bg-brand-navy     { background-color: #052042; }
 
-  /* Primary CTA — consistent size, shadow depth and interaction states */
+  /* Primary CTA — consistent size, shadow depth and interaction states.
+     btn-yellow-pill duplicates these declarations instead of composing
+     `@apply btn-yellow rounded-full` because Tailwind does not reliably
+     preserve declaration order when one custom utility's @apply references
+     another (see section-heading note below) — the rounded-full override
+     was silently dropped in favor of btn-yellow's own border-radius. */
   .btn-yellow {
     @apply inline-flex items-center justify-center gap-2 rounded-[10px] bg-[#fab43a] font-medium text-[#3c4456]
            shadow-[0_1px_2px_rgba(5,32,66,0.08)] transition-all duration-200 ease-out
@@ -86,7 +91,11 @@
 
   /* Compact pill variant used in the navbar */
   .btn-yellow-pill {
-    @apply btn-yellow rounded-full;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#fab43a] font-medium text-[#3c4456]
+           shadow-[0_1px_2px_rgba(5,32,66,0.08)] transition-all duration-200 ease-out
+           hover:bg-[#f0a52a] hover:shadow-[0_4px_12px_rgba(5,32,66,0.16)] hover:-translate-y-px
+           active:translate-y-0 active:scale-[0.98] active:shadow-[0_1px_2px_rgba(5,32,66,0.1)]
+           disabled:pointer-events-none disabled:opacity-60 disabled:active:scale-100;
   }
 
   /* Accessible focus rings for custom (non shadcn) interactive elements */
@@ -97,13 +106,18 @@
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#052042];
   }
 
-  /* Section headings — single responsive scale reused across the page */
+  /* Section headings — single responsive scale reused across the page.
+     Each variant is fully self-contained (not composed via @apply of one
+     another) because Tailwind's @apply expansion does not reliably preserve
+     declaration order across custom utilities, which previously caused the
+     "inverse" color to lose to the base color at build time. */
   .section-heading {
-    @apply font-sans text-[#3c4456] font-extrabold uppercase tracking-wide leading-[1.15]
-           text-[26px] sm:text-[30px] md:text-[34px] lg:text-[40px];
+    @apply font-sans font-extrabold uppercase tracking-wide leading-[1.15]
+           text-[26px] sm:text-[30px] md:text-[34px] lg:text-[40px] text-[#3c4456];
   }
   .section-heading-inverse {
-    @apply section-heading text-white;
+    @apply font-sans font-extrabold uppercase tracking-wide leading-[1.15]
+           text-[26px] sm:text-[30px] md:text-[34px] lg:text-[40px] text-white;
   }
 
   /* Small accent mark used under eyebrow copy for a refined, consistent signature */
