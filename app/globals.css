@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 14% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 14% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 14% 27%;
+
+    /* Primary: #316d92 */
+    --primary: 204 50% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: lighter blue */
+    --secondary: 204 30% 92%;
+    --secondary-foreground: 204 50% 38%;
+
+    --muted: 220 15% 95%;
+    --muted-foreground: 224 10% 50%;
+
+    /* Accent: #fab43a amber/orange */
+    --accent: 38 95% 60%;
+    --accent-foreground: 224 14% 27%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 204 50% 38%;
+
+    --radius: 10px;
+
+    /* Brand-specific */
+    --brand-yellow: #fab43a;
+    --brand-yellow-hover: #f0a52a;
+    --brand-blue: #316d92;
+    --brand-dark: #3c4456;
+    --brand-navy: #052042;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-[#3c4456] antialiased;
+  }
+}
+
+@layer utilities {
+  .text-brand-yellow { color: #fab43a; }
+  .text-brand-blue   { color: #316d92; }
+  .text-brand-dark   { color: #3c4456; }
+  .text-brand-navy   { color: #052042; }
+
+  .bg-brand-yellow   { background-color: #fab43a; }
+  .bg-brand-blue     { background-color: #316d92; }
+  .bg-brand-dark     { background-color: #3c4456; }
+  .bg-brand-navy     { background-color: #052042; }
+
+  .btn-yellow {
+    @apply bg-[#fab43a] text-[#3c4456] rounded-[10px] px-6 py-3 font-medium hover:bg-[#f0a52a] transition-colors;
+  }
+
+  .section-heading {
+    @apply font-sans text-[#3c4456] font-extrabold uppercase tracking-wide;
+  }
+
+  .nav-gradient {
+    background: linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%);
+  }
+
+  .glass-card {
+    background: linear-gradient(153deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+    backdrop-filter: blur(7.5px) brightness(100%);
+    -webkit-backdrop-filter: blur(7.5px) brightness(100%);
+    box-shadow: 0px 1px 4px rgba(11,55,0,0.27), inset 0px 4px 5px rgba(255,255,255,0.16);
+  }
+}

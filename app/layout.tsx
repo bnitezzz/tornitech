@@ -1,0 +1,89 @@
+import './globals.css';
+import type { Metadata } from 'next';
+import { Sora } from 'next/font/google';
+import { Toaster } from '@/components/ui/sonner';
+import { SITE_CONFIG } from '@/constants/site';
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-sora',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
+  title: {
+    default: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    template: `%s | ${SITE_CONFIG.name}`,
+  },
+  description: SITE_CONFIG.seo.description,
+  keywords: SITE_CONFIG.seo.keywords,
+  authors: [{ name: SITE_CONFIG.name }],
+  creator: SITE_CONFIG.name,
+  publisher: SITE_CONFIG.name,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: 'website',
+    locale: SITE_CONFIG.locale,
+    url: '/',
+    siteName: SITE_CONFIG.name,
+    title: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    description: SITE_CONFIG.seo.description,
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: `${SITE_CONFIG.name} - Tornillería y Fijación`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    description: SITE_CONFIG.seo.description,
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es-VE': '/',
+    },
+  },
+  themeColor: '#1e40af',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="es" className={sora.variable}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      </head>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        {children}
+        <Toaster position="top-right" />
+      </body>
+    </html>
+  );
+}
