@@ -10,7 +10,7 @@ export function HeroSection() {
       <div className="relative min-h-[620px] w-full md:min-h-[720px] lg:min-h-[896px]">
         {/* Background industrial image */}
         <Image
-          src=".public/images/hero-section.png"
+          src="/images/hero-section.jpg"
           alt="Tornillería industrial"
           fill
           priority
