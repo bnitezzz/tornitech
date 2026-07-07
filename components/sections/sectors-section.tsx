@@ -28,18 +28,17 @@ const sectors = [
 
 export function SectorsSection() {
   return (
-    <section className="relative w-full bg-[#052042] py-4">
+    <section className="relative w-full bg-[#052042] py-14 md:py-20">
       <div className="mx-auto flex w-full max-w-[1320px] flex-col items-center px-4">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center gap-3 text-center"
         >
-          <h2 className="text-[40px] font-extrabold uppercase tracking-wide text-white">
-            SECTORES QUE ATENDEMOS
-          </h2>
-          <p className="mt-1 text-[28px] font-normal text-white">
+          <h2 className="section-heading-inverse">SECTORES QUE ATENDEMOS</h2>
+          <span className="section-accent" />
+          <p className="mt-1 text-xl font-normal text-white/80 sm:text-2xl md:text-[28px]">
             Soluciones claves por industria
           </p>
         </motion.header>
@@ -49,7 +48,7 @@ export function SectorsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="mt-6 w-full overflow-x-auto"
+          className="mt-10 w-full overflow-x-auto"
         >
           <div className="flex min-w-max items-center gap-[43px] px-1 py-3">
             {sectors.map((sector, index) => (
@@ -59,14 +58,14 @@ export function SectorsSection() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.07 }}
-                className="relative h-[150px] w-[202px] flex-shrink-0 overflow-hidden rounded-[10px]"
+                className="group relative h-[150px] w-[202px] flex-shrink-0 overflow-hidden rounded-[10px] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-shadow duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
               >
                 <Image
                   src={sector.image}
                   alt={sector.title}
                   fill
                   sizes="202px"
-                  className="object-cover"
+                  className="img-zoom object-cover"
                 />
                 {/* Dark overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

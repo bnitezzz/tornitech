@@ -27,7 +27,7 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Link href="/" className="relative mb-6 block h-[40px] w-[125px]" aria-label="Tornitech home">
+            <Link href="/" className="focus-ring-inverse relative mb-6 block h-[40px] w-[125px] rounded-sm" aria-label="Tornitech home">
               <Image
                 src="/logo-tornitech.png"
                 alt="Tornitech"
@@ -45,10 +45,10 @@ export function Footer() {
                   href={SITE_CONFIG.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-[10px] bg-white/10 hover:bg-[#fab43a] hover:text-[#3c4456] transition-colors flex items-center justify-center text-white"
+                  className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="Facebook"
                 >
-                  <Facebook className="w-5 h-5" />
+                  <Facebook className="w-5 h-5" strokeWidth={1.75} />
                 </a>
               )}
               {SITE_CONFIG.social.linkedin && (
@@ -56,10 +56,10 @@ export function Footer() {
                   href={SITE_CONFIG.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-[10px] bg-white/10 hover:bg-[#fab43a] hover:text-[#3c4456] transition-colors flex items-center justify-center text-white"
+                  className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Linkedin className="w-5 h-5" strokeWidth={1.75} />
                 </a>
               )}
               {SITE_CONFIG.social.instagram && (
@@ -67,10 +67,10 @@ export function Footer() {
                   href={SITE_CONFIG.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-[10px] bg-white/10 hover:bg-[#fab43a] hover:text-[#3c4456] transition-colors flex items-center justify-center text-white"
+                  className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="Instagram"
                 >
-                  <Instagram className="w-5 h-5" />
+                  <Instagram className="w-5 h-5" strokeWidth={1.75} />
                 </a>
               )}
             </div>
@@ -89,7 +89,7 @@ export function Footer() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm"
+                  className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
                 >
                   {item.name}
                 </Link>
@@ -106,19 +106,19 @@ export function Footer() {
           >
             <h4 className="font-extrabold text-white uppercase tracking-wide mb-6">Productos</h4>
             <nav className="space-y-3">
-              <Link href="/#productos" className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm">
+              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
                 Tornillería
               </Link>
-              <Link href="/#productos" className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm">
+              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
                 Anclajes
               </Link>
-              <Link href="/#productos" className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm">
+              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
                 Fijación Estructural
               </Link>
-              <Link href="/#productos" className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm">
+              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
                 Herramientas
               </Link>
-              <Link href="/#catalogos" className="block text-white/70 hover:text-[#fab43a] transition-colors text-sm">
+              <Link href="/#catalogos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
                 Catálogos
               </Link>
             </nav>
@@ -135,20 +135,20 @@ export function Footer() {
             <address className="not-italic space-y-4">
               <a
                 href={`tel:${SITE_CONFIG.phone}`}
-                className="flex items-start gap-3 text-white/70 hover:text-[#fab43a] transition-colors text-sm"
+                className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
-                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.phone}
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="flex items-start gap-3 text-white/70 hover:text-[#fab43a] transition-colors text-sm"
+                className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
-                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.email}
               </a>
               <div className="flex items-start gap-3 text-white/70 text-sm">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.address}
               </div>
             </address>
@@ -158,9 +158,9 @@ export function Footer() {
                 href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full min-h-[46px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-sm font-semibold text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+                className="btn-yellow focus-ring-inverse min-h-[46px] w-full px-6 py-3 text-sm font-semibold"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <MessageCircle className="w-4 h-4" strokeWidth={1.75} />
                 WhatsApp
               </a>
             </div>
@@ -174,10 +174,10 @@ export function Footer() {
               © {currentYear} {SITE_CONFIG.name}. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-6 text-sm text-white/50">
-              <Link href="/privacidad" className="hover:text-[#fab43a] transition-colors">
+              <Link href="/privacidad" className="focus-ring-inverse rounded-sm transition-colors hover:text-[#fab43a]">
                 Aviso de Privacidad
               </Link>
-              <Link href="/terminos" className="hover:text-[#fab43a] transition-colors">
+              <Link href="/terminos" className="focus-ring-inverse rounded-sm transition-colors hover:text-[#fab43a]">
                 Términos
               </Link>
             </div>

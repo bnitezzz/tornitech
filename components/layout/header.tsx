@@ -19,6 +19,14 @@ const navigationItems = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -44,11 +52,13 @@ export function Header() {
       <header className="sticky top-0 z-50 w-full px-1 pt-[17px] sm:px-3 lg:px-0">
         <nav
           aria-label="Primary navigation"
-          className="mx-auto flex min-h-[50px] w-full max-w-[1440px] items-center justify-between gap-4 rounded-[10px] px-4 py-[1px] sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px]"
+          className={`mx-auto flex min-h-[50px] w-full max-w-[1440px] items-center justify-between gap-4 rounded-[10px] px-4 py-[1px] transition-shadow duration-300 sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px] ${
+            isScrolled ? 'shadow-[0_8px_24px_-8px_rgba(5,32,66,0.45)]' : 'shadow-none'
+          }`}
           style={{ background: NAV_GRADIENT }}
         >
           {/* Logo */}
-          <Link href="/" className="relative h-[34px] w-[106px] shrink-0 sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]" aria-label="Tornitech home">
+          <Link href="/" className="focus-ring-inverse relative h-[34px] w-[106px] shrink-0 rounded-sm sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]" aria-label="Tornitech home">
             <Image
               src="/logo-tornitech.png"
               alt="Tornitech"
@@ -65,9 +75,10 @@ export function Header() {
               <li key={item.name}>
                 <Link
                   href={item.href}
-                  className="text-base font-normal text-[#f2f2f2] whitespace-nowrap transition-opacity hover:opacity-75"
+                  className="focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal text-[#f2f2f2] transition-colors hover:text-white"
                 >
                   {item.name}
+                  <span className="absolute inset-x-0 -bottom-0.5 h-px origin-center scale-x-0 bg-[#fab43a] transition-transform duration-300 ease-out group-hover:scale-x-100" />
                 </Link>
               </li>
             ))}
@@ -76,7 +87,7 @@ export function Header() {
           {/* CTA button */}
           <Link
             href="/#contacto"
-            className="hidden md:inline-flex items-center justify-center min-w-[135px] rounded-[50px] bg-[#fab43a] px-6 py-[7px] text-sm font-normal text-[#316d92] transition-colors hover:bg-[#f0a52a]"
+            className="btn-yellow-pill focus-ring-inverse hidden min-w-[135px] px-6 py-[7px] text-sm md:inline-flex"
           >
             Cotizar
           </Link>
@@ -84,10 +95,11 @@ export function Header() {
           {/* Mobile menu toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-white"
+            className="focus-ring-inverse rounded-md p-2 text-white transition-colors hover:bg-white/10 md:hidden"
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="h-6 w-6" strokeWidth={1.75} /> : <Menu className="h-6 w-6" strokeWidth={1.75} />}
           </button>
         </nav>
       </header>
@@ -120,7 +132,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-3 text-xl font-medium text-white border-b border-white/20"
+                    className="focus-ring-inverse block rounded-sm border-b border-white/20 py-3 text-xl font-medium text-white transition-colors hover:text-[#fab43a]"
                   >
                     {item.name}
                   </Link>
@@ -129,7 +141,7 @@ export function Header() {
               <Link
                 href="/#contacto"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-6 inline-flex items-center justify-center w-full rounded-[50px] bg-[#fab43a] px-6 py-3 text-base font-medium text-[#316d92]"
+                className="btn-yellow-pill focus-ring-inverse mt-6 w-full px-6 py-3 text-base"
               >
                 Cotizar
               </Link>

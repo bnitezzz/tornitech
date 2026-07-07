@@ -12,11 +12,11 @@ const stats = [
 export function StatsSection() {
   return (
     <section
-      className="w-full bg-[#f2f2f7] px-6 pb-10 pt-8 sm:px-8 md:px-10 lg:px-12"
+      className="w-full bg-[#f2f2f7] px-6 pb-10 pt-14 sm:px-8 md:px-10 md:pt-20 lg:px-12"
       aria-label="Indicadores destacados"
     >
       <div
-        className="mx-auto w-full max-w-[1171px] rounded-[20px] bg-white shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+        className="card-elevated mx-auto w-full max-w-[1171px] rounded-[20px] border border-slate-100 bg-white"
       >
         <div className="px-6 py-8 sm:px-10 md:px-12 lg:px-16">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-4 md:gap-x-10 lg:gap-x-16">

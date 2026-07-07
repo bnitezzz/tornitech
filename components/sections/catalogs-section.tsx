@@ -132,17 +132,16 @@ export function CatalogsSection() {
   };
 
   return (
-    <section id="catalogos" className="w-full bg-white py-11">
+    <section id="catalogos" className="w-full bg-white py-14 md:py-20">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center px-4 md:px-8">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-14 w-full"
+          className="mb-10 flex w-full flex-col items-center gap-3 md:mb-14"
         >
-          <h2 className="text-center text-[40px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-            CATÁLOGO GENERAL
-          </h2>
+          <h2 className="section-heading text-center">CATÁLOGO GENERAL</h2>
+          <span className="section-accent" />
         </motion.header>
 
         <div className="mx-auto grid w-full max-w-[886px] grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-[145px]">
@@ -153,10 +152,10 @@ export function CatalogsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="w-full max-w-[372px]"
+              className="card-elevated card-elevated-hover group w-full max-w-[372px] overflow-hidden rounded-[10px] border border-slate-100"
             >
               <Image
-                className="h-auto w-full object-cover rounded-[10px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
+                className="img-zoom h-auto w-full object-cover"
                 alt={img.alt}
                 src={img.src}
                 width={372}
@@ -174,13 +173,13 @@ export function CatalogsSection() {
             href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP || SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo ver el catálogo online.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center min-h-[46px] w-full max-w-[280px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+            className="btn-yellow focus-ring min-h-[46px] w-full max-w-[280px] px-6 py-3 text-lg"
           >
             Ver catálogo online
           </a>
           <button
             onClick={() => displayCatalogs[0] && openModal(displayCatalogs[0])}
-            className="inline-flex items-center justify-center min-h-[46px] w-full max-w-[280px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+            className="btn-yellow focus-ring min-h-[46px] w-full max-w-[280px] px-6 py-3 text-lg"
           >
             Descargar catálogo PDF
           </button>
@@ -215,15 +214,15 @@ export function CatalogsSection() {
                     </h3>
                     <p className="text-sm text-[#316d92] mt-1">{selectedCatalogTitle}</p>
                   </div>
-                  <button type="button" onClick={closeModal} aria-label="Cerrar" className="p-1 hover:bg-gray-100 rounded-md">
-                    <X className="w-5 h-5 text-[#3c4456]" />
+                  <button type="button" onClick={closeModal} aria-label="Cerrar" className="focus-ring rounded-md p-1 transition-colors hover:bg-gray-100">
+                    <X className="w-5 h-5 text-[#3c4456]" strokeWidth={1.75} />
                   </button>
                 </div>
 
                 {success ? (
                   <div role="status" className="text-center py-8">
                     <div className="w-16 h-16 mx-auto rounded-full bg-[#fab43a]/20 flex items-center justify-center mb-4">
-                      <Download className="w-8 h-8 text-[#fab43a]" />
+                      <Download className="w-8 h-8 text-[#fab43a]" strokeWidth={1.75} />
                     </div>
                     <p className="font-bold text-[#3c4456] text-lg">¡Descarga iniciada!</p>
                     <p className="text-sm text-[#316d92] mt-2">Gracias por su interés.</p>
@@ -299,17 +298,17 @@ export function CatalogsSection() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full min-h-[46px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                      className="btn-yellow focus-ring min-h-[46px] w-full px-6 py-3 text-lg"
                     >
                       {isSubmitting ? (
-                        <><Loader2 className="w-4 h-4 animate-spin" /> Procesando...</>
+                        <><Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.75} /> Procesando...</>
                       ) : (
-                        <><Download className="w-4 h-4" /> Descargar catálogo</>
+                        <><Download className="w-4 h-4" strokeWidth={1.75} /> Descargar catálogo</>
                       )}
                     </button>
                     <p className="text-xs text-[#316d92] text-center">
                       Al descargar, aceptas nuestro{' '}
-                      <a href="/privacidad" className="underline">Aviso de Privacidad</a>
+                      <a href="/privacidad" className="focus-ring rounded-sm underline underline-offset-2 hover:text-[#3c4456]">Aviso de Privacidad</a>
                     </p>
                   </form>
                 )}

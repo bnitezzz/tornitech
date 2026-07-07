@@ -10,7 +10,7 @@ export function HeroSection() {
       <div className="relative min-h-[620px] w-full md:min-h-[720px] lg:min-h-[896px]">
         {/* Background industrial image */}
         <Image
-          src="https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          src=".public/images/hero-section.png"
           alt="Tornillería industrial"
           fill
           priority
@@ -39,7 +39,7 @@ export function HeroSection() {
               background:
                 'linear-gradient(140.57deg, rgba(255,255,255,0.063) 5.96%, rgba(255,255,255,0.012) 68.72%)',
               boxShadow:
-                '0px 1px 4px rgba(11,55,0,0.27), inset 0px 4px 5px rgba(255,255,255,0.16)',
+                '0px 1px 4px rgba(15,23,42,0.18), inset 0px 4px 5px rgba(255,255,255,0.16)',
               backdropFilter: 'blur(7.5px)',
               WebkitBackdropFilter: 'blur(7.5px)',
             }}
@@ -49,7 +49,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-full font-extrabold uppercase text-[#3c4456] text-[28px] leading-[1.05] tracking-wide sm:text-[32px] md:text-[36px] lg:text-[40px] lg:max-w-[612px]"
+                className="w-full font-extrabold uppercase text-[#3c4456] text-[28px] leading-[1.18] tracking-wide sm:text-[32px] md:text-[36px] lg:text-[40px] lg:max-w-[612px]"
               >
                 TORNILLERÍA Y SISTEMAS DE FIJACIÓN PARA LA INDUSTRIA
               </motion.h1>
@@ -58,7 +58,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.35 }}
-                className="mt-4 max-w-[539px] text-base leading-[1.25] text-[#3c4456] sm:text-lg md:mt-5 md:text-xl lg:mt-[22px]"
+                className="mt-4 max-w-[539px] text-base leading-[1.55] text-[#3c4456] sm:text-lg md:mt-5 md:text-xl lg:mt-[22px]"
               >
                 Suministro especializado para sectores automotriz, metalmecánico, manufactura y construcción.
               </motion.p>
@@ -71,13 +71,13 @@ export function HeroSection() {
               >
                 <Link
                   href="/#contacto"
-                  className="inline-flex items-center justify-center min-h-[46px] w-full rounded-[10px] bg-[#fab43a] px-4 py-3 text-center text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+                  className="btn-yellow focus-ring min-h-[46px] w-full px-4 py-3 text-center text-lg"
                 >
                   Solicitar cotización
                 </Link>
                 <Link
                   href="/#catalogos"
-                  className="inline-flex items-center justify-center min-h-[46px] w-full rounded-[10px] bg-[#fab43a] px-4 py-3 text-center text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+                  className="btn-yellow focus-ring min-h-[46px] w-full px-4 py-3 text-center text-lg"
                 >
                   Ver catálogo
                 </Link>

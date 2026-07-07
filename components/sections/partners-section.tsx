@@ -13,7 +13,7 @@ const certifications = [
 
 export function PartnersSection() {
   return (
-    <section className="w-full bg-[#f2f2f7] px-4 pb-16 pt-10 md:px-8 lg:px-[134px]">
+    <section className="w-full bg-[#f2f2f7] px-4 pb-16 pt-10 md:px-8 md:pb-20 lg:px-[134px]">
       <div className="mx-auto flex w-full max-w-[1171px] flex-col gap-10">
         <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Marcas y Certificaciones */}
@@ -30,10 +30,10 @@ export function PartnersSection() {
               {certifications.map((cert) => (
                 <div
                   key={cert.name}
-                  className="flex flex-col items-center justify-center p-4 rounded-[10px] border border-[#316d92]/20 bg-white"
+                  className="flex flex-col items-center justify-center rounded-[10px] border border-[#316d92]/20 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#316d92]/40 hover:shadow-[0_6px_16px_rgba(15,23,42,0.08)]"
                 >
                   <span className="text-xl font-extrabold text-[#316d92] uppercase">{cert.abbr}</span>
-                  <span className="text-xs text-[#3c4456] mt-1">{cert.name}</span>
+                  <span className="mt-1 text-xs text-[#3c4456]">{cert.name}</span>
                 </div>
               ))}
             </div>
@@ -50,10 +50,7 @@ export function PartnersSection() {
             <h3 className="w-full max-w-[361px] text-center text-[25px] font-extrabold uppercase tracking-wide text-[#3c4456]">
               NUESTRO SOCIO COMERCIAL
             </h3>
-            <div
-              className="w-full max-w-[574px] rounded-[10px] bg-white p-[23px]"
-              style={{ boxShadow: '0px 4px 4px rgba(0,0,0,0.25)' }}
-            >
+            <div className="card-elevated w-full max-w-[574px] rounded-[10px] border border-slate-100 bg-white p-[23px]">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-[235px_minmax(0,1fr)] md:items-center md:gap-4">
                 <div className="relative h-[284px] w-full overflow-hidden rounded-[10px] md:w-[235px]">
                   <Image

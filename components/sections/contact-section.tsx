@@ -52,12 +52,11 @@ export function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-12 flex flex-col items-center gap-3"
         >
-          <h2 className="text-[40px] font-extrabold uppercase tracking-wide text-white mb-4">
-            CONTÁCTANOS
-          </h2>
-          <p className="text-xl text-white/70">
+          <h2 className="section-heading-inverse">CONTÁCTANOS</h2>
+          <span className="section-accent" />
+          <p className="mt-1 text-xl text-white/70">
             Nuestro equipo está listo para ayudarte con tu proyecto.
           </p>
         </motion.div>
@@ -72,25 +71,25 @@ export function ContactSection() {
             <div className="space-y-6">
               <a
                 href={`tel:${SITE_CONFIG.phone}`}
-                className="flex items-start gap-4 group"
+                className="focus-ring-inverse group flex items-start gap-4 rounded-lg"
               >
-                <div className="w-12 h-12 rounded-[10px] bg-[#fab43a]/20 flex items-center justify-center group-hover:bg-[#fab43a] transition-colors">
-                  <Phone className="w-5 h-5 text-[#fab43a] group-hover:text-[#3c4456]" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#fab43a]/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#fab43a]">
+                  <Phone className="h-5 w-5 text-[#fab43a] group-hover:text-[#3c4456]" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <p className="font-bold text-white group-hover:text-[#fab43a] transition-colors">{SITE_CONFIG.phone}</p>
+                  <p className="font-bold text-white transition-colors group-hover:text-[#fab43a]">{SITE_CONFIG.phone}</p>
                   <p className="text-sm text-white/60">Teléfono directo</p>
                 </div>
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
-                className="flex items-start gap-4 group"
+                className="focus-ring-inverse group flex items-start gap-4 rounded-lg"
               >
-                <div className="w-12 h-12 rounded-[10px] bg-[#fab43a]/20 flex items-center justify-center group-hover:bg-[#fab43a] transition-colors">
-                  <Mail className="w-5 h-5 text-[#fab43a] group-hover:text-[#3c4456]" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#fab43a]/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#fab43a]">
+                  <Mail className="h-5 w-5 text-[#fab43a] group-hover:text-[#3c4456]" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <p className="font-bold text-white group-hover:text-[#fab43a] transition-colors">{SITE_CONFIG.email}</p>
+                  <p className="font-bold text-white transition-colors group-hover:text-[#fab43a]">{SITE_CONFIG.email}</p>
                   <p className="text-sm text-white/60">Correo electrónico</p>
                 </div>
               </a>
@@ -98,19 +97,19 @@ export function ContactSection() {
                 href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-4 group"
+                className="focus-ring-inverse group flex items-start gap-4 rounded-lg"
               >
-                <div className="w-12 h-12 rounded-[10px] bg-[#fab43a]/20 flex items-center justify-center group-hover:bg-[#fab43a] transition-colors">
-                  <MessageCircle className="w-5 h-5 text-[#fab43a] group-hover:text-[#3c4456]" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#fab43a]/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#fab43a]">
+                  <MessageCircle className="h-5 w-5 text-[#fab43a] group-hover:text-[#3c4456]" strokeWidth={1.75} />
                 </div>
                 <div>
-                  <p className="font-bold text-white group-hover:text-[#fab43a] transition-colors">WhatsApp</p>
+                  <p className="font-bold text-white transition-colors group-hover:text-[#fab43a]">WhatsApp</p>
                   <p className="text-sm text-white/60">Respuesta inmediata</p>
                 </div>
               </a>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-[10px] bg-[#fab43a]/20 flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-[#fab43a]" />
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-[10px] bg-[#fab43a]/20">
+                  <MapPin className="h-5 w-5 text-[#fab43a]" strokeWidth={1.75} />
                 </div>
                 <div>
                   <p className="font-bold text-white">Dirección</p>
@@ -124,9 +123,9 @@ export function ContactSection() {
                 href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo solicitar una cotización.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center w-full min-h-[46px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors"
+                className="btn-yellow focus-ring min-h-[46px] w-full px-6 py-3 text-lg"
               >
-                <MessageCircle className="w-5 h-5 mr-2" />
+                <MessageCircle className="w-5 h-5" strokeWidth={1.75} />
                 Cotizar por WhatsApp
               </a>
             </div>
@@ -138,7 +137,7 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="bg-[#f2f2f7] rounded-[20px] p-6 md:p-8">
+            <div className="card-elevated bg-[#f2f2f7] rounded-[20px] p-6 md:p-8">
               <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#3c4456] mb-6">
                 Envíanos un mensaje
               </h3>
@@ -207,12 +206,12 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full min-h-[46px] rounded-[10px] bg-[#fab43a] px-6 py-3 text-lg font-normal text-[#3c4456] hover:bg-[#f0a52a] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                  className="btn-yellow focus-ring min-h-[46px] w-full px-6 py-3 text-lg"
                 >
                   {isSubmitting ? (
-                    <><Loader2 className="w-4 h-4 animate-spin" /> Enviando...</>
+                    <><Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.75} /> Enviando...</>
                   ) : (
-                    <><Send className="w-4 h-4" /> Enviar mensaje</>
+                    <><Send className="w-4 h-4" strokeWidth={1.75} /> Enviar mensaje</>
                   )}
                 </button>
               </form>

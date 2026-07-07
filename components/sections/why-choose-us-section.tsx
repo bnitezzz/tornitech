@@ -47,17 +47,16 @@ const itemVariants = {
 
 export function WhyChooseUsSection() {
   return (
-    <section className="w-full bg-white py-[34px]">
+    <section className="w-full bg-white py-14 md:py-20">
       <div className="mx-auto flex w-full max-w-[1244px] flex-col items-center px-4">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-[54px] w-full"
+          className="mb-10 flex w-full flex-col items-center gap-3 md:mb-[54px]"
         >
-          <h2 className="text-center text-[40px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-            ¿POR QUÉ ESCOGERNOS?
-          </h2>
+          <h2 className="section-heading text-center">¿POR QUÉ ESCOGERNOS?</h2>
+          <span className="section-accent" />
         </motion.header>
 
         <motion.div
@@ -73,38 +72,28 @@ export function WhyChooseUsSection() {
               variants={itemVariants}
               className="w-full max-w-[174px]"
             >
-              <div
-                className="rounded-[10px] border border-white/[0.12] overflow-hidden"
-                style={{
-                  background: 'rgba(255,255,255,0.02)',
-                  boxShadow: '0px 1px 4px rgba(11,55,0,0.27), inset 0px 4px 5px rgba(255,255,255,0.16)',
-                  backdropFilter: 'blur(7.5px)',
-                  WebkitBackdropFilter: 'blur(7.5px)',
-                }}
-              >
-                <div className="flex h-[232px] flex-col">
-                  <div className="relative h-[150px] w-full">
-                    <Image
-                      src={item.image}
-                      alt={item.title.join(' ')}
-                      fill
-                      sizes="174px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="px-3 pt-2">
-                    <h3 className="min-h-[42px] text-lg font-extrabold uppercase leading-tight text-[#3c4456]">
-                      {item.title.map((line, li) => (
-                        <span key={li}>
-                          {line}
-                          {li < item.title.length - 1 && <br />}
-                        </span>
-                      ))}
-                    </h3>
-                    <p className="mt-[11px] text-sm font-bold text-[#316d92]">
-                      {item.description}
-                    </p>
-                  </div>
+              <div className="card-elevated card-elevated-hover group flex min-h-[232px] flex-col overflow-hidden rounded-[10px] border border-slate-100 bg-white">
+                <div className="relative h-[150px] w-full overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title.join(' ')}
+                    fill
+                    sizes="174px"
+                    className="img-zoom object-cover"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
+                  <h3 className="min-h-[42px] text-lg font-extrabold uppercase leading-tight text-[#3c4456]">
+                    {item.title.map((line, li) => (
+                      <span key={li}>
+                        {line}
+                        {li < item.title.length - 1 && <br />}
+                      </span>
+                    ))}
+                  </h3>
+                  <p className="mt-[11px] text-sm font-bold text-[#316d92]">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             </motion.div>

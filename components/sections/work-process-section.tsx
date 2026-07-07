@@ -27,17 +27,16 @@ const steps = [
 
 export function WorkProcessSection() {
   return (
-    <section className="w-full bg-white py-8 md:py-[34px]">
+    <section className="w-full bg-white py-14 md:py-20">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center px-4 md:px-8">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-10 md:mb-[58px]"
+          className="mb-10 flex flex-col items-center gap-3 md:mb-[58px]"
         >
-          <h2 className="text-center text-[28px] md:text-[40px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-            ¿CÓMO TRABAJAMOS?
-          </h2>
+          <h2 className="section-heading text-center">¿CÓMO TRABAJAMOS?</h2>
+          <span className="section-accent" />
         </motion.header>
 
         {/* Desktop: horizontal */}
@@ -53,10 +52,10 @@ export function WorkProcessSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.12 }}
-                className="relative flex flex-col items-center"
+                className="group relative flex flex-col items-center"
               >
                 {/* Step circle */}
-                <div className="relative z-10 mb-[34px] flex h-[90px] w-[90px] items-center justify-center rounded-full border-2 border-[#316d92] bg-white">
+                <div className="relative z-10 mb-[34px] flex h-[90px] w-[90px] items-center justify-center rounded-full border-2 border-[#316d92] bg-white shadow-[0_2px_8px_rgba(49,109,146,0.12)] transition-transform duration-300 ease-out group-hover:scale-105">
                   <span className="text-[40px] font-semibold text-[#316d92]">
                     {step.number}
                   </span>
