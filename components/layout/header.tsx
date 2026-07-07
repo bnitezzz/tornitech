@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Clock, MapPin, Phone } from 'lucide-react';
 import { SITE_CONFIG } from '@/constants/site';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
@@ -16,6 +16,32 @@ const navigationItems = [
   { name: 'Servicios', href: '/#productos' },
   { name: 'Contacto', href: '/#contacto' },
 ];
+
+const infoTickerItems = [
+  { icon: Clock, text: SITE_CONFIG.businessHours },
+  { icon: MapPin, text: SITE_CONFIG.address },
+  { icon: Phone, text: SITE_CONFIG.phone },
+];
+
+function InfoTicker() {
+  return (
+    <div className="w-full overflow-hidden bg-[#052042] py-2 text-white/80">
+      <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
+        {[0, 1].map((copy) => (
+          <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+            {infoTickerItems.map((item, index) => (
+              <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-5 text-xs font-medium tracking-wide sm:text-[13px]">
+                <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
+                <span>{item.text}</span>
+                <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,6 +74,9 @@ export function Header() {
 
   return (
     <>
+      {/* Info ticker */}
+      <InfoTicker />
+
       {/* Main header */}
       <header className="sticky top-0 z-50 w-full px-1 pt-[17px] sm:px-3 lg:px-0">
         <nav

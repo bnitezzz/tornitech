@@ -72,21 +72,13 @@ const defaultProducts = [
     description: 'Sistema de anclaje químico para concreto y mampostería',
     image: 'https://images.pexels.com/photos/8961459/pexels-photo-8961459.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
-  {
-    id: '9',
-    sku: 'DIN912-M8',
-    name: 'Tornillo Allen DIN 912',
-    short_description: 'Tornillo cabeza cilíndrica hexágono interior',
-    description: 'DIN 912, acero grado 12.9, alta precisión',
-    image: 'https://images.pexels.com/photos/210881/pexels-photo-210881.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
 ];
 
-const INITIAL_VISIBLE_COUNT = 6;
+const INITIAL_VISIBLE_COUNT = 4;
 
 export function ProductsSection() {
   const [showAll, setShowAll] = useState(false);
-  const { products } = useProducts({ featured: true, limit: 9 });
+  const { products } = useProducts({ featured: true, limit: 8 });
   const displayProducts = products.length > 0 ? products : defaultProducts;
   const visibleProducts = showAll ? displayProducts : displayProducts.slice(0, INITIAL_VISIBLE_COUNT);
   const hasMore = displayProducts.length > INITIAL_VISIBLE_COUNT;
@@ -123,7 +115,7 @@ Muchas gracias.`;
           <span className="section-accent" />
         </motion.header>
 
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           <AnimatePresence initial={false}>
             {visibleProducts.map((product, index) => (
               <motion.article
@@ -136,18 +128,18 @@ Muchas gracias.`;
                 className="h-full"
               >
                 <div className="card-elevated card-elevated-hover group flex h-full w-full flex-col overflow-hidden rounded-[20px] border border-slate-100 bg-white">
-                  <div className="relative mx-[13px] mt-3 aspect-[245/137] w-[calc(100%-26px)] overflow-hidden rounded-[8px]">
+                  <div className="relative mx-[10px] mt-3 aspect-[245/137] w-[calc(100%-20px)] overflow-hidden rounded-[8px]">
                     <Image
                       className="img-zoom object-cover"
                       alt={product.name}
                       src={(product as any).image || 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600'}
                       fill
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 350px"
+                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 280px"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col px-[13px] pb-[17px] pt-5">
+                  <div className="flex flex-1 flex-col px-[13px] pb-[17px] pt-4">
                     <div className="space-y-1">
-                      <h3 className="text-lg font-bold leading-snug text-[#3c4456]">
+                      <h3 className="text-base font-bold leading-snug text-[#3c4456] line-clamp-2">
                         {product.name}
                       </h3>
                       <p className="text-xs font-semibold uppercase tracking-wide text-[#316d92]/70">
@@ -162,7 +154,7 @@ Muchas gracias.`;
                         href={buildWhatsAppLink(product)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-yellow focus-ring min-w-[115px] px-6 py-[5px] text-base"
+                        className="btn-yellow focus-ring min-w-[100px] px-5 py-[5px] text-sm"
                       >
                         Cotizar
                       </a>

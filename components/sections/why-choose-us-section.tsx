@@ -70,10 +70,10 @@ export function WhyChooseUsSection() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="w-full max-w-[174px]"
+              className="h-full w-full max-w-[174px]"
             >
-              <div className="card-elevated card-elevated-hover group flex min-h-[232px] flex-col overflow-hidden rounded-[10px] border border-slate-100 bg-white">
-                <div className="relative h-[150px] w-full overflow-hidden">
+              <div className="card-elevated card-elevated-hover group flex h-[264px] w-full flex-col overflow-hidden rounded-[10px] border border-slate-100 bg-white">
+                <div className="relative h-[150px] w-full shrink-0 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.title.join(' ')}
@@ -82,8 +82,8 @@ export function WhyChooseUsSection() {
                     className="img-zoom object-cover"
                   />
                 </div>
-                <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
-                  <h3 className="min-h-[42px] text-lg font-extrabold uppercase leading-tight text-[#3c4456]">
+                <div className="flex flex-1 flex-col justify-center px-4 py-4">
+                  <h3 className="line-clamp-2 text-lg font-extrabold uppercase leading-tight text-[#3c4456]">
                     {item.title.map((line, li) => (
                       <span key={li}>
                         {line}
@@ -91,7 +91,7 @@ export function WhyChooseUsSection() {
                       </span>
                     ))}
                   </h3>
-                  <p className="mt-[11px] text-sm font-bold text-[#316d92]">
+                  <p className="mt-[11px] line-clamp-2 text-sm font-bold text-[#316d92]">
                     {item.description}
                   </p>
                 </div>
