@@ -7,14 +7,14 @@ import Image from 'next/image';
 export function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
-      <div className="relative min-h-[620px] w-full md:min-h-[720px] lg:min-h-[896px]">
+      <div className="relative mx-auto min-h-[620px] w-full max-w-[1800px] md:min-h-[720px] lg:min-h-[760px]">
         {/* Background industrial image */}
         <Image
           src="/images/hero-section.jpg"
           alt="Tornillería industrial"
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 1800px) 100vw, 1800px"
           className="object-cover object-center"
         />
 
@@ -28,13 +28,13 @@ export function HeroSection() {
         />
 
         {/* Content */}
-        <div className="relative z-10 mx-auto flex min-h-[620px] w-full max-w-[1440px] items-start px-4 pt-28 pb-16 sm:px-6 md:min-h-[720px] md:px-10 md:pt-36 lg:min-h-[896px] lg:px-[52px] lg:pt-[118px]">
+        <div className="relative z-10 mx-auto flex min-h-[620px] w-full max-w-[1440px] items-start px-4 pt-28 pb-16 sm:px-6 md:min-h-[720px] md:px-10 md:pt-36 lg:min-h-[760px] lg:px-[52px] lg:pt-[90px]">
           {/* Glass card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="mt-6 w-full max-w-[350px] rounded-[19px] border border-white/[0.12] p-4 sm:p-6 md:p-8 lg:px-[23px] lg:pt-[26px] lg:pb-[40px] sm:max-w-[420px] md:mt-10 md:max-w-[500px] lg:ml-[46px] lg:mt-[150px] lg:max-w-[622px]"
+            className="mt-6 w-full max-w-[350px] rounded-[19px] border border-white/[0.12] p-4 sm:p-6 md:p-8 lg:px-[23px] lg:pt-[26px] lg:pb-[40px] sm:max-w-[420px] md:mt-10 md:max-w-[500px] lg:ml-[46px] lg:mt-[110px] lg:max-w-[622px]"
             style={{
               background:
                 'linear-gradient(140.57deg, rgba(255,255,255,0.063) 5.96%, rgba(255,255,255,0.012) 68.72%)',

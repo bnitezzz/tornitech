@@ -128,7 +128,7 @@ Muchas gracias.`;
                 className="h-full"
               >
                 <div className="card-elevated card-elevated-hover group flex h-full w-full flex-col overflow-hidden rounded-[20px] border border-slate-100 bg-white">
-                  <div className="relative mx-[10px] mt-3 aspect-[245/137] w-[calc(100%-20px)] overflow-hidden rounded-[8px]">
+                  <div className="relative mx-[10px] mt-3 aspect-[245/158] w-[calc(100%-20px)] overflow-hidden rounded-[8px]">
                     <Image
                       className="img-zoom object-cover"
                       alt={product.name}
@@ -137,7 +137,7 @@ Muchas gracias.`;
                       sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 280px"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col px-[13px] pb-[17px] pt-4">
+                  <div className="flex flex-1 flex-col justify-end px-[13px] pb-[17px] pt-3">
                     <div className="space-y-1">
                       <h3 className="text-base font-bold leading-snug text-[#3c4456] line-clamp-2">
                         {product.name}
@@ -149,7 +149,7 @@ Muchas gracias.`;
                     <p className="mt-2 text-xs leading-relaxed text-[#3c4456]/70 line-clamp-2">
                       {product.short_description || product.description || 'Producto de alta calidad'}
                     </p>
-                    <div className="mt-auto flex justify-end pt-3">
+                    <div className="flex justify-end pt-3">
                       <a
                         href={buildWhatsAppLink(product)}
                         target="_blank"
