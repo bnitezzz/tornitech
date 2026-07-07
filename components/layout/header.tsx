@@ -78,10 +78,10 @@ export function Header() {
       <InfoTicker />
 
       {/* Main header */}
-      <header className="sticky top-0 z-50 w-full px-1 pt-[17px] sm:px-3 lg:px-0">
+      <header className="sticky top-0 z-50 w-full">
         <nav
           aria-label="Primary navigation"
-          className={`mx-auto flex min-h-[50px] w-full max-w-[1440px] items-center justify-between gap-4 rounded-[10px] px-4 py-[1px] transition-shadow duration-300 sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px] ${
+          className={`mx-auto flex min-h-[50px] w-full max-w-[1440px] items-center justify-between gap-4 px-4 py-[1px] transition-shadow duration-300 sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px] ${
             isScrolled ? 'shadow-[0_8px_24px_-8px_rgba(5,32,66,0.45)]' : 'shadow-none'
           }`}
           style={{ background: NAV_GRADIENT }}
