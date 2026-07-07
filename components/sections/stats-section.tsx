@@ -31,12 +31,12 @@ function StatItem({
       transition={{ delay: index * 0.1 }}
       className="flex min-w-0 flex-col items-center justify-center text-center"
     >
-      <dd className="whitespace-nowrap text-[32px] font-bold text-[#316d92] tabular-nums sm:text-[36px] md:text-[40px]">
+      <dd className="whitespace-nowrap text-[32px] font-bold leading-none text-[#316d92] tabular-nums sm:text-[42px] md:text-[52px]">
         {stat.prefix}
         {numberFormatter.format(count)}
         {stat.suffix}
       </dd>
-      <dt className="mt-[9px] whitespace-nowrap text-base text-[#316d92] sm:text-lg md:text-xl">
+      <dt className="mt-3 whitespace-nowrap text-sm text-[#6b7280] sm:text-base">
         {stat.label}
       </dt>
     </motion.div>
@@ -48,21 +48,16 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section
-      className="relative w-full bg-[#f2f2f7] px-6 pb-14 pt-0 sm:px-8 sm:pb-16 md:px-10 md:pb-20 lg:px-12"
-      aria-label="Indicadores destacados"
-    >
+    <section className="relative w-full bg-white pb-6 sm:pb-8 md:pb-10" aria-label="Indicadores destacados">
       <div
         ref={ref}
-        className="relative z-10 mx-auto -mt-10 w-full max-w-[1171px] rounded-[20px] border border-slate-100 bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06),0_24px_48px_-12px_rgba(5,32,66,0.28)] sm:-mt-12 md:-mt-14 lg:-mt-16"
+        className="relative z-10 mx-auto w-[90%] max-w-[1200px] -translate-y-1/2 rounded-[20px] border border-slate-100 bg-white p-6 shadow-[0_20px_45px_-15px_rgba(14,42,74,0.25)] sm:p-8 md:p-10"
       >
-        <div className="px-6 py-8 sm:px-10 md:px-12 lg:px-16">
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-4 md:gap-x-10 lg:gap-x-16">
-            {stats.map((stat, index) => (
-              <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
-            ))}
-          </dl>
-        </div>
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-10 lg:gap-x-16">
+          {stats.map((stat, index) => (
+            <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
+          ))}
+        </dl>
       </div>
     </section>
   );

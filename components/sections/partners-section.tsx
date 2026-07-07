@@ -26,7 +26,7 @@ export function PartnersSection() {
             <h3 className="w-full max-w-[361px] text-center text-[25px] font-extrabold uppercase tracking-wide text-[#3c4456]">
               MARCAS Y CERTIFICACIONES
             </h3>
-            <div className="grid grid-cols-3 gap-4 w-full max-w-[453px]">
+            <div className="grid w-full max-w-[480px] grid-cols-3 gap-6 sm:gap-8">
               {certifications.map((cert) => (
                 <div
                   key={cert.name}
