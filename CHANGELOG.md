@@ -1,3 +1,16 @@
+## 2026-07-08 — Refinamiento visual premium
+
+### Diseño y UX
+- Espaciado optimizado con utilidad `.section-padding` en todas las secciones.
+- Proceso de atención reducido a 4 pasos con composición horizontal limpia.
+- Contacto simplificado: formulario protagonista, sidebar compacto de datos.
+- Red de suministro: tarjeta premium con fotografía a pantalla completa.
+- Estadísticas numéricas con contadores animados al entrar en viewport.
+- Sectores: tarjetas minimalistas (imagen + nombre) con modal corporativo.
+- Productos Especiales: título actualizado, expansión suave sin botón de catálogo.
+- Misión/Visión rediseñada en bloque unificado minimalista con pilares integrados.
+- Botón flotante de WhatsApp con acceso directo al número configurado.
+
 ## 2026-07-08 — Integración de lógica de negocio
 
 ### Formularios y backend

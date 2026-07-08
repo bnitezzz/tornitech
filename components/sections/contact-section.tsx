@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,35 +12,16 @@ import { submitContact } from '@/actions/contact';
 import { contactFormSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
 import { CONTACT_CONTENT } from '@/constants/content';
-import type { WhatsAppMessageType } from '@/lib/whatsapp';
-
-type HelpOption =
-  | { title: string; description: string; kind: 'whatsapp'; messageType: WhatsAppMessageType }
-  | { title: string; description: string; kind: 'link'; href: string };
-
-const helpOptions: HelpOption[] = [
-  {
-    title: CONTACT_CONTENT.helpOptions[0].title,
-    description: CONTACT_CONTENT.helpOptions[0].description,
-    kind: 'whatsapp',
-    messageType: 'general_quote',
-  },
-  {
-    title: CONTACT_CONTENT.helpOptions[1].title,
-    description: CONTACT_CONTENT.helpOptions[1].description,
-    kind: 'link',
-    href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`,
-  },
-  {
-    title: CONTACT_CONTENT.helpOptions[2].title,
-    description: CONTACT_CONTENT.helpOptions[2].description,
-    kind: 'link',
-    href: `mailto:${SITE_CONFIG.email}?subject=${encodeURIComponent('Programa de distribuidores')}`,
-  },
-];
 
 const fieldClassName =
-  'h-[52px] rounded-[8px] border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
+  'h-[48px] rounded-lg border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
+
+const contactInfo = [
+  { icon: Phone, label: 'Teléfono', value: SITE_CONFIG.phone, href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}` },
+  { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
+  { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
+  { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },
+];
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -109,39 +90,46 @@ export function ContactSection() {
     }
   };
 
-  const contactInfo = [
-    { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
-    { icon: Phone, label: 'Teléfono', value: SITE_CONFIG.phone, href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}` },
-    { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
-    { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },
-  ];
-
   return (
-    <section id="contacto" className="w-full bg-white py-16 md:py-24">
-      <div className="mx-auto w-[90%] max-w-[1400px]">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,40%)_minmax(0,60%)] lg:gap-10">
-          {/* Left column: form + contact info */}
+    <section id="contacto" className="section-padding w-full bg-white">
+      <div className="section-container">
+        <div className="mx-auto max-w-[960px]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="mb-8 text-center md:mb-10"
           >
-            <div className="rounded-[18px] bg-white p-6 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_16px_40px_-16px_rgba(15,23,42,0.12)] sm:p-8 lg:p-10">
+            <h2 className="section-heading">Contacto</h2>
+            <span className="section-accent mt-3" />
+            <p className="mx-auto mt-4 max-w-[520px] text-sm leading-relaxed text-[#3c4456]/70 sm:text-base">
+              {CONTACT_CONTENT.responseTime}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
+            {/* Form — primary focus */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_4px_24px_-8px_rgba(15,23,42,0.1)] sm:p-7"
+            >
               {success && (
-                <div role="status" className="mb-6 rounded-[10px] border border-[#316d92]/25 bg-[#316d92]/5 p-4">
-                  <p className="font-medium text-[#316d92]">Mensaje enviado. Nos pondremos en contacto pronto.</p>
+                <div role="status" className="mb-5 rounded-lg border border-[#316d92]/25 bg-[#316d92]/5 p-3.5">
+                  <p className="text-sm font-medium text-[#316d92]">Mensaje enviado. Nos pondremos en contacto pronto.</p>
                 </div>
               )}
               {errors.form && (
-                <div role="alert" className="mb-6 rounded-[10px] border border-red-200 bg-red-50 p-4">
-                  <p className="font-medium text-red-600">{errors.form}</p>
+                <div role="alert" className="mb-5 rounded-lg border border-red-200 bg-red-50 p-3.5">
+                  <p className="text-sm font-medium text-red-600">{errors.form}</p>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5" aria-busy={isSubmitting}>
-                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName" className="font-medium text-[#1F2937]">Nombre *</Label>
+              <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isSubmitting}>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="firstName" className="text-sm font-medium text-[#1F2937]">Nombre *</Label>
                     <Input
                       id="firstName" name="firstName" value={formData.firstName} onChange={handleChange}
                       placeholder="Tu nombre" required
@@ -151,8 +139,8 @@ export function ContactSection() {
                     />
                     {errors.firstName && <p id="firstName-error" role="alert" className="text-xs text-red-500">{errors.firstName}</p>}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName" className="font-medium text-[#1F2937]">Apellido *</Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="lastName" className="text-sm font-medium text-[#1F2937]">Apellido *</Label>
                     <Input
                       id="lastName" name="lastName" value={formData.lastName} onChange={handleChange}
                       placeholder="Tu apellido" required
@@ -164,55 +152,57 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="font-medium text-[#1F2937]">Correo electrónico *</Label>
-                  <Input
-                    id="email" name="email" type="email" value={formData.email} onChange={handleChange}
-                    placeholder="tu@empresa.com" required
-                    aria-invalid={!!errors.email}
-                    aria-describedby={errors.email ? 'email-error' : undefined}
-                    className={`${fieldClassName} ${errors.email ? 'border-red-400' : ''}`}
-                  />
-                  {errors.email && <p id="email-error" role="alert" className="text-xs text-red-500">{errors.email}</p>}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email" className="text-sm font-medium text-[#1F2937]">Correo electrónico *</Label>
+                    <Input
+                      id="email" name="email" type="email" value={formData.email} onChange={handleChange}
+                      placeholder="tu@empresa.com" required
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      className={`${fieldClassName} ${errors.email ? 'border-red-400' : ''}`}
+                    />
+                    {errors.email && <p id="email-error" role="alert" className="text-xs text-red-500">{errors.email}</p>}
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="phone" className="text-sm font-medium text-[#1F2937]">Teléfono</Label>
+                    <Input
+                      id="phone" name="phone" value={formData.phone} onChange={handleChange}
+                      placeholder="+58" className={fieldClassName}
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="phone" className="font-medium text-[#1F2937]">Teléfono</Label>
-                  <Input
-                    id="phone" name="phone" value={formData.phone} onChange={handleChange}
-                    placeholder="+58" className={fieldClassName}
-                  />
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="company" className="text-sm font-medium text-[#1F2937]">Empresa</Label>
+                    <Input
+                      id="company" name="company" value={formData.company} onChange={handleChange}
+                      placeholder="Nombre empresa" className={fieldClassName}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="subject" className="text-sm font-medium text-[#1F2937]">Asunto</Label>
+                    <Input
+                      id="subject" name="subject" value={formData.subject} onChange={handleChange}
+                      placeholder="¿En qué podemos ayudarte?" className={fieldClassName}
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="company" className="font-medium text-[#1F2937]">Empresa</Label>
-                  <Input
-                    id="company" name="company" value={formData.company} onChange={handleChange}
-                    placeholder="Nombre empresa" className={fieldClassName}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="subject" className="font-medium text-[#1F2937]">Asunto</Label>
-                  <Input
-                    id="subject" name="subject" value={formData.subject} onChange={handleChange}
-                    placeholder="¿En qué podemos ayudarte?" className={fieldClassName}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="font-medium text-[#1F2937]">Mensaje *</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="message" className="text-sm font-medium text-[#1F2937]">Mensaje *</Label>
                   <Textarea
                     id="message" name="message" value={formData.message} onChange={handleChange}
                     placeholder="Describe tu consulta o proyecto..." required
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? 'message-error' : undefined}
-                    className={`h-[160px] resize-none rounded-[8px] border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0 ${errors.message ? 'border-red-400' : ''}`}
+                    className={`h-[120px] resize-none rounded-lg border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0 ${errors.message ? 'border-red-400' : ''}`}
                   />
                   {errors.message && <p id="message-error" role="alert" className="text-xs text-red-500">{errors.message}</p>}
                 </div>
 
-                <div className="flex items-start gap-2 pt-1">
+                <div className="flex items-start gap-2">
                   <Checkbox
                     id="accepts-marketing"
                     checked={formData.accepts_marketing}
@@ -220,7 +210,7 @@ export function ContactSection() {
                       setFormData((p) => ({ ...p, accepts_marketing: checked === true }))
                     }
                   />
-                  <Label htmlFor="accepts-marketing" className="cursor-pointer text-sm leading-tight text-[#6B7280]">
+                  <Label htmlFor="accepts-marketing" className="cursor-pointer text-xs leading-tight text-[#6B7280] sm:text-sm">
                     Acepto recibir información comercial y promociones de {SITE_CONFIG.name}.
                   </Label>
                 </div>
@@ -228,122 +218,61 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-[8px] bg-[#052042] text-base font-semibold text-white transition-colors duration-300 hover:bg-[#316d92] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#316d92] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="btn-navy-solid h-[48px] w-full text-base"
                 >
                   {isSubmitting ? (
                     <><Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.75} /> Enviando...</>
                   ) : (
-                    <><Send className="h-4 w-4" strokeWidth={1.75} /> Enviar Mensaje</>
+                    <><Send className="h-4 w-4" strokeWidth={1.75} /> Enviar mensaje</>
                   )}
                 </button>
 
                 <p className="flex items-start gap-2 text-xs leading-relaxed text-[#6B7280]">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#316d92]" strokeWidth={1.75} />
-                  Respondemos su solicitud el mismo día hábil. Su información solo se utiliza para dar
-                  seguimiento a esta consulta.
+                  <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#316d92]" strokeWidth={1.75} />
+                  {CONTACT_CONTENT.trustText}
                 </p>
               </form>
-            </div>
+            </motion.div>
 
-            {/* Contact info */}
-            <div className="mt-8">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-[#1F2937]">Información de Contacto</h3>
-              <div className="mt-4 space-y-4">
+            {/* Compact contact sidebar */}
+            <motion.aside
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="flex flex-col gap-4 lg:pt-2"
+            >
+              <div className="space-y-3">
                 {contactInfo.map((item) => {
-                  const content = (
-                    <>
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-[#F8FAFC] transition-colors duration-300 group-hover:bg-[#316d92]/10">
+                  const inner = (
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#316d92]/[0.06]">
                         <item.icon className="h-4 w-4 text-[#316d92]" strokeWidth={1.75} />
                       </div>
-                      <div>
-                        <p className="text-xs font-medium uppercase tracking-wide text-[#6B7280]">{item.label}</p>
-                        <p className="text-sm font-medium text-[#1F2937]">{item.value}</p>
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">{item.label}</p>
+                        <p className="mt-0.5 text-sm font-medium leading-snug text-[#1F2937]">{item.value}</p>
                       </div>
-                    </>
+                    </div>
                   );
                   return item.href ? (
-                    <a key={item.label} href={item.href} className="focus-ring group flex items-center gap-3 rounded-lg">
-                      {content}
+                    <a key={item.label} href={item.href} className="focus-ring block rounded-lg transition-opacity hover:opacity-80">
+                      {inner}
                     </a>
                   ) : (
-                    <div key={item.label} className="flex items-center gap-3">
-                      {content}
-                    </div>
+                    <div key={item.label}>{inner}</div>
                   );
                 })}
               </div>
-            </div>
-          </motion.div>
 
-          {/* Right column: help panel */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="rounded-[18px] bg-[#F8FAFC] p-6 sm:p-10 lg:p-[60px]"
-          >
-            <h2 className="text-[28px] font-bold leading-tight text-[#052042] sm:text-[32px] lg:text-[36px]">
-              ¿Cómo podemos ayudarte?
-            </h2>
-            <p className="mt-4 max-w-[480px] text-base leading-relaxed text-[#6B7280]">
-              Complete el formulario o seleccione una opción directa. {SITE_CONFIG.responseTime}
-            </p>
-
-            <div className="mt-8">
-              {helpOptions.map((option) => {
-                const className =
-                  'focus-ring group -mx-4 flex items-center justify-between gap-4 rounded-[12px] border-b border-[#E5E7EB] px-4 py-5 transition-all duration-300 last:border-b-0 hover:border-b-transparent hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]';
-                const content = (
-                  <>
-                    <div>
-                      <p className="font-semibold text-[#1F2937]">{option.title}</p>
-                      <p className="mt-1 text-sm text-[#6B7280]">{option.description}</p>
-                    </div>
-                    <ArrowRight
-                      className="h-5 w-5 shrink-0 text-[#316d92] transition-transform duration-300 group-hover:translate-x-1"
-                      strokeWidth={1.75}
-                    />
-                  </>
-                );
-
-                if (option.kind === 'whatsapp') {
-                  return (
-                    <WhatsAppLink
-                      key={option.title}
-                      messageType={option.messageType}
-                      className={className}
-                    >
-                      {content}
-                    </WhatsAppLink>
-                  );
-                }
-
-                return (
-                  <a key={option.title} href={option.href} className={className}>
-                    {content}
-                  </a>
-                );
-              })}
-            </div>
-
-            <div className="mt-10 border-t border-[#E5E7EB] pt-8">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[#6B7280]">
-                Al contactarnos usted obtiene
-              </p>
-              <ul className="mt-4 space-y-3">
-                {CONTACT_CONTENT.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2 text-sm text-[#3c4456]">
-                    <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#316d92]" strokeWidth={1.75} />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 text-xs leading-relaxed text-[#6B7280]">
-                {CONTACT_CONTENT.trustText}
-              </p>
-            </div>
-          </motion.div>
+              <WhatsAppLink
+                messageType="general_quote"
+                className="btn-navy focus-ring mt-2 w-full px-5 py-2.5 text-sm"
+              >
+                WhatsApp directo
+              </WhatsAppLink>
+            </motion.aside>
+          </div>
         </div>
       </div>
     </section>

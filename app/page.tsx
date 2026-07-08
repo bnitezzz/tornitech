@@ -5,6 +5,7 @@ import { SkipLink } from '@/components/layout/skip-link';
 import { HeroSection } from '@/components/sections/hero-section';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
+import { WhatsAppFloat } from '@/components/ui/whatsapp-float';
 
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((m) => ({ default: m.AboutSection }))
@@ -104,6 +105,7 @@ export default function HomePage() {
         <ContactSection />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </>
   );
 }

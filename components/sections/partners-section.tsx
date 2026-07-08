@@ -2,73 +2,89 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 import { PARTNERS_CONTENT, TECHNICAL_STANDARDS } from '@/constants/content';
 
 export function PartnersSection() {
   return (
-    <section className="w-full bg-[#f2f2f7] py-16 md:py-24">
-      <div className="section-container flex flex-col gap-12">
-        <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+    <section className="section-padding w-full bg-[#f2f2f7]">
+      <div className="section-container flex flex-col gap-10">
+        <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
+          {/* Technical standards */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center gap-6 lg:items-start"
+            className="flex flex-col items-center gap-5 lg:items-start"
           >
             <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-[25px]">
+              <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-2xl">
                 {PARTNERS_CONTENT.standardsHeading}
               </h3>
               <p className="mt-2 max-w-[400px] text-sm leading-relaxed text-[#6b7280]">
                 {PARTNERS_CONTENT.standardsSubheading}
               </p>
             </div>
-            <div className="grid w-full max-w-[480px] grid-cols-3 gap-4 sm:gap-5">
+            <div className="grid w-full max-w-[440px] grid-cols-3 gap-3 sm:gap-4">
               {TECHNICAL_STANDARDS.map((standard) => (
                 <div
                   key={standard.abbr}
-                  className="flex flex-col items-center justify-center rounded-[12px] border border-[#316d92]/15 bg-white px-3 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#316d92]/30 hover:shadow-[0_6px_16px_rgba(15,23,42,0.08)]"
+                  className="flex flex-col items-center justify-center rounded-xl border border-[#316d92]/12 bg-white px-3 py-3.5 transition-all duration-300 hover:border-[#316d92]/25"
                 >
-                  <span className="text-lg font-extrabold text-[#316d92]">{standard.abbr}</span>
-                  <span className="mt-1 text-center text-[11px] leading-tight text-[#6b7280]">{standard.name}</span>
+                  <span className="text-base font-extrabold text-[#316d92] sm:text-lg">{standard.abbr}</span>
+                  <span className="mt-0.5 text-center text-[10px] leading-tight text-[#6b7280] sm:text-[11px]">
+                    {standard.name}
+                  </span>
                 </div>
               ))}
             </div>
           </motion.div>
 
+          {/* Partner card — premium with photo prominence */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="flex flex-col items-center gap-6 lg:items-start"
+            transition={{ delay: 0.08 }}
+            className="flex flex-col gap-4"
           >
-            <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-[25px]">
-                {PARTNERS_CONTENT.partnerHeading}
-              </h3>
-            </div>
-            <div className="card-elevated w-full max-w-[574px] overflow-hidden rounded-[14px] border border-slate-100 bg-white">
-              <div className="grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)]">
-                <div className="relative h-[200px] w-full md:h-full md:min-h-[240px]">
-                  <Image
-                    src={PARTNERS_CONTENT.partnerLogo}
-                    alt={PARTNERS_CONTENT.partnerName}
-                    fill
-                    sizes="(min-width: 768px) 220px, 100vw"
-                    className="object-contain bg-white p-4"
-                  />
-                </div>
-                <div className="flex flex-col justify-center px-6 py-8">
-                  <h4 className="text-lg font-bold uppercase tracking-wide text-[#052042]">
-                    {PARTNERS_CONTENT.partnerName}
-                  </h4>
-                  <p className="mt-3 text-sm leading-relaxed text-[#6b7280]">
-                    {PARTNERS_CONTENT.partnerDescription}
-                  </p>
+            <h3 className="text-center text-xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-2xl lg:text-left">
+              {PARTNERS_CONTENT.partnerHeading}
+            </h3>
+
+            <article className="group relative overflow-hidden rounded-2xl bg-[#052042]">
+              <div className="relative aspect-[16/10] w-full sm:aspect-[16/9]">
+                <Image
+                  src={PARTNERS_CONTENT.partnerLogo}
+                  alt={PARTNERS_CONTENT.partnerName}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#052042] via-[#052042]/40 to-transparent" />
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#fab43a]">
+                      Socio comercial
+                    </p>
+                    <h4 className="mt-1 text-lg font-bold text-white sm:text-xl">
+                      {PARTNERS_CONTENT.partnerName}
+                    </h4>
+                    <p className="mt-2 max-w-[400px] text-sm leading-relaxed text-white/75">
+                      {PARTNERS_CONTENT.partnerDescription}
+                    </p>
+                  </div>
+                  <div className="hidden shrink-0 sm:flex">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors group-hover:bg-white/20">
+                      <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </article>
           </motion.div>
         </div>
       </div>

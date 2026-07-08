@@ -117,15 +117,15 @@ export function CatalogsSection() {
   };
 
   return (
-    <section id="catalogos" className="w-full bg-white py-16 md:py-24">
+    <section id="catalogos" className="section-padding w-full bg-white">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={CATALOGS_CONTENT.heading}
           subheading={CATALOGS_CONTENT.subheading}
-          className="mb-10 md:mb-14"
+          className="mb-8 md:mb-10"
         />
 
-        <div className="mx-auto grid w-full max-w-[886px] grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-[145px]">
+        <div className="mx-auto grid w-full max-w-[886px] grid-cols-1 justify-items-center gap-6 md:grid-cols-2 md:gap-10">
           {catalogPreviews.map((img, index) => (
             <motion.div
               key={index}
@@ -148,7 +148,7 @@ export function CatalogsSection() {
 
         <nav
           aria-label="Acciones del catálogo"
-          className="mt-14 flex w-full max-w-[640px] flex-col items-stretch gap-4 sm:flex-row sm:justify-center"
+          className="mt-10 flex w-full max-w-[640px] flex-col items-stretch gap-4 sm:flex-row sm:justify-center"
         >
           <WhatsAppLink
             messageType="catalog_inquiry"

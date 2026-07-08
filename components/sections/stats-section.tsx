@@ -2,52 +2,56 @@
 
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { COMMITMENT_INDICATORS } from '@/constants/content';
+import { useCountUp } from '@/hooks/use-count-up';
+import { SITE_STATS } from '@/constants/content';
 
-function IndicatorItem({
-  indicator,
+const numberFormatter = new Intl.NumberFormat('es-VE');
+
+function StatItem({
+  stat,
   index,
   isInView,
 }: {
-  indicator: (typeof COMMITMENT_INDICATORS)[number];
+  stat: (typeof SITE_STATS)[number];
   index: number;
   isInView: boolean;
 }) {
+  const count = useCountUp(stat.value, isInView, 1.4 + index * 0.12);
+
   return (
-    <motion.li
-      initial={{ opacity: 0, y: 20 }}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.1, duration: 0.4 }}
-      className="flex min-w-0 list-none flex-col items-center gap-3 text-center"
+      transition={{ delay: index * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="flex min-w-0 flex-col items-center justify-center text-center"
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[12px] bg-[#316d92]/10">
-        <indicator.icon className="h-6 w-6 text-[#316d92]" strokeWidth={1.75} />
-      </div>
-      <p className="text-base font-bold leading-snug text-[#052042] sm:text-lg">
-        {indicator.title}
-      </p>
-      <p className="max-w-[200px] text-sm leading-relaxed text-[#6b7280]">
-        {indicator.description}
-      </p>
-    </motion.li>
+      <dd className="whitespace-nowrap text-[28px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
+        {stat.prefix}
+        {numberFormatter.format(count)}
+        {stat.suffix}
+      </dd>
+      <dt className="mt-2.5 text-xs font-medium uppercase tracking-wide text-[#6b7280] sm:text-sm">
+        {stat.label}
+      </dt>
+    </motion.div>
   );
 }
 
 export function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative w-full bg-white pb-6 sm:pb-8 md:pb-10" aria-label="Compromiso operativo">
+    <section className="relative w-full bg-white pb-4 sm:pb-6 md:pb-8" aria-label="Indicadores destacados">
       <div
         ref={ref}
-        className="relative z-10 mx-auto w-[90%] max-w-[1200px] -translate-y-1/2 rounded-[20px] border border-slate-100 bg-white p-6 shadow-[0_20px_45px_-15px_rgba(14,42,74,0.25)] sm:p-8 md:p-10"
+        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-6 py-8 shadow-[0_12px_40px_-12px_rgba(5,32,66,0.18)] sm:px-10 sm:py-10"
       >
-        <ul className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-x-10 lg:gap-x-16">
-          {COMMITMENT_INDICATORS.map((indicator, index) => (
-            <IndicatorItem key={indicator.title} indicator={indicator} index={index} isInView={isInView} />
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-8 lg:gap-x-12">
+          {SITE_STATS.map((stat, index) => (
+            <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}
-        </ul>
+        </dl>
       </div>
     </section>
   );

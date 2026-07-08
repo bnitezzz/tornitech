@@ -16,12 +16,12 @@ const itemVariants = {
 
 export function WhyChooseUsSection() {
   return (
-    <section className="w-full bg-white py-16 md:py-24">
+    <section className="section-padding w-full bg-white">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={WHY_CHOOSE_US.heading}
           subheading={WHY_CHOOSE_US.subheading}
-          className="mb-10 md:mb-14"
+          className="mb-8 md:mb-10"
         />
 
         <motion.div
@@ -37,7 +37,7 @@ export function WhyChooseUsSection() {
               variants={itemVariants}
               className="h-full w-full"
             >
-              <div className="card-elevated card-elevated-hover group flex h-full min-h-[264px] w-full flex-col overflow-hidden rounded-[14px] border border-slate-100 bg-white">
+              <div className="card-elevated card-elevated-hover group flex h-full min-h-[240px] w-full flex-col overflow-hidden rounded-xl border border-slate-100 bg-white">
                 <div className="relative h-[140px] w-full shrink-0 overflow-hidden sm:h-[150px]">
                   <Image
                     src={item.image}

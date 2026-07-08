@@ -2,11 +2,8 @@ import {
   ClipboardList,
   SearchCheck,
   PenTool,
-  Factory,
   ShieldCheck,
   Truck,
-  Headset,
-  Package,
   Users,
   Layers,
   Thermometer,
@@ -67,7 +64,7 @@ export const WHY_CHOOSE_US = {
 };
 
 export const PRODUCTS_CONTENT = {
-  heading: 'Referencias de alta rotación',
+  heading: 'Productos Especiales',
   subheading: 'Componentes con norma técnica identificada, disponibles para cotización inmediata.',
 };
 
@@ -176,53 +173,67 @@ export const SECTORS_CONTENT = {
   sectors: [
     {
       title: 'Petróleo y gas',
-      value: 'Piezas resistentes a corrosión, presión y ambientes agresivos.',
+      description: 'Piezas resistentes a corrosión, presión y ambientes agresivos.',
       image: ASSETS.sectors.petroleo,
+      products: [
+        'Pernos estructurales ASTM A325',
+        'Tuercas hexagonales DIN 934',
+        'Anclajes químicos para concreto',
+        'Arandelas planas de acero inoxidable',
+      ],
     },
     {
       title: 'Construcción',
-      value: 'Anclajes estructurales y fijación para obras civiles e industriales.',
+      description: 'Anclajes estructurales y fijación para obras civiles e industriales.',
       image: ASSETS.sectors.construccion,
+      products: [
+        'Pernos hexagonales ISO 4014',
+        'Anclajes químicos HIT-HY',
+        'Tornillería estructural grado 10.9',
+        'Sistemas de fijación para mampostería',
+      ],
     },
     {
       title: 'Electricidad',
-      value: 'Herrajes de fijación para tableros, canalizaciones e instalaciones.',
+      description: 'Herrajes de fijación para tableros, canalizaciones e instalaciones.',
       image: ASSETS.sectors.electrica,
+      products: [
+        'Tornillos autorroscantes y métricos',
+        'Tuercas autoblocantes DIN 985',
+        'Arandelas de presión y planas',
+        'Anclajes para montaje de equipos',
+      ],
     },
     {
       title: 'Automotriz',
-      value: 'Tornillería de precisión para líneas de ensamblaje y talleres.',
+      description: 'Tornillería de precisión para líneas de ensamblaje y talleres.',
       image: ASSETS.sectors.automotriz,
+      products: [
+        'Tornillos hexagonales DIN 933',
+        'Tuercas autoblocantes antivibración',
+        'Pernos de alta resistencia',
+        'Arandelas especiales de retención',
+      ],
     },
     {
       title: 'Ferretería',
-      value: 'Surtido para reventa con referencias de rotación constante.',
+      description: 'Surtido para reventa con referencias de rotación constante.',
       image: ASSETS.sectors.ferretera,
+      products: [
+        'Tornillería métrica de uso general',
+        'Tuercas y arandelas estándar',
+        'Pernos y tornillos por grado',
+        'Kits de fijación por aplicación',
+      ],
     },
   ],
 };
 
-export const COMMITMENT_INDICATORS = [
-  {
-    icon: ShieldCheck,
-    title: 'Normas verificadas',
-    description: 'Ficha técnica con norma DIN, ISO o ASTM en cada referencia.',
-  },
-  {
-    icon: Package,
-    title: 'Stock disponible',
-    description: 'Referencias de alta rotación preparadas para despacho.',
-  },
-  {
-    icon: Truck,
-    title: 'Entrega coordinada',
-    description: 'Despacho alineado al cronograma de su obra o planta.',
-  },
-  {
-    icon: Headset,
-    title: 'Soporte técnico',
-    description: 'Asesoría antes y después de la compra.',
-  },
+export const SITE_STATS = [
+  { value: 5, prefix: '', suffix: '', label: 'Sectores industriales' },
+  { value: 5, prefix: '', suffix: '', label: 'Normas internacionales' },
+  { value: 4, prefix: '', suffix: '', label: 'Etapas de cotización' },
+  { value: 24, prefix: '', suffix: 'h', label: 'Respuesta comercial' },
 ];
 
 export const TECHNICAL_STANDARDS = [
@@ -252,7 +263,7 @@ export type ProcessStep = {
 
 export const WORK_PROCESS: { heading: string; subheading: string; steps: ProcessStep[] } = {
   heading: 'Proceso de atención',
-  subheading: 'Desde la consulta inicial hasta el soporte postventa, con verificación en cada etapa.',
+  subheading: 'Cuatro pasos claros para recibir su cotización con especificaciones verificadas.',
   steps: [
     {
       number: '1',
@@ -263,7 +274,7 @@ export const WORK_PROCESS: { heading: string; subheading: string; steps: Process
     {
       number: '2',
       icon: SearchCheck,
-      title: 'Análisis',
+      title: 'Análisis técnico',
       description: 'Validamos norma, material, medida y condiciones de aplicación.',
     },
     {
@@ -274,27 +285,9 @@ export const WORK_PROCESS: { heading: string; subheading: string; steps: Process
     },
     {
       number: '4',
-      icon: Factory,
-      title: 'Preparación',
-      description: 'Confirmamos disponibilidad y preparamos el pedido para despacho.',
-    },
-    {
-      number: '5',
-      icon: ShieldCheck,
-      title: 'Control de calidad',
-      description: 'Verificamos conformidad de material y empaque antes del envío.',
-    },
-    {
-      number: '6',
       icon: Truck,
       title: 'Entrega',
-      description: 'Coordinamos la entrega según el cronograma acordado.',
-    },
-    {
-      number: '7',
-      icon: Headset,
-      title: 'Soporte',
-      description: 'Seguimiento postventa para ajustes o nuevos requerimientos.',
+      description: 'Preparamos el pedido, verificamos conformidad y coordinamos el despacho.',
     },
   ],
 };

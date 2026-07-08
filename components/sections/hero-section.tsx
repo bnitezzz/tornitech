@@ -10,7 +10,7 @@ import { ASSETS } from '@/constants/assets';
 export function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
-      <div className="relative mx-auto min-h-[580px] w-full max-w-[1800px] md:min-h-[680px] lg:min-h-[720px]">
+      <div className="relative mx-auto min-h-[520px] w-full max-w-[1800px] md:min-h-[600px] lg:min-h-[640px]">
         <Image
           src={ASSETS.hero}
           alt="Almacén de tornillería y componentes de fijación industrial"
@@ -28,7 +28,7 @@ export function HeroSection() {
           }}
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[580px] w-full max-w-[1440px] items-center px-4 py-28 sm:px-6 md:min-h-[680px] md:px-10 md:py-32 lg:min-h-[720px] lg:px-[52px]">
+        <div className="relative z-10 mx-auto flex min-h-[520px] w-full max-w-[1440px] items-center px-4 py-20 sm:px-6 md:min-h-[600px] md:px-10 md:py-24 lg:min-h-[640px] lg:px-[52px]">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
