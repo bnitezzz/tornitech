@@ -47,6 +47,60 @@ CREATE TABLE IF NOT EXISTS public.clients (
   updated_at timestamptz DEFAULT now()
 );
 
+-- ─── Tablas CMS base (schema corporativo no las incluye; crear si faltan) ───
+CREATE TABLE IF NOT EXISTS public.brands (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  slug text NOT NULL UNIQUE,
+  logo_url text,
+  description text,
+  website_url text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.certifications (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  code text NOT NULL UNIQUE,
+  description text,
+  logo_url text,
+  created_at timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.sectors (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  slug text NOT NULL UNIQUE,
+  description text,
+  icon_name text,
+  image_url text,
+  display_order integer DEFAULT 0,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS public.partners (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  slug text NOT NULL UNIQUE,
+  logo_url text,
+  description text,
+  website_url text,
+  partner_type text,
+  display_order integer DEFAULT 0,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+ALTER TABLE public.brands ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.certifications ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sectors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.partners ENABLE ROW LEVEL SECURITY;
+
 ALTER TABLE public.faqs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.testimonials ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.clients ENABLE ROW LEVEL SECURITY;
@@ -158,7 +212,11 @@ INSERT INTO public.site_config (key, value_json, description, is_public) VALUES
   ('contact_section', jsonb_build_object(
     'heading', 'CONTÁCTANOS',
     'subheading', 'Nuestro equipo está listo para ayudarte con tu proyecto.'
-  ), 'Contacto', true)
+  ), 'Contacto', true),
+  ('catalogs_section', jsonb_build_object(
+    'heading', 'CATÁLOGOS',
+    'subheading', 'Documentación técnica con referencias, medidas y normas de nuestra línea.'
+  ), 'Catálogos', true)
 ON CONFLICT (key) DO UPDATE SET value_json = EXCLUDED.value_json, is_public = true;
 
 -- Seeds: sectores
@@ -185,6 +243,15 @@ INSERT INTO public.certifications (name, code, description) VALUES
   ('API', 'API', 'American Petroleum Institute'),
   ('ANSI', 'ANSI', 'American National Standards Institute')
 ON CONFLICT (code) DO NOTHING;
+
+-- Seeds: marcas
+INSERT INTO public.brands (name, slug, is_active) VALUES
+  ('Würth', 'wurth', true),
+  ('Hilti', 'hilti', true),
+  ('Fischer', 'fischer', true),
+  ('Bossard', 'bossard', true),
+  ('SFS', 'sfs', true)
+ON CONFLICT (slug) DO NOTHING;
 
 -- Seeds: FAQs
 INSERT INTO public.faqs (question, answer, display_order) VALUES

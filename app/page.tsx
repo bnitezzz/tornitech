@@ -13,6 +13,7 @@ import { MissionSection, VisionSection } from '@/components/home/mission-vision-
 import { ValuesSection } from '@/components/home/values-section';
 import { ClientsSection, TestimonialsSection, FaqSection } from '@/components/home/trust-sections';
 import { CtaFinalSection } from '@/components/home/cta-final-section';
+import { fetchSiteConfigValues } from '@/services/configuracion';
 
 const WhyChooseUsSection = dynamic(() =>
   import('@/components/sections/why-choose-us-section').then((m) => ({ default: m.WhyChooseUsSection }))
@@ -39,21 +40,32 @@ const ContactSection = dynamic(() =>
   import('@/components/contact/contact-section').then((m) => ({ default: m.ContactSection }))
 );
 
-export default function HomePage() {
+export default async function HomePage() {
+  const siteConfig = await fetchSiteConfigValues();
+  const orgName = siteConfig.company_name || SITE_CONFIG.name;
+  const phone = siteConfig.phone || SITE_CONFIG.phone;
+  const email = siteConfig.contact_email || SITE_CONFIG.email;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Organization',
-        name: SITE_CONFIG.name,
+        name: orgName,
         url: SITE_CONFIG.url,
         logo: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
+        description: siteConfig.company_description || SITE_CONFIG.description,
       },
       {
         '@type': 'LocalBusiness',
-        name: SITE_CONFIG.name,
-        telephone: SITE_CONFIG.phone,
-        email: SITE_CONFIG.email,
+        name: orgName,
+        telephone: phone,
+        email,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: SITE_CONFIG.address,
+          addressCountry: 'VE',
+        },
       },
     ],
   };

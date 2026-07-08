@@ -5,22 +5,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Clock, MapPin, Phone } from 'lucide-react';
-import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
+import { NAVIGATION } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
 
 const SECTION_IDS = ['nosotros', 'productos', 'catalogos', 'contacto'];
 
-const infoTickerItems = [
-  { icon: Clock, text: SITE_CONFIG.businessHours },
-  { icon: MapPin, text: SITE_CONFIG.address },
-  { icon: Phone, text: SITE_CONFIG.phone },
-];
-
 function InfoTicker() {
+  const { businessHours, address, phone } = useSiteSettings();
+  const infoTickerItems = [
+    { icon: Clock, text: businessHours },
+    { icon: MapPin, text: address },
+    { icon: Phone, text: phone },
+  ];
   return (
     <div className="w-full overflow-hidden bg-[#052042] py-2 text-white/80">
       <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">

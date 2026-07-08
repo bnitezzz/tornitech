@@ -19,7 +19,7 @@ export function ProductsSection() {
   });
   const { data: productos = [], isLoading } = useProductos({ featured: true, limit: 8 });
 
-  if (isLoading || !productos.length) return null;
+  if (isLoading) return null;
 
   const visible = showAll ? productos : productos.slice(0, INITIAL_VISIBLE_COUNT);
   const hasMore = productos.length > INITIAL_VISIBLE_COUNT;

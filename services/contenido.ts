@@ -1,4 +1,4 @@
-import { getUntypedReader } from '@/lib/supabase/untyped';
+import { getSupabaseReader } from '@/services/supabase';
 
 export type Faq = { id: string; pregunta: string; respuesta: string };
 export type Testimonio = {
@@ -12,10 +12,10 @@ export type Testimonio = {
 export type Cliente = { id: string; nombre: string; logo: string | null };
 
 export async function fetchFaqs(): Promise<Faq[]> {
-  const supabase = getUntypedReader();
+  const supabase = getSupabaseReader();
   if (!supabase) return [];
   const { data } = await supabase.from('faqs').select('id, question, answer').eq('is_active', true).order('display_order');
-  return ((data ?? []) as Array<{ id: string; question: string; answer: string }>).map((r) => ({
+  return (data ?? []).map((r) => ({
     id: r.id,
     pregunta: r.question,
     respuesta: r.answer,
@@ -23,23 +23,14 @@ export async function fetchFaqs(): Promise<Faq[]> {
 }
 
 export async function fetchTestimonios(): Promise<Testimonio[]> {
-  const supabase = getUntypedReader();
+  const supabase = getSupabaseReader();
   if (!supabase) return [];
   const { data } = await supabase
     .from('testimonials')
     .select('id, author_name, author_role, company, content, rating')
     .eq('is_active', true)
     .order('display_order');
-  return (
-    (data ?? []) as Array<{
-      id: string;
-      author_name: string;
-      author_role: string | null;
-      company: string | null;
-      content: string;
-      rating: number | null;
-    }>
-  ).map((r) => ({
+  return (data ?? []).map((r) => ({
     id: r.id,
     autor: r.author_name,
     cargo: r.author_role,
@@ -50,10 +41,10 @@ export async function fetchTestimonios(): Promise<Testimonio[]> {
 }
 
 export async function fetchClientes(): Promise<Cliente[]> {
-  const supabase = getUntypedReader();
+  const supabase = getSupabaseReader();
   if (!supabase) return [];
   const { data } = await supabase.from('clients').select('id, name, logo_url').eq('is_active', true).order('display_order');
-  return ((data ?? []) as Array<{ id: string; name: string; logo_url: string | null }>).map((r) => ({
+  return (data ?? []).map((r) => ({
     id: r.id,
     nombre: r.name,
     logo: r.logo_url,

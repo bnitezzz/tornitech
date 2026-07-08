@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getSupabaseClient } from '@/lib/supabase/client';
+import { DEFAULT_PRODUCTS } from '@/constants/content';
 import type { Producto } from '@/types/producto';
 
 type ProductRow = {
@@ -41,9 +42,30 @@ function mapRow(row: ProductRow): Producto {
   };
 }
 
+function mapFallbackProducts(): Producto[] {
+  return DEFAULT_PRODUCTS.map((p) => ({
+    id: p.id,
+    nombre: p.name,
+    slug: p.sku.toLowerCase().replace(/\s+/g, '-'),
+    descripcion: p.short_description,
+    imagen: p.image,
+    categoria: null,
+    marca: null,
+    din: p.specs.includes('DIN') ? p.specs : null,
+    astm: null,
+    grado: null,
+    sku: p.sku,
+    material: null,
+    stock: 0,
+    activo: true,
+    pdf: null,
+    fecha: null,
+  }));
+}
+
 async function fetchProductosClient(featured?: boolean, limit?: number): Promise<Producto[]> {
   const supabase = getSupabaseClient();
-  if (!supabase) return [];
+  if (!supabase) return mapFallbackProducts();
 
   let query = supabase
     .from('products')
@@ -57,7 +79,7 @@ async function fetchProductosClient(featured?: boolean, limit?: number): Promise
   if (limit) query = query.limit(limit);
 
   const { data, error } = await query;
-  if (error || !data) return [];
+  if (error || !data?.length) return mapFallbackProducts();
   return (data as ProductRow[]).map(mapRow);
 }
 
@@ -65,5 +87,6 @@ export function useProductos(options?: { featured?: boolean; limit?: number }) {
   return useQuery({
     queryKey: ['productos', options?.featured, options?.limit],
     queryFn: () => fetchProductosClient(options?.featured, options?.limit),
+    placeholderData: mapFallbackProducts(),
   });
 }

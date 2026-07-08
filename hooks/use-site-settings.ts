@@ -6,6 +6,7 @@ import { SITE_CONFIG } from '@/constants/site';
 
 type SiteSettings = {
   companyName: string;
+  companyDescription: string;
   phone: string;
   email: string;
   address: string;
@@ -18,6 +19,7 @@ async function loadSiteSettings(): Promise<SiteSettings> {
   if (!supabase) {
     return {
       companyName: SITE_CONFIG.name,
+      companyDescription: SITE_CONFIG.description,
       phone: SITE_CONFIG.phone,
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address,
@@ -30,12 +32,13 @@ async function loadSiteSettings(): Promise<SiteSettings> {
     .from('site_config')
     .select('key, value')
     .eq('is_public', true)
-    .in('key', ['company_name', 'phone', 'contact_email', 'business_hours']);
+    .in('key', ['company_name', 'company_description', 'phone', 'contact_email', 'business_hours']);
 
   const map = Object.fromEntries((data ?? []).map((row) => [row.key, row.value]));
 
   return {
     companyName: map.company_name || SITE_CONFIG.name,
+    companyDescription: map.company_description || SITE_CONFIG.description,
     phone: map.phone || SITE_CONFIG.phone,
     email: map.contact_email || SITE_CONFIG.email,
     address: SITE_CONFIG.address,
@@ -54,6 +57,7 @@ export function useSiteSettings() {
   return (
     data ?? {
       companyName: SITE_CONFIG.name,
+      companyDescription: SITE_CONFIG.description,
       phone: SITE_CONFIG.phone,
       email: SITE_CONFIG.email,
       address: SITE_CONFIG.address,

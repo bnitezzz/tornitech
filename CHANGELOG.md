@@ -1,4 +1,18 @@
-## 2026-07-08 — Refinamiento visual premium
+## 2026-07-08 — Fase 3: CMS, SEO y migración Supabase corregida
+
+### Supabase
+- Migración `004_enterprise_cms.sql` crea `brands`, `certifications`, `sectors` y `partners` si faltan (compatible con `schema.sql` corporativo).
+- Seeds de marcas, FAQs, testimonios y contenido `site_config` incluidos.
+
+### SEO y metadata
+- `generateMetadata()` en `app/layout.tsx` lee nombre y descripción desde `site_config`.
+- JSON-LD en homepage enriquecido con datos del CMS.
+
+### App
+- Header y footer usan `useSiteSettings` (teléfono, email, horario, descripción).
+- Productos con fallback local cuando Supabase no tiene datos.
+- Eliminado `lib/supabase/untyped.ts`; servicios usan cliente tipado.
+
 
 ### Diseño y UX
 - Espaciado optimizado con utilidad `.section-padding` en todas las secciones.

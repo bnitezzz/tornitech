@@ -17,9 +17,11 @@ import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
 import { FOOTER_CATEGORIES } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
+import { useSiteSettings } from '@/hooks/use-site-settings';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { companyName, companyDescription, phone, email, address, businessHours } = useSiteSettings();
 
   return (
     <footer className="w-full bg-[#052042] py-14 md:py-16">
@@ -40,7 +42,7 @@ export function Footer() {
               />
             </Link>
             <p className="mb-6 text-sm leading-relaxed text-white/70">
-              {SITE_CONFIG.description}
+              {companyDescription}
             </p>
             <div className="flex gap-3">
               {SITE_CONFIG.social.facebook && (
@@ -128,26 +130,26 @@ export function Footer() {
             <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Contacto</h4>
             <address className="space-y-4 not-italic">
               <a
-                href={`tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`}
+                href={`tel:${phone.replace(/\s+/g, '')}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
                 <Phone className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.phone}
+                {phone}
               </a>
               <a
-                href={`mailto:${SITE_CONFIG.email}`}
+                href={`mailto:${email}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.email}
+                {email}
               </a>
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.address}
+                {address}
               </div>
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.businessHours}
+                {businessHours}
               </div>
             </address>
 
@@ -166,7 +168,7 @@ export function Footer() {
         <div className="mt-12 border-t border-white/20 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-center text-sm text-white/50 md:text-left">
-              © {currentYear} {SITE_CONFIG.name}. Todos los derechos reservados.
+              © {currentYear} {companyName}. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-6 text-sm text-white/50">
               <Link href="/privacidad" className="focus-ring-inverse rounded-sm transition-colors hover:text-[#fab43a]">
