@@ -7,25 +7,28 @@ import { ABOUT_CONTENT } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 
 const cardClassName =
-  'rounded-xl border border-slate-100 bg-white px-5 py-6 sm:px-6 sm:py-7';
+  'flex flex-col items-center rounded-xl border border-slate-100 bg-white px-5 py-6 text-center sm:px-6 sm:py-7';
 
 export function AboutSection() {
   return (
     <section id="nosotros" className="section-padding relative w-full bg-white">
-      <div className="section-container">
-        <SectionHeader heading={ABOUT_CONTENT.heading} className="max-w-[900px]" />
+      <div className="section-container flex flex-col items-center">
+        <SectionHeader
+          heading={ABOUT_CONTENT.heading}
+          className="mx-auto w-full max-w-[900px]"
+        />
 
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto mt-5 max-w-[760px] text-center text-body"
+          className="mx-auto mt-5 max-w-[760px] text-center text-body xl:max-w-[820px] 2xl:max-w-[880px]"
         >
           {ABOUT_CONTENT.intro}
         </motion.p>
 
-        {/* Mission + Vision — separated, same style */}
-        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
+        {/* Mission + Vision */}
+        <div className="mx-auto mt-10 grid w-full max-w-[920px] grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5 xl:max-w-[980px] 2xl:max-w-[1040px]">
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -56,8 +59,8 @@ export function AboutSection() {
           </motion.article>
         </div>
 
-        {/* Pillars — separated, same style */}
-        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        {/* Pillars */}
+        <div className="mx-auto mt-4 grid w-full max-w-[1100px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5 xl:max-w-[1200px] 2xl:max-w-[1280px]">
           {ABOUT_CONTENT.pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
@@ -83,17 +86,17 @@ export function AboutSection() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative mt-8 h-[180px] w-full overflow-hidden rounded-xl sm:h-[220px] md:h-[260px]"
+          className="relative mx-auto mt-8 h-[180px] w-full max-w-[1100px] overflow-hidden rounded-xl sm:h-[220px] md:h-[260px] xl:max-w-[1200px] 2xl:max-w-[1280px] 2xl:h-[280px]"
         >
           <Image
             src={ASSETS.about}
             alt="Componentes de fijación industrial en almacén"
             fill
-            sizes="(max-width: 1320px) 100vw, 1320px"
+            sizes="(max-width: 1320px) 100vw, 1280px"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#052042]/55 to-transparent" />
-          <p className="absolute bottom-5 left-5 max-w-[420px] text-sm font-medium leading-relaxed text-white sm:bottom-6 sm:left-6 sm:text-base">
+          <p className="absolute bottom-5 left-1/2 max-w-[420px] -translate-x-1/2 px-4 text-center text-sm font-medium leading-relaxed text-white sm:bottom-6 sm:text-base">
             Material identificado con ficha técnica y norma de referencia en cada pedido.
           </p>
         </motion.div>
