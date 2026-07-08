@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database';
-import { isSupabaseConfigured } from './config';
+import { getSupabasePublicKey, getSupabaseUrl, isSupabaseConfigured } from './config';
 
 let serverClient: SupabaseClient<Database> | null = null;
 let formsClient: SupabaseClient<Database> | null = null;
@@ -32,12 +32,12 @@ export function getSupabaseServer(): SupabaseClient<Database> | null {
  * Prefers service role; falls back to anon key (RLS public_insert_* policies).
  */
 export function getSupabaseFormsClient(): SupabaseClient<Database> | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+  const url = getSupabaseUrl();
   if (!url) return null;
 
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
-  const key = serviceKey || anonKey;
+  const publicKey = getSupabasePublicKey();
+  const key = serviceKey || publicKey;
 
   if (!key) return null;
 

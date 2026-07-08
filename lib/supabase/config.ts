@@ -1,26 +1,32 @@
+/** Supabase project URL from env. */
+export function getSupabaseUrl(): string | undefined {
+  return process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+}
+
+/** Publishable key (sb_publishable_*) or legacy anon JWT. */
+export function getSupabasePublicKey(): string | undefined {
+  return (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim()
+  );
+}
+
 /** Returns true when Supabase URL and service role key are configured. */
 export function isSupabaseConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()
-  );
+  return Boolean(getSupabaseUrl() && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
 }
 
-/** Returns true when form submissions can reach Supabase (service role or anon). */
+/** Returns true when form submissions can reach Supabase (service role or public key). */
 export function isFormsBackendConfigured(): boolean {
   return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      (process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim())
+    getSupabaseUrl() &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || getSupabasePublicKey())
   );
 }
 
-/** Returns true when the public anon client can be initialized. */
+/** Returns true when the public Supabase client can be initialized. */
 export function isSupabaseClientConfigured(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim()
-  );
+  return Boolean(getSupabaseUrl() && getSupabasePublicKey());
 }
 
 /** Validates UUID v4 format for Supabase foreign keys. */

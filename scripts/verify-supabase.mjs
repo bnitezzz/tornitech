@@ -7,6 +7,12 @@ import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createClient } from '@supabase/supabase-js';
+import ws from 'ws';
+
+const nodeClientOptions = {
+  auth: { autoRefreshToken: false, persistSession: false },
+  realtime: { transport: ws },
+};
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const envPath = resolve(root, '.env.local');
@@ -27,12 +33,13 @@ function loadEnv(path) {
 const env = loadEnv(envPath);
 const url = env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
-const anonKey = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const publicKey =
+  env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const missing = [
   !url && 'NEXT_PUBLIC_SUPABASE_URL',
   !serviceKey && 'SUPABASE_SERVICE_ROLE_KEY',
-  !anonKey && 'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+  !publicKey && 'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (o NEXT_PUBLIC_SUPABASE_ANON_KEY)',
 ].filter(Boolean);
 
 if (missing.length) {
@@ -40,9 +47,7 @@ if (missing.length) {
   process.exit(1);
 }
 
-const admin = createClient(url, serviceKey, {
-  auth: { autoRefreshToken: false, persistSession: false },
-});
+const admin = createClient(url, serviceKey, nodeClientOptions);
 
 const tables = ['leads', 'contact_submissions', 'catalog_downloads', 'newsletter_subscribers', 'catalogs', 'products'];
 let ok = true;
@@ -101,9 +106,7 @@ if (!catalog) {
   console.log(`✓ Catálogo disponible: ${catalog.title} (${catalog.slug})`);
 }
 
-const anon = createClient(url, anonKey, {
-  auth: { autoRefreshToken: false, persistSession: false },
-});
+const anon = createClient(url, publicKey, nodeClientOptions);
 
 const { data: anonCatalogs, error: anonCatalogError } = await anon
   .from('catalogs')
