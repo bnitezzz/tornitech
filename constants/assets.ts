@@ -39,8 +39,3 @@ export const ASSETS = {
     panamaFasteners: '/images/panamafasteners.jpeg',
   },
 } as const;
-
-/** Verifica que una ruta pública exista en el filesystem (solo server/build checks). */
-export function isLocalAsset(path: string): boolean {
-  return path.startsWith('/') && !path.startsWith('http');
-}
