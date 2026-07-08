@@ -1,5 +1,5 @@
-import { getSupabaseServer } from '@/lib/supabase/server';
-import { isSupabaseConfigured } from './config';
+import { getSupabaseFormsClient } from '@/lib/supabase/server';
+import { isFormsBackendConfigured } from './config';
 
 export class FormsBackendError extends Error {
   constructor(
@@ -11,15 +11,15 @@ export class FormsBackendError extends Error {
   }
 }
 
-/** Ensures Supabase service role is available for form submissions. */
+/** Ensures Supabase is available for form submissions (service role or anon). */
 export function getFormsBackend() {
-  if (!isSupabaseConfigured()) {
+  if (!isFormsBackendConfigured()) {
     throw new FormsBackendError(
-      'Supabase no está configurado. Revise NEXT_PUBLIC_SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY.'
+      'Supabase no está configurado. Revise NEXT_PUBLIC_SUPABASE_URL y las claves de Supabase.'
     );
   }
 
-  const supabase = getSupabaseServer();
+  const supabase = getSupabaseFormsClient();
   if (!supabase) {
     throw new FormsBackendError('No se pudo inicializar el cliente de Supabase.');
   }

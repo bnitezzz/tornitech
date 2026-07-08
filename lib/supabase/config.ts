@@ -6,6 +6,15 @@ export function isSupabaseConfigured(): boolean {
   );
 }
 
+/** Returns true when form submissions can reach Supabase (service role or anon). */
+export function isFormsBackendConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.trim() &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim())
+  );
+}
+
 /** Returns true when the public anon client can be initialized. */
 export function isSupabaseClientConfigured(): boolean {
   return Boolean(

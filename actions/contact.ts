@@ -10,6 +10,7 @@ import {
 import { resolveCatalogForDownload } from '@/lib/catalogs';
 import { createLead, subscribeToMarketing, FormsBackendError } from '@/lib/leads';
 import { getFormsBackend } from '@/lib/supabase/forms';
+import { getSupabaseServer } from '@/lib/supabase/server';
 import { isValidUuid } from '@/lib/supabase/config';
 import { parseCatalogDownloadForm, parseContactForm } from '@/lib/validation';
 import type { Insertable } from '@/types/database';
@@ -171,12 +172,15 @@ export async function submitCatalogDownload(
         throw new FormsBackendError('No se pudo registrar la descarga del catálogo.', downloadError);
       }
 
-      const { error: updateError } = await supabase.rpc('increment_download_count', {
-        catalog_id: catalog.id,
-      });
+      const adminClient = getSupabaseServer();
+      if (adminClient) {
+        const { error: updateError } = await adminClient.rpc('increment_download_count', {
+          catalog_id: catalog.id,
+        });
 
-      if (updateError) {
-        console.error('[submitCatalogDownload] increment_download_count:', updateError);
+        if (updateError) {
+          console.error('[submitCatalogDownload] increment_download_count:', updateError);
+        }
       }
     }
 

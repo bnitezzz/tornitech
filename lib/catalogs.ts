@@ -1,5 +1,5 @@
 import { DEFAULT_CATALOGS } from '@/constants/content';
-import { getSupabaseServer } from '@/lib/supabase/server';
+import { getSupabaseFormsClient, getSupabaseServer } from '@/lib/supabase/server';
 import { isValidUuid } from '@/lib/supabase/config';
 
 const ALLOWED_PREFIXES = ['/catalogs/'] as const;
@@ -24,7 +24,7 @@ export async function resolveCatalogForDownload(
   catalogId: string,
   catalogSlug?: string
 ): Promise<ResolvedCatalog | null> {
-  const supabase = getSupabaseServer();
+  const supabase = getSupabaseServer() ?? getSupabaseFormsClient();
 
   if (supabase && isValidUuid(catalogId)) {
     const { data, error } = await supabase

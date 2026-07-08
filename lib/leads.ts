@@ -61,7 +61,7 @@ export async function subscribeToMarketing(data: {
 
     const { error } = await supabase
       .from('newsletter_subscribers')
-      .upsert(subscriber, { onConflict: 'email' });
+      .upsert(subscriber, { onConflict: 'email', ignoreDuplicates: true });
 
     if (error) {
       console.error('[newsletter] Upsert error:', error);
