@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Clock, MapPin, Phone } from 'lucide-react';
 import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
+import { ASSETS } from '@/constants/assets';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
@@ -42,6 +44,13 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('');
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useFocusTrap(mobileMenuRef, {
+    isActive: isMobileMenuOpen,
+    returnFocusRef: menuToggleRef,
+  });
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -95,16 +104,16 @@ export function Header() {
       {/* Main header */}
       <header className="sticky top-0 z-50 w-full">
         <nav
-          aria-label="Primary navigation"
+          aria-label="Navegación principal"
           className={`mx-auto flex min-h-[50px] w-full max-w-[1440px] items-center justify-between gap-4 px-4 py-[1px] transition-shadow duration-300 sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px] ${
             isScrolled ? 'shadow-[0_8px_24px_-8px_rgba(5,32,66,0.45)]' : 'shadow-none'
           }`}
           style={{ background: NAV_GRADIENT }}
         >
           {/* Logo */}
-          <Link href="/" className="focus-ring-inverse relative h-[34px] w-[106px] shrink-0 rounded-sm sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]" aria-label="Tornitech home">
+          <Link href="/" className="focus-ring-inverse relative h-[34px] w-[106px] shrink-0 rounded-sm sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]" aria-label="Tornitech — Inicio">
             <Image
-              src="/logo-tornitech.png"
+              src={ASSETS.logo.negativo}
               alt="Tornitech"
               fill
               priority
@@ -121,7 +130,7 @@ export function Header() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    aria-current={isActive ? 'page' : undefined}
+                    aria-current={isActive ? 'location' : undefined}
                     className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal transition-colors hover:text-white ${
                       isActive ? 'text-white' : 'text-[#f2f2f2]'
                     }`}
@@ -148,9 +157,10 @@ export function Header() {
 
           {/* Mobile menu toggle */}
           <button
+            ref={menuToggleRef}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="focus-ring-inverse rounded-md p-2 text-white transition-colors hover:bg-white/10 md:hidden"
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" strokeWidth={1.75} /> : <Menu className="h-6 w-6" strokeWidth={1.75} />}
@@ -162,9 +172,6 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menú de navegación"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -175,8 +182,15 @@ export function Header() {
               className="absolute inset-0"
               style={{ background: NAV_GRADIENT_TRANSPARENT }}
               onClick={() => setIsMobileMenuOpen(false)}
+              aria-hidden="true"
             />
-            <div className="relative pt-24 px-8 space-y-4">
+            <div
+              ref={mobileMenuRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menú de navegación"
+              className="relative pt-24 px-8 space-y-4"
+            >
               {NAVIGATION.map((item) => (
                 <motion.div
                   key={item.name}

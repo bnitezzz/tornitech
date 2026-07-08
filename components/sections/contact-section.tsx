@@ -138,7 +138,7 @@ export function ContactSection() {
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5" aria-busy={isSubmitting}>
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="firstName" className="font-medium text-[#1F2937]">Nombre *</Label>

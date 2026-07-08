@@ -44,7 +44,11 @@ export function WhyChooseUsSection() {
                     alt={item.title}
                     fill
                     sizes="(max-width: 640px) 45vw, 174px"
-                    className="img-zoom object-cover"
+                    className={
+                      item.imageVariant === 'icon'
+                        ? 'object-contain bg-[#f8fafc] p-5'
+                        : 'img-zoom object-cover'
+                    }
                   />
                 </div>
                 <div className="flex flex-1 flex-col justify-center px-4 py-4">

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:types": "supabase gen types typescript --project-id xlczdqqtdwuniivhztom --schema public > types/database.ts",
+    "db:types:local": "node scripts/generate-supabase-types.mjs"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.15.1",

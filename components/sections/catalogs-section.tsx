@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, X, Loader2 } from 'lucide-react';
@@ -8,21 +8,23 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useCatalogs } from '@/hooks/use-supabase';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 import { submitCatalogDownload } from '@/actions/contact';
 import { catalogDownloadSchema } from '@/types';
 import { CATALOGS_CONTENT, DEFAULT_CATALOGS } from '@/constants/content';
+import { ASSETS } from '@/constants/assets';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import type { CatalogItem } from '@/types/catalog';
 
 const catalogPreviews = [
   {
-    src: 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600',
-    alt: 'Catálogo General de Tornillería',
+    src: ASSETS.catalogs.general,
+    alt: 'Catálogo general de tornillería',
   },
   {
-    src: 'https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=600',
-    alt: 'Catálogo de Fijación Estructural',
+    src: ASSETS.catalogs.estructural,
+    alt: 'Catálogo de fijación estructural',
   },
 ];
 
@@ -35,7 +37,7 @@ export function CatalogsSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCatalogId, setSelectedCatalogId] = useState<string>('');
   const [selectedCatalogTitle, setSelectedCatalogTitle] = useState<string>('');
-  const [selectedCatalogUrl, setSelectedCatalogUrl] = useState<string>('');
+  const [selectedCatalogSlug, setSelectedCatalogSlug] = useState<string>('');
 
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', company: '', city: '', sector: '', accepts_marketing: false,
@@ -43,11 +45,20 @@ export function CatalogsSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const downloadTriggerRef = useRef<HTMLButtonElement>(null);
+  const catalogDialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useFocusTrap(catalogDialogRef, {
+    isActive: modalOpen,
+    returnFocusRef: downloadTriggerRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   const openModal = (catalog: CatalogItem) => {
     setSelectedCatalogId(catalog.id);
     setSelectedCatalogTitle(catalog.title);
-    setSelectedCatalogUrl(catalog.file_url);
+    setSelectedCatalogSlug(catalog.slug);
     setErrors({});
     setModalOpen(true);
   };
@@ -84,8 +95,7 @@ export function CatalogsSection() {
     const response = await submitCatalogDownload({
       ...result.data,
       catalogId: selectedCatalogId,
-      catalogTitle: selectedCatalogTitle,
-      catalogFileUrl: selectedCatalogUrl,
+      catalogSlug: selectedCatalogSlug,
     });
     setIsSubmitting(false);
     if (response.success && response.data?.downloadUrl) {
@@ -147,6 +157,7 @@ export function CatalogsSection() {
             Consultar catálogo
           </WhatsAppLink>
           <button
+            ref={downloadTriggerRef}
             onClick={() => displayCatalogs[0] && openModal(displayCatalogs[0])}
             className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-base sm:flex-1"
           >
@@ -167,6 +178,7 @@ export function CatalogsSection() {
             onClick={closeModal}
           >
             <motion.div
+              ref={catalogDialogRef}
               role="dialog"
               aria-modal="true"
               aria-labelledby="catalog-modal-title"
@@ -184,7 +196,13 @@ export function CatalogsSection() {
                     </h3>
                     <p className="text-sm text-[#316d92] mt-1">{selectedCatalogTitle}</p>
                   </div>
-                  <button type="button" onClick={closeModal} aria-label="Cerrar" className="focus-ring rounded-md p-1 transition-colors hover:bg-gray-100">
+                  <button
+                    type="button"
+                    ref={closeButtonRef}
+                    onClick={closeModal}
+                    aria-label="Cerrar"
+                    className="focus-ring rounded-md p-1 transition-colors hover:bg-gray-100"
+                  >
                     <X className="w-5 h-5 text-[#3c4456]" strokeWidth={1.75} />
                   </button>
                 </div>
@@ -198,7 +216,7 @@ export function CatalogsSection() {
                     <p className="text-sm text-[#316d92] mt-2">Gracias por su interés.</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isSubmitting}>
                     {errors.form && (
                       <div role="alert" className="bg-red-50 border border-red-200 rounded-[10px] p-3">
                         <p className="text-sm text-red-600 font-medium">{errors.form}</p>

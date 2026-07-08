@@ -7,9 +7,11 @@ import {
   buildContactNotificationEmail,
   sendEmail,
 } from '@/lib/email';
+import { resolveCatalogForDownload } from '@/lib/catalogs';
 import { createLead, subscribeToMarketing } from '@/lib/leads';
 import { getSupabaseServer } from '@/lib/supabase/server';
 import { isValidUuid } from '@/lib/supabase/config';
+import { parseCatalogDownloadForm, parseContactForm } from '@/lib/validation';
 import type { Insertable } from '@/types/database';
 import type { ActionResult, CatalogDownloadResult } from '@/types/actions';
 import type { CatalogDownloadFormData, ContactFormData } from '@/types';
@@ -17,19 +19,29 @@ import type { CatalogDownloadFormData, ContactFormData } from '@/types';
 export async function submitContact(
   data: ContactFormData
 ): Promise<ActionResult> {
+  const parsed = parseContactForm(data);
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: 'Datos del formulario inválidos. Revise los campos e intente de nuevo.',
+    };
+  }
+
+  const form = parsed.data;
+
   try {
     const supabase = getSupabaseServer();
-    const acceptsMarketing = data.accepts_marketing ?? false;
-    const company = data.company?.trim() || 'No especificada';
+    const acceptsMarketing = form.accepts_marketing ?? false;
+    const company = form.company?.trim() || 'No especificada';
 
     if (supabase) {
       const submission: Insertable<'contact_submissions'> = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone || null,
-        company: data.company || null,
-        subject: data.subject || null,
-        message: data.message,
+        name: form.name,
+        email: form.email,
+        phone: form.phone || null,
+        company: form.company || null,
+        subject: form.subject || null,
+        message: form.message,
         status: 'new',
       };
 
@@ -41,36 +53,36 @@ export async function submitContact(
     }
 
     await createLead({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
       company,
       source: 'contact_form',
       acceptsMarketing,
-      notes: data.subject ? `Asunto: ${data.subject}` : undefined,
+      notes: form.subject ? `Asunto: ${form.subject}` : undefined,
     });
 
     if (acceptsMarketing) {
       await subscribeToMarketing({
-        email: data.email,
-        name: data.name,
-        company: data.company,
+        email: form.email,
+        name: form.name,
+        company: form.company,
       });
     }
 
     await Promise.all([
       sendEmail(
         buildContactNotificationEmail({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          company: data.company,
-          subject: data.subject,
-          message: data.message,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          subject: form.subject,
+          message: form.message,
           acceptsMarketing,
         })
       ),
-      sendEmail(buildContactConfirmationEmail({ name: data.name, email: data.email })),
+      sendEmail(buildContactConfirmationEmail({ name: form.name, email: form.email })),
     ]);
 
     return {
@@ -89,41 +101,57 @@ export async function submitContact(
 export async function submitCatalogDownload(
   data: CatalogDownloadFormData & {
     catalogId: string;
-    catalogTitle: string;
-    catalogFileUrl: string;
+    catalogSlug?: string;
   }
 ): Promise<ActionResult<CatalogDownloadResult>> {
+  const parsed = parseCatalogDownloadForm(data);
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: 'Datos del formulario inválidos. Revise los campos e intente de nuevo.',
+    };
+  }
+
+  const form = parsed.data;
+  const catalog = await resolveCatalogForDownload(data.catalogId, data.catalogSlug);
+
+  if (!catalog) {
+    return {
+      success: false,
+      message: 'Catálogo no disponible. Por favor contacte a nuestro equipo comercial.',
+    };
+  }
+
   try {
     const supabase = getSupabaseServer();
-    const acceptsMarketing = data.accepts_marketing ?? false;
-    const downloadUrl = data.catalogFileUrl;
+    const acceptsMarketing = form.accepts_marketing ?? false;
 
     const leadId = await createLead({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      company: data.company,
-      city: data.city,
-      sector: data.sector,
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      company: form.company,
+      city: form.city,
+      sector: form.sector,
       source: 'catalog_download',
-      sourceId: isValidUuid(data.catalogId) ? data.catalogId : null,
+      sourceId: isValidUuid(catalog.id) ? catalog.id : null,
       acceptsMarketing,
-      notes: `Catálogo: ${data.catalogTitle}`,
+      notes: `Catálogo: ${catalog.title}`,
     });
 
     if (acceptsMarketing) {
       await subscribeToMarketing({
-        email: data.email,
-        name: data.name,
-        company: data.company,
+        email: form.email,
+        name: form.name,
+        company: form.company,
       });
     }
 
-    if (supabase && isValidUuid(data.catalogId)) {
+    if (supabase && isValidUuid(catalog.id)) {
       const downloadRecord: Insertable<'catalog_downloads'> = {
-        catalog_id: data.catalogId,
+        catalog_id: catalog.id,
         lead_id: leadId,
-        email: data.email,
+        email: form.email,
       };
 
       const { error: downloadError } = await supabase
@@ -135,8 +163,8 @@ export async function submitCatalogDownload(
       }
 
       const { error: updateError } = await supabase.rpc('increment_download_count', {
-        catalog_id: data.catalogId,
-      } as { catalog_id: string });
+        catalog_id: catalog.id,
+      });
 
       if (updateError) {
         console.error('[submitCatalogDownload] increment_download_count:', updateError);
@@ -145,13 +173,13 @@ export async function submitCatalogDownload(
 
     await sendEmail(
       buildCatalogDownloadNotificationEmail({
-        name: data.name,
-        email: data.email,
-        company: data.company,
-        phone: data.phone,
-        city: data.city,
-        sector: data.sector,
-        catalogTitle: data.catalogTitle,
+        name: form.name,
+        email: form.email,
+        company: form.company,
+        phone: form.phone,
+        city: form.city,
+        sector: form.sector,
+        catalogTitle: catalog.title,
         acceptsMarketing,
       })
     );
@@ -161,7 +189,7 @@ export async function submitCatalogDownload(
     return {
       success: true,
       message: 'Descarga registrada. El catálogo comenzará a descargar.',
-      data: { downloadUrl },
+      data: { downloadUrl: catalog.fileUrl },
     };
   } catch (error) {
     console.error('[submitCatalogDownload]', error);

@@ -7,23 +7,17 @@ import { WORK_PROCESS } from '@/constants/content';
 function ProcessStepCard({
   step,
   index,
-  variant,
 }: {
   step: (typeof WORK_PROCESS.steps)[number];
   index: number;
-  variant: 'desktop' | 'tablet' | 'mobile';
 }) {
-  const motionProps =
-    variant === 'mobile'
-      ? { initial: { opacity: 0, x: -20 }, whileInView: { opacity: 1, x: 0 } }
-      : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 } };
-
   return (
     <motion.article
-      {...motionProps}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08 }}
-      className={`group flex flex-col ${variant === 'mobile' ? 'items-center text-center' : 'items-center'}`}
+      className="group flex flex-col items-center text-center"
     >
       <div className="relative mb-5 flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 border-[#316d92] bg-white shadow-[0_2px_8px_rgba(49,109,146,0.12)] transition-transform duration-300 group-hover:scale-105 xl:h-[80px] xl:w-[80px]">
         <step.icon className="h-7 w-7 text-[#316d92] xl:h-8 xl:w-8" strokeWidth={1.75} />
@@ -51,28 +45,16 @@ export function WorkProcessSection() {
           className="mb-10 md:mb-14"
         />
 
-        {/* Desktop xl: 7 columns */}
-        <div className="relative hidden w-full xl:block">
-          <div className="absolute top-[40px] left-[4%] right-[4%] h-px bg-[#316d92]/20" />
-          <div className="grid grid-cols-7 gap-4">
+        <div className="relative w-full">
+          <div
+            className="pointer-events-none absolute top-[40px] left-[4%] right-[4%] hidden h-px bg-[#316d92]/20 xl:block"
+            aria-hidden="true"
+          />
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-x-6 md:gap-y-12 lg:grid-cols-4 xl:grid-cols-7 xl:gap-4">
             {WORK_PROCESS.steps.map((step, index) => (
-              <ProcessStepCard key={step.number} step={step} index={index} variant="desktop" />
+              <ProcessStepCard key={step.number} step={step} index={index} />
             ))}
           </div>
-        </div>
-
-        {/* Tablet / small desktop */}
-        <div className="hidden grid-cols-3 gap-x-6 gap-y-12 md:grid xl:hidden lg:grid-cols-4">
-          {WORK_PROCESS.steps.map((step, index) => (
-            <ProcessStepCard key={`md-${step.number}`} step={step} index={index} variant="tablet" />
-          ))}
-        </div>
-
-        {/* Mobile */}
-        <div className="grid grid-cols-1 gap-10 md:hidden">
-          {WORK_PROCESS.steps.map((step, index) => (
-            <ProcessStepCard key={`sm-${step.number}`} step={step} index={index} variant="mobile" />
-          ))}
         </div>
       </div>
     </section>

@@ -12,6 +12,7 @@ import {
   Thermometer,
   type LucideIcon,
 } from 'lucide-react';
+import { ASSETS } from './assets';
 
 export const HERO_CONTENT = {
   title: 'Tornillería y fijación industrial con trazabilidad técnica',
@@ -29,32 +30,38 @@ export const WHY_CHOOSE_US = {
     {
       title: 'Venta mayor y detal',
       description: 'Pedidos ajustados al volumen de obra, planta o reventa.',
-      image: 'https://images.pexels.com/photos/1267317/pexels-photo-1267317.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.venta,
+      imageVariant: 'icon' as const,
     },
     {
       title: 'Especificación verificada',
       description: 'Material, grado y norma confirmados antes del despacho.',
-      image: 'https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.calidad,
+      imageVariant: 'icon' as const,
     },
     {
       title: 'Asesoría técnica',
       description: 'Selección de referencia según carga, ambiente y normativa.',
-      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.asesoria,
+      imageVariant: 'icon' as const,
     },
     {
       title: 'Cobertura multisectorial',
       description: 'Atención a petróleo, construcción, electricidad y automotriz.',
-      image: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.alcance,
+      imageVariant: 'icon' as const,
     },
     {
       title: 'Logística coordinada',
       description: 'Entrega alineada al cronograma de su proyecto.',
-      image: 'https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.logistica,
+      imageVariant: 'icon' as const,
     },
     {
       title: 'Tratamientos especiales',
       description: 'Opciones de recubrimiento y tratamiento térmico bajo consulta.',
-      image: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.icons.tratamientos,
+      imageVariant: 'icon' as const,
     },
   ],
 };
@@ -170,27 +177,27 @@ export const SECTORS_CONTENT = {
     {
       title: 'Petróleo y gas',
       value: 'Piezas resistentes a corrosión, presión y ambientes agresivos.',
-      image: 'https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.sectors.petroleo,
     },
     {
       title: 'Construcción',
       value: 'Anclajes estructurales y fijación para obras civiles e industriales.',
-      image: 'https://images.pexels.com/photos/585419/pexels-photo-585419.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.sectors.construccion,
     },
     {
       title: 'Electricidad',
       value: 'Herrajes de fijación para tableros, canalizaciones e instalaciones.',
-      image: 'https://images.pexels.com/photos/236089/pexels-photo-236089.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.sectors.electrica,
     },
     {
       title: 'Automotriz',
       value: 'Tornillería de precisión para líneas de ensamblaje y talleres.',
-      image: 'https://images.pexels.com/photos/190574/pexels-photo-190574.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.sectors.automotriz,
     },
     {
       title: 'Ferretería',
       value: 'Surtido para reventa con referencias de rotación constante.',
-      image: 'https://images.pexels.com/photos/1174952/pexels-photo-1174952.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: ASSETS.sectors.ferretera,
     },
   ],
 };
@@ -231,6 +238,7 @@ export const PARTNERS_CONTENT = {
   standardsSubheading: 'Referencias disponibles conforme a estándares internacionales de fijación.',
   partnerHeading: 'Red de suministro',
   partnerName: 'Panama Fasteners Inc.',
+  partnerLogo: ASSETS.partners.panamaFasteners,
   partnerDescription:
     'Canal de abastecimiento internacional para ampliar disponibilidad de referencias y plazos de entrega.',
 };

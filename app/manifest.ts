@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SITE_CONFIG } from '@/constants/site';
+import { ASSETS } from '@/constants/assets';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -9,15 +10,15 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#1e40af',
+    theme_color: '#052042',
     icons: [
       {
-        src: '/icons/icon-192x192.png',
+        src: ASSETS.isotipo.color,
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/icons/icon-512x512.png',
+        src: ASSETS.isotipo.positivo,
         sizes: '512x512',
         type: 'image/png',
       },

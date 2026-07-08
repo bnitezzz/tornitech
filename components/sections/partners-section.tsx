@@ -52,11 +52,11 @@ export function PartnersSection() {
               <div className="grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)]">
                 <div className="relative h-[200px] w-full md:h-full md:min-h-[240px]">
                   <Image
-                    src="https://images.pexels.com/photos/1267317/pexels-photo-1267317.jpeg?auto=compress&cs=tinysrgb&w=400"
-                    alt="Red de suministro internacional"
+                    src={PARTNERS_CONTENT.partnerLogo}
+                    alt={PARTNERS_CONTENT.partnerName}
                     fill
                     sizes="(min-width: 768px) 220px, 100vw"
-                    className="object-cover"
+                    className="object-contain bg-white p-4"
                   />
                 </div>
                 <div className="flex flex-col justify-center px-6 py-8">

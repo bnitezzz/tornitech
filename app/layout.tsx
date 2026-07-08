@@ -1,12 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Sora } from 'next/font/google';
-import { Toaster } from '@/components/ui/sonner';
 import { SITE_CONFIG } from '@/constants/site';
+import { ASSETS } from '@/constants/assets';
 
 const sora = Sora({
   subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
+  weight: ['400', '600', '700'],
   variable: '--font-sora',
   display: 'swap',
 });
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: SITE_CONFIG.seo.description,
     images: [
       {
-        url: '/logo-tornitech.png',
+        url: ASSETS.logo.color,
         width: 1200,
         height: 630,
         alt: `${SITE_CONFIG.name} — Tornillería y fijación industrial`,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_CONFIG.name} | ${SITE_CONFIG.seo.title}`,
     description: SITE_CONFIG.seo.description,
-    images: ['/logo-tornitech.png'],
+    images: [ASSETS.logo.color],
   },
   robots: {
     index: true,
@@ -78,11 +78,10 @@ export default function RootLayout({
   return (
     <html lang="es-VE" className={sora.variable}>
       <head>
-        <link rel="icon" href="/logo-tornitech.png" sizes="any" />
+        <link rel="icon" href={ASSETS.isotipo.color} sizes="any" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}
-        <Toaster position="top-right" />
       </body>
     </html>
   );

@@ -1,3 +1,7 @@
+/**
+ * Supabase database types — synced from supabase/schema.sql + migrations 002/003.
+ * Regenerate remotely: npm run db:types (requires `supabase login`).
+ */
 export type Json =
   | string
   | number
@@ -46,6 +50,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       subcategories: {
         Row: {
@@ -84,6 +89,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       brands: {
         Row: {
@@ -119,6 +125,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       certifications: {
         Row: {
@@ -145,6 +152,7 @@ export interface Database {
           logo_url?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       sectors: {
         Row: {
@@ -183,7 +191,45 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
+      product_sectors: {
+        Row: {
+          id: string;
+          product_id: string;
+          sector_id: string;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          sector_id: string;
+        };
+        Update: {
+          id?: string;
+          product_id?: string;
+          sector_id?: string;
+        };
+        Relationships: [];
+      };
+      product_certifications: {
+        Row: {
+          id: string;
+          product_id: string;
+          certification_id: string;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          certification_id: string;
+        };
+        Update: {
+          id?: string;
+          product_id?: string;
+          certification_id?: string;
+        };
+        Relationships: [];
+      };
+
       products: {
         Row: {
           id: string;
@@ -208,6 +254,8 @@ export interface Database {
           datasheet_url: string | null;
           is_featured: boolean;
           is_active: boolean;
+          applications: string | null;
+          sectors: string | null;
           display_order: number;
           created_at: string;
           updated_at: string;
@@ -235,6 +283,8 @@ export interface Database {
           datasheet_url?: string | null;
           is_featured?: boolean;
           is_active?: boolean;
+          applications?: string | null;
+          sectors?: string | null;
           display_order?: number;
           created_at?: string;
           updated_at?: string;
@@ -262,10 +312,13 @@ export interface Database {
           datasheet_url?: string | null;
           is_featured?: boolean;
           is_active?: boolean;
+          applications?: string | null;
+          sectors?: string | null;
           display_order?: number;
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       catalogs: {
         Row: {
@@ -325,6 +378,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       partners: {
         Row: {
@@ -366,6 +420,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       quote_requests: {
         Row: {
@@ -419,6 +474,7 @@ export interface Database {
           source?: string;
           created_at?: string;
         };
+        Relationships: [];
       };
       contact_submissions: {
         Row: {
@@ -430,6 +486,8 @@ export interface Database {
           subject: string | null;
           message: string;
           status: string;
+          lead_id: string | null;
+          updated_at: string;
           created_at: string;
         };
         Insert: {
@@ -442,7 +500,9 @@ export interface Database {
           message: string;
           status?: string;
           created_at?: string;
-        };
+                  lead_id?: string | null;
+          updated_at?: string;
+};
         Update: {
           id?: string;
           name?: string;
@@ -453,7 +513,10 @@ export interface Database {
           message?: string;
           status?: string;
           created_at?: string;
-        };
+                  lead_id?: string | null;
+          updated_at?: string;
+};
+        Relationships: [];
       };
       leads: {
         Row: {
@@ -498,6 +561,7 @@ export interface Database {
           notes?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       newsletter_subscribers: {
         Row: {
@@ -527,6 +591,7 @@ export interface Database {
           unsubscribed_at?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       catalog_downloads: {
         Row: {
@@ -556,6 +621,7 @@ export interface Database {
           user_agent?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       site_config: {
         Row: {
@@ -564,6 +630,7 @@ export interface Database {
           value: string | null;
           value_json: Json | null;
           description: string | null;
+          is_public: boolean;
           updated_at: string;
         };
         Insert: {
@@ -572,6 +639,7 @@ export interface Database {
           value?: string | null;
           value_json?: Json | null;
           description?: string | null;
+          is_public?: boolean;
           updated_at?: string;
         };
         Update: {
@@ -580,8 +648,10 @@ export interface Database {
           value?: string | null;
           value_json?: Json | null;
           description?: string | null;
+          is_public?: boolean;
           updated_at?: string;
         };
+        Relationships: [];
       };
       news: {
         Row: {
@@ -623,6 +693,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       blog_posts: {
         Row: {
@@ -670,11 +741,38 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
     };
-    Views: {};
-    Functions: {};
+    Views: {
+      v_leads_with_downloads: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          phone: string | null;
+          company: string;
+          accepts_marketing: boolean;
+          source: string;
+          created_at: string;
+          total_downloads: number | null;
+          downloaded_documents: string[] | null;
+        };
+        Relationships: [];
+      };
+    };
+    Functions: {
+      increment_download_count: {
+        Args: { catalog_id: string };
+        Returns: undefined;
+      };
+      set_updated_at: {
+        Args: Record<string, never>;
+        Returns: undefined;
+      };
+    };
     Enums: {};
+    CompositeTypes: {};
   };
 }
 

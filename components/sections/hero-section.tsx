@@ -5,13 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { HERO_CONTENT } from '@/constants/content';
+import { ASSETS } from '@/constants/assets';
 
 export function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
       <div className="relative mx-auto min-h-[580px] w-full max-w-[1800px] md:min-h-[680px] lg:min-h-[720px]">
         <Image
-          src="/images/hero-section.jpg"
+          src={ASSETS.hero}
           alt="Almacén de tornillería y componentes de fijación industrial"
           fill
           priority

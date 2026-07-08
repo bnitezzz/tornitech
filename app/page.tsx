@@ -1,18 +1,38 @@
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import {
-  HeroSection,
-  AboutSection,
-  WhyChooseUsSection,
-  ProductsSection,
-  SectorsSection,
-  StatsSection,
-  PartnersSection,
-  WorkProcessSection,
-  CatalogsSection,
-  ContactSection,
-} from '@/components/sections';
+import { SkipLink } from '@/components/layout/skip-link';
+import { HeroSection } from '@/components/sections/hero-section';
 import { SITE_CONFIG } from '@/constants/site';
+import { ASSETS } from '@/constants/assets';
+
+const AboutSection = dynamic(
+  () => import('@/components/sections/about-section').then((m) => ({ default: m.AboutSection }))
+);
+const WhyChooseUsSection = dynamic(
+  () => import('@/components/sections/why-choose-us-section').then((m) => ({ default: m.WhyChooseUsSection }))
+);
+const ProductsSection = dynamic(
+  () => import('@/components/sections/products-section').then((m) => ({ default: m.ProductsSection }))
+);
+const SectorsSection = dynamic(
+  () => import('@/components/sections/sectors-section').then((m) => ({ default: m.SectorsSection }))
+);
+const StatsSection = dynamic(
+  () => import('@/components/sections/stats-section').then((m) => ({ default: m.StatsSection }))
+);
+const WorkProcessSection = dynamic(
+  () => import('@/components/sections/work-process-section').then((m) => ({ default: m.WorkProcessSection }))
+);
+const PartnersSection = dynamic(
+  () => import('@/components/sections/partners-section').then((m) => ({ default: m.PartnersSection }))
+);
+const CatalogsSection = dynamic(
+  () => import('@/components/sections/catalogs-section').then((m) => ({ default: m.CatalogsSection }))
+);
+const ContactSection = dynamic(
+  () => import('@/components/sections/contact-section').then((m) => ({ default: m.ContactSection }))
+);
 
 const jsonLdOrganization = {
   '@context': 'https://schema.org',
@@ -20,7 +40,7 @@ const jsonLdOrganization = {
   name: SITE_CONFIG.name,
   description: SITE_CONFIG.description,
   url: SITE_CONFIG.url,
-  logo: `${SITE_CONFIG.url}/logo-tornitech.png`,
+  logo: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: SITE_CONFIG.phone,
@@ -50,7 +70,7 @@ const jsonLdLocalBusiness = {
   url: SITE_CONFIG.url,
   telephone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
-  image: `${SITE_CONFIG.url}/logo-tornitech.png`,
+  image: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
   address: {
     '@type': 'PostalAddress',
     streetAddress: SITE_CONFIG.address,
@@ -58,7 +78,6 @@ const jsonLdLocalBusiness = {
     addressCountry: 'VE',
   },
   openingHours: 'Mo-Fr 08:00-18:00, Sa 09:00-14:00',
-  priceRange: '$$',
 };
 
 export default function HomePage() {
@@ -70,8 +89,9 @@ export default function HomePage() {
           __html: JSON.stringify([jsonLdOrganization, jsonLdLocalBusiness]),
         }}
       />
+      <SkipLink />
       <Header />
-      <main>
+      <main id="contenido-principal">
         <HeroSection />
         <AboutSection />
         <WhyChooseUsSection />

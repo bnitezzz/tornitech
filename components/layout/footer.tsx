@@ -15,7 +15,8 @@ import {
 } from 'lucide-react';
 import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
 import { FOOTER_CATEGORIES } from '@/constants/content';
-import { getWhatsAppLink } from '@/lib/whatsapp';
+import { ASSETS } from '@/constants/assets';
+import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -31,7 +32,7 @@ export function Footer() {
           >
             <Link href="/" className="focus-ring-inverse relative mb-6 block h-[40px] w-[125px] rounded-sm" aria-label="Tornitech — Inicio">
               <Image
-                src="/logo-tornitech.png"
+                src={ASSETS.logo.negativo}
                 alt="Tornitech"
                 fill
                 sizes="125px"
@@ -151,15 +152,13 @@ export function Footer() {
             </address>
 
             <div className="mt-6">
-              <a
-                href={getWhatsAppLink('general_quote')}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppLink
+                messageType="general_quote"
                 className="btn-yellow focus-ring-inverse min-h-[46px] w-full px-6 py-3 text-sm font-semibold"
               >
                 <MessageCircle className="h-4 w-4" strokeWidth={1.75} />
                 WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </motion.div>
         </div>

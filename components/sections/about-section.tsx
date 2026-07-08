@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ShieldCheck } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/section-header';
 import { ABOUT_CONTENT } from '@/constants/content';
+import { ASSETS } from '@/constants/assets';
 
 export function AboutSection() {
   return (
@@ -82,7 +83,7 @@ export function AboutSection() {
           className="relative mt-14 h-[220px] w-full overflow-hidden rounded-[16px] sm:h-[280px] md:h-[320px]"
         >
           <Image
-            src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            src={ASSETS.about}
             alt="Componentes de fijación industrial en almacén"
             fill
             sizes="(max-width: 1320px) 100vw, 1320px"
