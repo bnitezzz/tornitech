@@ -6,29 +6,36 @@ import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck, ArrowRight } fr
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import { submitContact } from '@/actions/contact';
 import { contactFormSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
 import { CONTACT_CONTENT } from '@/constants/content';
+import type { WhatsAppMessageType } from '@/lib/whatsapp';
 
-const helpOptions = [
+type HelpOption =
+  | { title: string; description: string; kind: 'whatsapp'; messageType: WhatsAppMessageType }
+  | { title: string; description: string; kind: 'link'; href: string };
+
+const helpOptions: HelpOption[] = [
   {
     title: CONTACT_CONTENT.helpOptions[0].title,
     description: CONTACT_CONTENT.helpOptions[0].description,
-    href: `https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo solicitar una cotización.')}`,
-    external: true,
+    kind: 'whatsapp',
+    messageType: 'general_quote',
   },
   {
     title: CONTACT_CONTENT.helpOptions[1].title,
     description: CONTACT_CONTENT.helpOptions[1].description,
+    kind: 'link',
     href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`,
-    external: false,
   },
   {
     title: CONTACT_CONTENT.helpOptions[2].title,
     description: CONTACT_CONTENT.helpOptions[2].description,
+    kind: 'link',
     href: `mailto:${SITE_CONFIG.email}?subject=${encodeURIComponent('Programa de distribuidores')}`,
-    external: false,
   },
 ];
 
@@ -44,6 +51,7 @@ export function ContactSection() {
     company: '',
     subject: '',
     message: '',
+    accepts_marketing: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -64,25 +72,37 @@ export function ContactSection() {
     }
 
     const name = `${formData.firstName} ${formData.lastName}`.trim();
-    const result = contactFormSchema.safeParse({ ...formData, name });
+    const payload = {
+      name,
+      email: formData.email,
+      phone: formData.phone || undefined,
+      company: formData.company || undefined,
+      subject: formData.subject || undefined,
+      message: formData.message,
+      accepts_marketing: formData.accepts_marketing,
+    };
+    const result = contactFormSchema.safeParse(payload);
     if (!result.success) {
       result.error.errors.forEach((err) => {
         fieldErrors[err.path[0] as string] = err.message;
       });
     }
 
-    if (Object.keys(fieldErrors).length > 0) {
+    if (Object.keys(fieldErrors).length > 0 || !result.success) {
       setErrors(fieldErrors);
       return;
     }
 
     setIsSubmitting(true);
-    const response = await submitContact(result.data as NonNullable<typeof result.data>);
+    const response = await submitContact(result.data);
     setIsSubmitting(false);
 
     if (response.success) {
       setSuccess(true);
-      setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', subject: '', message: '' });
+      setFormData({
+        firstName: '', lastName: '', email: '', phone: '', company: '',
+        subject: '', message: '', accepts_marketing: false,
+      });
       setTimeout(() => setSuccess(false), 5000);
     } else {
       setErrors({ form: response.message });
@@ -192,6 +212,19 @@ export function ContactSection() {
                   {errors.message && <p id="message-error" role="alert" className="text-xs text-red-500">{errors.message}</p>}
                 </div>
 
+                <div className="flex items-start gap-2 pt-1">
+                  <Checkbox
+                    id="accepts-marketing"
+                    checked={formData.accepts_marketing}
+                    onCheckedChange={(checked) =>
+                      setFormData((p) => ({ ...p, accepts_marketing: checked === true }))
+                    }
+                  />
+                  <Label htmlFor="accepts-marketing" className="cursor-pointer text-sm leading-tight text-[#6B7280]">
+                    Acepto recibir información comercial y promociones de {SITE_CONFIG.name}.
+                  </Label>
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -258,24 +291,40 @@ export function ContactSection() {
             </p>
 
             <div className="mt-8">
-              {helpOptions.map((option) => (
-                <a
-                  key={option.title}
-                  href={option.href}
-                  target={option.external ? '_blank' : undefined}
-                  rel={option.external ? 'noopener noreferrer' : undefined}
-                  className="focus-ring group -mx-4 flex items-center justify-between gap-4 rounded-[12px] border-b border-[#E5E7EB] px-4 py-5 transition-all duration-300 last:border-b-0 hover:border-b-transparent hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]"
-                >
-                  <div>
-                    <p className="font-semibold text-[#1F2937]">{option.title}</p>
-                    <p className="mt-1 text-sm text-[#6B7280]">{option.description}</p>
-                  </div>
-                  <ArrowRight
-                    className="h-5 w-5 shrink-0 text-[#316d92] transition-transform duration-300 group-hover:translate-x-1"
-                    strokeWidth={1.75}
-                  />
-                </a>
-              ))}
+              {helpOptions.map((option) => {
+                const className =
+                  'focus-ring group -mx-4 flex items-center justify-between gap-4 rounded-[12px] border-b border-[#E5E7EB] px-4 py-5 transition-all duration-300 last:border-b-0 hover:border-b-transparent hover:bg-white hover:shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)]';
+                const content = (
+                  <>
+                    <div>
+                      <p className="font-semibold text-[#1F2937]">{option.title}</p>
+                      <p className="mt-1 text-sm text-[#6B7280]">{option.description}</p>
+                    </div>
+                    <ArrowRight
+                      className="h-5 w-5 shrink-0 text-[#316d92] transition-transform duration-300 group-hover:translate-x-1"
+                      strokeWidth={1.75}
+                    />
+                  </>
+                );
+
+                if (option.kind === 'whatsapp') {
+                  return (
+                    <WhatsAppLink
+                      key={option.title}
+                      messageType={option.messageType}
+                      className={className}
+                    >
+                      {content}
+                    </WhatsAppLink>
+                  );
+                }
+
+                return (
+                  <a key={option.title} href={option.href} className={className}>
+                    {content}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="mt-10 border-t border-[#E5E7EB] pt-8">

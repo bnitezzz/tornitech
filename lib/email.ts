@@ -1,0 +1,139 @@
+import { SITE_CONFIG } from '@/constants/site';
+
+type EmailPayload = {
+  to: string | string[];
+  subject: string;
+  html: string;
+  replyTo?: string;
+};
+
+function getEmailConfig() {
+  return {
+    apiKey: process.env.RESEND_API_KEY?.trim(),
+    from: process.env.EMAIL_FROM?.trim() || `${SITE_CONFIG.name} <noreply@${new URL(SITE_CONFIG.url).hostname}>`,
+    teamInbox: process.env.EMAIL_TO?.trim() || SITE_CONFIG.email,
+  };
+}
+
+/** Sends an email via Resend HTTP API. Skips silently when RESEND_API_KEY is not set. */
+export async function sendEmail(payload: EmailPayload): Promise<boolean> {
+  const { apiKey, from } = getEmailConfig();
+  if (!apiKey) {
+    if (process.env.NODE_ENV === 'development') {
+      console.info('[email] Skipped (RESEND_API_KEY not set):', payload.subject);
+    }
+    return false;
+  }
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from,
+        to: Array.isArray(payload.to) ? payload.to : [payload.to],
+        subject: payload.subject,
+        html: payload.html,
+        reply_to: payload.replyTo,
+      }),
+    });
+
+    if (!response.ok) {
+      const body = await response.text();
+      console.error('[email] Resend error:', response.status, body);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('[email] Failed to send:', error);
+    return false;
+  }
+}
+
+export function getTeamInbox(): string {
+  return getEmailConfig().teamInbox;
+}
+
+export function buildContactNotificationEmail(data: {
+  name: string;
+  email: string;
+  phone?: string;
+  company?: string;
+  subject?: string;
+  message: string;
+  acceptsMarketing: boolean;
+}): EmailPayload {
+  return {
+    to: getTeamInbox(),
+    subject: `[Contacto] ${data.subject || 'Nueva consulta'} — ${data.name}`,
+    replyTo: data.email,
+    html: `
+      <h2>Nuevo mensaje de contacto</h2>
+      <p><strong>Nombre:</strong> ${escapeHtml(data.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      ${data.phone ? `<p><strong>Teléfono:</strong> ${escapeHtml(data.phone)}</p>` : ''}
+      ${data.company ? `<p><strong>Empresa:</strong> ${escapeHtml(data.company)}</p>` : ''}
+      ${data.subject ? `<p><strong>Asunto:</strong> ${escapeHtml(data.subject)}</p>` : ''}
+      <p><strong>Acepta promociones:</strong> ${data.acceptsMarketing ? 'Sí' : 'No'}</p>
+      <hr />
+      <p><strong>Mensaje:</strong></p>
+      <p>${escapeHtml(data.message).replace(/\n/g, '<br />')}</p>
+    `,
+  };
+}
+
+export function buildContactConfirmationEmail(data: {
+  name: string;
+  email: string;
+}): EmailPayload {
+  return {
+    to: data.email,
+    subject: `Recibimos su mensaje — ${SITE_CONFIG.name}`,
+    html: `
+      <p>Estimado/a ${escapeHtml(data.name)},</p>
+      <p>Hemos recibido su consulta. Nuestro equipo la revisará y responderá en horario comercial.</p>
+      <p>${escapeHtml(SITE_CONFIG.responseTime)}</p>
+      <p>Atentamente,<br />${escapeHtml(SITE_CONFIG.name)}</p>
+    `,
+  };
+}
+
+export function buildCatalogDownloadNotificationEmail(data: {
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+  city?: string;
+  sector?: string;
+  catalogTitle: string;
+  acceptsMarketing: boolean;
+}): EmailPayload {
+  return {
+    to: getTeamInbox(),
+    subject: `[Catálogo] Descarga — ${data.catalogTitle} — ${data.name}`,
+    replyTo: data.email,
+    html: `
+      <h2>Descarga de catálogo registrada</h2>
+      <p><strong>Catálogo:</strong> ${escapeHtml(data.catalogTitle)}</p>
+      <p><strong>Nombre:</strong> ${escapeHtml(data.name)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Empresa:</strong> ${escapeHtml(data.company)}</p>
+      ${data.phone ? `<p><strong>Teléfono:</strong> ${escapeHtml(data.phone)}</p>` : ''}
+      ${data.city ? `<p><strong>Ciudad:</strong> ${escapeHtml(data.city)}</p>` : ''}
+      ${data.sector ? `<p><strong>Sector:</strong> ${escapeHtml(data.sector)}</p>` : ''}
+      <p><strong>Acepta promociones:</strong> ${data.acceptsMarketing ? 'Sí' : 'No'}</p>
+    `,
+  };
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}

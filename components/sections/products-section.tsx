@@ -5,18 +5,20 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import { SectionHeader } from '@/components/ui/section-header';
+import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import { useProducts } from '@/hooks/use-supabase';
 import { DEFAULT_PRODUCTS, PRODUCTS_CONTENT } from '@/constants/content';
-import { SITE_CONFIG } from '@/constants/site';
+import type { ProductItem } from '@/types/product';
 
 const INITIAL_VISIBLE_COUNT = 4;
 
-type ProductItem = (typeof DEFAULT_PRODUCTS)[number] & {
-  applications?: string;
-  benefits?: string;
-  sectors?: string;
-  specs?: string;
-};
+function getProductImage(product: ProductItem): string {
+  return (
+    product.image ||
+    product.image_url ||
+    'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600'
+  );
+}
 
 export function ProductsSection() {
   const [showAll, setShowAll] = useState(false);
@@ -24,20 +26,6 @@ export function ProductsSection() {
   const displayProducts: ProductItem[] = products.length > 0 ? products : DEFAULT_PRODUCTS;
   const visibleProducts = showAll ? displayProducts : displayProducts.slice(0, INITIAL_VISIBLE_COUNT);
   const hasMore = displayProducts.length > INITIAL_VISIBLE_COUNT;
-
-  const buildWhatsAppLink = (product: ProductItem) => {
-    const message = `Hola.
-
-Deseo cotizar el siguiente producto.
-
-Producto: ${product.name}
-Código: ${product.sku}
-Cantidad:
-Empresa:
-
-Gracias.`;
-    return `https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
-  };
 
   return (
     <section id="productos" className="w-full bg-[#f8fafc] py-16 md:py-24">
@@ -68,7 +56,7 @@ Gracias.`;
                     <Image
                       className="img-zoom object-cover"
                       alt={product.name}
-                      src={product.image || 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600'}
+                      src={getProductImage(product)}
                       fill
                       sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 280px"
                     />
@@ -82,9 +70,9 @@ Gracias.`;
                       {product.name}
                     </h3>
 
-                    {(product as ProductItem).specs && (
+                    {product.specs && (
                       <p className="mt-2 text-[11px] font-medium text-[#6b7280] line-clamp-1">
-                        {(product as ProductItem).specs}
+                        {product.specs}
                       </p>
                     )}
 
@@ -92,29 +80,28 @@ Gracias.`;
                       {product.short_description || product.description}
                     </p>
 
-                    {(product as ProductItem).applications && (
+                    {product.applications && (
                       <p className="mt-2 text-[11px] leading-snug text-[#6b7280] line-clamp-2">
                         <span className="font-semibold text-[#3c4456]/60">Aplicación: </span>
-                        {(product as ProductItem).applications}
+                        {product.applications}
                       </p>
                     )}
 
-                    {(product as ProductItem).sectors && (
+                    {product.sectors && (
                       <p className="mt-1 text-[11px] text-[#6b7280] line-clamp-1">
                         <span className="font-semibold text-[#3c4456]/60">Sectores: </span>
-                        {(product as ProductItem).sectors}
+                        {product.sectors}
                       </p>
                     )}
 
                     <div className="mt-auto flex justify-end pt-4">
-                      <a
-                        href={buildWhatsAppLink(product)}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <WhatsAppLink
+                        messageType="product_quote"
+                        product={product}
                         className="btn-yellow focus-ring min-w-[100px] px-5 py-2 text-sm"
                       >
                         Cotizar
-                      </a>
+                      </WhatsAppLink>
                     </div>
                   </div>
                 </div>
@@ -141,14 +128,12 @@ Gracias.`;
         )}
 
         <div className="mt-8 flex w-full justify-center">
-          <a
-            href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo consultar el catálogo completo de productos.')}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <WhatsAppLink
+            messageType="full_catalog"
             className="focus-ring text-base font-medium text-[#316d92] underline-offset-4 transition-opacity hover:underline hover:opacity-80"
           >
             Consultar catálogo completo
-          </a>
+          </WhatsAppLink>
         </div>
       </div>
     </section>

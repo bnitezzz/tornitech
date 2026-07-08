@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
 import { FOOTER_CATEGORIES } from '@/constants/content';
+import { getWhatsAppLink } from '@/lib/whatsapp';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -151,7 +152,7 @@ export function Footer() {
 
             <div className="mt-6">
               <a
-                href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}`}
+                href={getWhatsAppLink('general_quote')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-yellow focus-ring-inverse min-h-[46px] w-full px-6 py-3 text-sm font-semibold"

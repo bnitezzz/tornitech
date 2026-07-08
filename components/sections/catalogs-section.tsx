@@ -10,9 +10,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useCatalogs } from '@/hooks/use-supabase';
 import { submitCatalogDownload } from '@/actions/contact';
 import { catalogDownloadSchema } from '@/types';
-import { SITE_CONFIG } from '@/constants/site';
 import { CATALOGS_CONTENT, DEFAULT_CATALOGS } from '@/constants/content';
 import { SectionHeader } from '@/components/ui/section-header';
+import { WhatsAppLink } from '@/components/ui/whatsapp-link';
+import type { CatalogItem } from '@/types/catalog';
 
 const catalogPreviews = [
   {
@@ -43,7 +44,7 @@ export function CatalogsSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const openModal = (catalog: any) => {
+  const openModal = (catalog: CatalogItem) => {
     setSelectedCatalogId(catalog.id);
     setSelectedCatalogTitle(catalog.title);
     setSelectedCatalogUrl(catalog.file_url);
@@ -84,12 +85,13 @@ export function CatalogsSection() {
       ...result.data,
       catalogId: selectedCatalogId,
       catalogTitle: selectedCatalogTitle,
+      catalogFileUrl: selectedCatalogUrl,
     });
     setIsSubmitting(false);
-    if (response.success) {
+    if (response.success && response.data?.downloadUrl) {
       setSuccess(true);
       const link = document.createElement('a');
-      link.href = selectedCatalogUrl;
+      link.href = response.data.downloadUrl;
       link.download = `${selectedCatalogTitle}.pdf`;
       document.body.appendChild(link);
       link.click();
@@ -138,14 +140,12 @@ export function CatalogsSection() {
           aria-label="Acciones del catálogo"
           className="mt-14 flex w-full max-w-[640px] flex-col items-stretch gap-4 sm:flex-row sm:justify-center"
         >
-          <a
-            href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo consultar el catálogo de productos.')}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <WhatsAppLink
+            messageType="catalog_inquiry"
             className="btn-navy focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base sm:flex-1"
           >
             Consultar catálogo
-          </a>
+          </WhatsAppLink>
           <button
             onClick={() => displayCatalogs[0] && openModal(displayCatalogs[0])}
             className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-base sm:flex-1"
@@ -215,7 +215,7 @@ export function CatalogsSection() {
                           id={`dl-${field.id}`}
                           name={field.id}
                           type={field.type || 'text'}
-                          value={(formData as any)[field.id]}
+                          value={formData[field.id as keyof typeof formData] as string}
                           onChange={(e) => { setFormData(p => ({ ...p, [field.id]: e.target.value })); setErrors(p => ({ ...p, [field.id]: '' })); }}
                           placeholder={field.placeholder}
                           required={field.required}
@@ -236,7 +236,7 @@ export function CatalogsSection() {
                           <Input
                             id={`dl-${field.id}`}
                             name={field.id}
-                            value={(formData as any)[field.id]}
+                            value={formData[field.id as keyof typeof formData] as string}
                             onChange={(e) => setFormData(p => ({ ...p, [field.id]: e.target.value }))}
                             placeholder={field.placeholder}
                             className="border-[#316d92]/30"

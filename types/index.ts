@@ -7,6 +7,7 @@ export const contactFormSchema = z.object({
   company: z.string().optional(),
   subject: z.string().optional(),
   message: z.string().min(10, 'El mensaje debe tener al menos 10 caracteres'),
+  accepts_marketing: z.boolean().optional().default(false),
 });
 
 export const catalogDownloadSchema = z.object({

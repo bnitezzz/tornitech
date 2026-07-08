@@ -1,6 +1,14 @@
-# CHANGELOG
+## 2026-07-08 — Integración de lógica de negocio
 
-## 2026-07-07 — Transformación corporativa integral
+### Formularios y backend
+- Contacto: guarda en `contact_submissions`, crea lead, envía emails (equipo + confirmación), suscripción opcional a marketing.
+- Catálogo PDF: crea lead, registra descarga (UUID válido), retorna `downloadUrl`, email al equipo.
+- Servicios centralizados: `lib/leads.ts`, `lib/email.ts` (Resend), `lib/whatsapp.ts`.
+- Componente reutilizable `WhatsAppLink` con mensajes dinámicos por contexto.
+- Supabase degrada gracefully si faltan variables de entorno.
+- Tipos explícitos en hooks (`ProductItem`, `CatalogItem`) — eliminado `any`.
+- Añadidos `AGENTS.md` y `.env.example`.
+
 
 ### Contenido y copywriting
 - Centralizado todo el contenido del sitio en `constants/content.ts`.
