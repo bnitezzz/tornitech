@@ -47,7 +47,7 @@ export function StatsSection() {
         ref={ref}
         className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-6 py-8 shadow-[0_12px_40px_-12px_rgba(5,32,66,0.18)] sm:px-10 sm:py-10"
       >
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-8 lg:gap-x-12">
+        <dl className="grid grid-cols-2 items-center gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-10">
           {SITE_STATS.map((stat, index) => (
             <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}

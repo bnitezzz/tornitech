@@ -6,6 +6,9 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { ABOUT_CONTENT } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 
+const cardClassName =
+  'rounded-xl border border-slate-100 bg-white px-5 py-6 sm:px-6 sm:py-7';
+
 export function AboutSection() {
   return (
     <section id="nosotros" className="section-padding relative w-full bg-white">
@@ -21,35 +24,40 @@ export function AboutSection() {
           {ABOUT_CONTENT.intro}
         </motion.p>
 
-        {/* Mission + Vision — unified minimal block */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-10 overflow-hidden rounded-2xl border border-slate-100"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="border-b border-slate-100 px-6 py-7 sm:px-8 sm:py-8 lg:border-b-0 lg:border-r">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
-                {ABOUT_CONTENT.mission.title}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
-                {ABOUT_CONTENT.mission.text}
-              </p>
-            </div>
-            <div className="bg-[#f8fafc] px-6 py-7 sm:px-8 sm:py-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
-                {ABOUT_CONTENT.vision.title}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
-                {ABOUT_CONTENT.vision.text}
-              </p>
-            </div>
-          </div>
-        </motion.div>
+        {/* Mission + Vision — separated, same style */}
+        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-5">
+          <motion.article
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className={cardClassName}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
+              {ABOUT_CONTENT.mission.title}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
+              {ABOUT_CONTENT.mission.text}
+            </p>
+          </motion.article>
 
-        {/* Pillars — clean grid */}
-        <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-slate-100 bg-slate-100 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.article
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.06 }}
+            className={cardClassName}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
+              {ABOUT_CONTENT.vision.title}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
+              {ABOUT_CONTENT.vision.text}
+            </p>
+          </motion.article>
+        </div>
+
+        {/* Pillars — separated, same style */}
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {ABOUT_CONTENT.pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
@@ -57,7 +65,7 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.06 }}
-              className="flex flex-col bg-white px-5 py-5 sm:px-6 sm:py-6"
+              className={cardClassName}
             >
               <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-[#316d92]/[0.06]">
                 <pillar.icon className="h-[18px] w-[18px] text-[#316d92]" strokeWidth={1.75} />

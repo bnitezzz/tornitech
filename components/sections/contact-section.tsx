@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck } from 'lucide-react';
+import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,6 +12,7 @@ import { submitContact } from '@/actions/contact';
 import { contactFormSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
 import { CONTACT_CONTENT } from '@/constants/content';
+import type { WhatsAppMessageType } from '@/lib/whatsapp';
 
 const fieldClassName =
   'h-[48px] rounded-lg border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
@@ -21,6 +22,24 @@ const contactInfo = [
   { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
   { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
   { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },
+];
+
+const whatsappQuestions: { title: string; description: string; messageType: WhatsAppMessageType }[] = [
+  {
+    title: CONTACT_CONTENT.helpOptions[0].title,
+    description: CONTACT_CONTENT.helpOptions[0].description,
+    messageType: 'general_quote',
+  },
+  {
+    title: CONTACT_CONTENT.helpOptions[1].title,
+    description: CONTACT_CONTENT.helpOptions[1].description,
+    messageType: 'general_quote',
+  },
+  {
+    title: CONTACT_CONTENT.helpOptions[2].title,
+    description: CONTACT_CONTENT.helpOptions[2].description,
+    messageType: 'distributor',
+  },
 ];
 
 export function ContactSection() {
@@ -93,7 +112,7 @@ export function ContactSection() {
   return (
     <section id="contacto" className="section-padding w-full bg-white">
       <div className="section-container">
-        <div className="mx-auto max-w-[960px]">
+        <div className="mx-auto max-w-[1040px]">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,8 +126,8 @@ export function ContactSection() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-10">
-            {/* Form — primary focus */}
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10">
+            {/* Form */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -234,43 +253,69 @@ export function ContactSection() {
               </form>
             </motion.div>
 
-            {/* Compact contact sidebar */}
+            {/* Sidebar — contact info + WhatsApp questions */}
             <motion.aside
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.08 }}
-              className="flex flex-col gap-4 lg:pt-2"
+              className="flex flex-col gap-6"
             >
-              <div className="space-y-3">
-                {contactInfo.map((item) => {
-                  const inner = (
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#316d92]/[0.06]">
-                        <item.icon className="h-4 w-4 text-[#316d92]" strokeWidth={1.75} />
+              <div className="rounded-xl border border-slate-100 bg-white p-5">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#052042]">
+                  Información de contacto
+                </h3>
+                <div className="mt-4 space-y-4">
+                  {contactInfo.map((item) => {
+                    const inner = (
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#316d92]/[0.06]">
+                          <item.icon className="h-4 w-4 text-[#316d92]" strokeWidth={1.75} />
+                        </div>
+                        <div className="min-w-0 pt-0.5">
+                          <p className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">{item.label}</p>
+                          <p className="mt-0.5 text-sm font-medium leading-snug text-[#1F2937]">{item.value}</p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-[10px] font-semibold uppercase tracking-wider text-[#6B7280]">{item.label}</p>
-                        <p className="mt-0.5 text-sm font-medium leading-snug text-[#1F2937]">{item.value}</p>
-                      </div>
-                    </div>
-                  );
-                  return item.href ? (
-                    <a key={item.label} href={item.href} className="focus-ring block rounded-lg transition-opacity hover:opacity-80">
-                      {inner}
-                    </a>
-                  ) : (
-                    <div key={item.label}>{inner}</div>
-                  );
-                })}
+                    );
+                    return item.href ? (
+                      <a key={item.label} href={item.href} className="focus-ring block rounded-lg transition-opacity hover:opacity-80">
+                        {inner}
+                      </a>
+                    ) : (
+                      <div key={item.label}>{inner}</div>
+                    );
+                  })}
+                </div>
               </div>
 
-              <WhatsAppLink
-                messageType="general_quote"
-                className="btn-navy focus-ring mt-2 w-full px-5 py-2.5 text-sm"
-              >
-                WhatsApp directo
-              </WhatsAppLink>
+              <div className="rounded-xl border border-slate-100 bg-white p-5">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-[#052042]">
+                  Consultas rápidas
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-[#6b7280]">
+                  Seleccione una opción para escribirnos por WhatsApp.
+                </p>
+                <ul className="mt-4 space-y-2">
+                  {whatsappQuestions.map((item) => (
+                    <li key={item.title}>
+                      <WhatsAppLink
+                        messageType={item.messageType}
+                        className="focus-ring group flex w-full items-center justify-between gap-3 rounded-lg border border-slate-100 px-3.5 py-3 text-left transition-all duration-200 hover:border-[#316d92]/25 hover:bg-[#316d92]/[0.03]"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-[#052042]">{item.title}</p>
+                          <p className="mt-0.5 text-xs leading-snug text-[#6b7280]">{item.description}</p>
+                        </div>
+                        <ArrowRight
+                          className="h-4 w-4 shrink-0 text-[#316d92] transition-transform duration-200 group-hover:translate-x-0.5"
+                          strokeWidth={1.75}
+                        />
+                      </WhatsAppLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.aside>
           </div>
         </div>
