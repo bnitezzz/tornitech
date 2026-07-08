@@ -1,22 +1,20 @@
 /**
- * Rutas centralizadas de assets en /public.
- * Actualizar aquí cuando se agreguen o renombren archivos.
+ * Rutas de assets en /public — deben coincidir con los archivos subidos.
  */
 export const ASSETS = {
   logo: {
-    /** Fondo oscuro / gradiente (header, footer) */
-    negativo: '/logo-tornitech-negativo.png',
-    /** Fondo claro */
-    positivo: '/images/logo-tornitech-positivo.png',
-    /** Open Graph y metadata */
+    /** Logo principal (header, footer) */
+    primary: '/logo-tornitech.png',
+    /** Open Graph / metadata */
     color: '/images/logo-tornitech-color.png',
+    positivo: '/images/logo-tornitech-positivo.png',
   },
   isotipo: {
     color: '/images/isotipo-color.png',
     negativo: '/images/isotipo-negativo.png',
     positivo: '/images/isotipo-positivo.png',
   },
-  hero: '/images/img-catalogo.png',
+  hero: '/images/hero-section.jpg',
   about: '/images/img-catalogo.png',
   icons: {
     venta: '/icon/icon-venta.png',
@@ -41,3 +39,8 @@ export const ASSETS = {
     panamaFasteners: '/images/panamafasteners.jpeg',
   },
 } as const;
+
+/** Verifica que una ruta pública exista en el filesystem (solo server/build checks). */
+export function isLocalAsset(path: string): boolean {
+  return path.startsWith('/') && !path.startsWith('http');
+}

@@ -32,7 +32,7 @@ export function Footer() {
           >
             <Link href="/" className="focus-ring-inverse relative mb-6 block h-[40px] w-[125px] rounded-sm" aria-label="Tornitech — Inicio">
               <Image
-                src={ASSETS.logo.negativo}
+                src={ASSETS.logo.primary}
                 alt="Tornitech"
                 fill
                 sizes="125px"

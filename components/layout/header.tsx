@@ -113,7 +113,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="focus-ring-inverse relative h-[34px] w-[106px] shrink-0 rounded-sm sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]" aria-label="Tornitech — Inicio">
             <Image
-              src={ASSETS.logo.negativo}
+              src={ASSETS.logo.primary}
               alt="Tornitech"
               fill
               priority
