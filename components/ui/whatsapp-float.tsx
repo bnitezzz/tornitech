@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -11,15 +13,32 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppFloat() {
+  const [pulse, setPulse] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPulse(true);
+      setTimeout(() => setPulse(false), 800);
+    }, 15_000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <a
-      href={getWhatsAppLink('general_quote')}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Contactar por WhatsApp"
-      className="focus-ring fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] active:scale-95 sm:bottom-6 sm:right-6"
-    >
-      <WhatsAppIcon className="h-7 w-7" />
-    </a>
+    <div className="group fixed bottom-5 right-5 z-50 sm:bottom-6 sm:right-6">
+      <span className="pointer-events-none absolute -top-10 right-0 whitespace-nowrap rounded-md bg-[#052042] px-3 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+        ¿Necesita ayuda?
+      </span>
+      <motion.a
+        href={getWhatsAppLink('general_quote')}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+        animate={pulse ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="focus-ring flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] transition-shadow hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)]"
+      >
+        <WhatsAppIcon className="h-7 w-7" />
+      </motion.a>
+    </div>
   );
 }

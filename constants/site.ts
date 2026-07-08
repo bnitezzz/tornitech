@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  name: 'CCS Tornitech C.A.',
+  name: 'FORNITECH INDUSTRIAL',
   tagline: 'Tornillería y fijación industrial',
   description:
     'Distribución de tornillería, anclajes y sistemas de fijación para la industria venezolana. Referencias bajo normas DIN, ISO y ASTM con asesoría técnica.',

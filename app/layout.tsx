@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Sora } from 'next/font/google';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
+import { AppProviders } from '@/components/providers/app-providers';
 
 const sora = Sora({
   subsets: ['latin'],
@@ -81,7 +82,7 @@ export default function RootLayout({
         <link rel="icon" href={ASSETS.isotipo.color} sizes="any" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

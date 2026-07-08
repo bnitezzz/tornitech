@@ -256,6 +256,10 @@ export interface Database {
           is_active: boolean;
           applications: string | null;
           sectors: string | null;
+          din: string | null;
+          astm: string | null;
+          stock: number;
+          pdf_url: string | null;
           display_order: number;
           created_at: string;
           updated_at: string;
@@ -288,7 +292,11 @@ export interface Database {
           display_order?: number;
           created_at?: string;
           updated_at?: string;
-        };
+                  din?: string | null;
+          astm?: string | null;
+          stock?: number;
+          pdf_url?: string | null;
+};
         Update: {
           id?: string;
           sku?: string;
@@ -317,7 +325,11 @@ export interface Database {
           display_order?: number;
           created_at?: string;
           updated_at?: string;
-        };
+                  din?: string | null;
+          astm?: string | null;
+          stock?: number;
+          pdf_url?: string | null;
+};
         Relationships: [];
       };
       catalogs: {
@@ -476,6 +488,112 @@ export interface Database {
         };
         Relationships: [];
       };
+      faqs: {
+        Row: {
+          id: string;
+          question: string;
+          answer: string;
+          display_order: number;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          question: string;
+          answer: string;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          question?: string;
+          answer?: string;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      testimonials: {
+        Row: {
+          id: string;
+          author_name: string;
+          author_role: string | null;
+          company: string | null;
+          content: string;
+          rating: number;
+          avatar_url: string | null;
+          display_order: number;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          author_name: string;
+          author_role?: string | null;
+          company?: string | null;
+          content: string;
+          rating?: number;
+          avatar_url?: string | null;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          author_name?: string;
+          author_role?: string | null;
+          company?: string | null;
+          content?: string;
+          rating?: number;
+          avatar_url?: string | null;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      clients: {
+        Row: {
+          id: string;
+          name: string;
+          logo_url: string | null;
+          website_url: string | null;
+          display_order: number;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          logo_url?: string | null;
+          website_url?: string | null;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          logo_url?: string | null;
+          website_url?: string | null;
+          display_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+
       contact_submissions: {
         Row: {
           id: string;
@@ -771,7 +889,7 @@ export interface Database {
         Returns: undefined;
       };
     };
-    Enums: {};
+Enums: {};
     CompositeTypes: {};
   };
 }

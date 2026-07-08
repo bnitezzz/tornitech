@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WHY_CHOOSE_US } from '@/constants/content';
+import { useConfigSection } from '@/hooks/use-configuracion';
+import type { SectionHeading } from '@/types/configuracion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,12 +17,17 @@ const itemVariants = {
 };
 
 export function WhyChooseUsSection() {
+  const config = useConfigSection<SectionHeading>('why_choose_us', {
+    heading: WHY_CHOOSE_US.heading,
+    subheading: WHY_CHOOSE_US.subheading,
+  });
+
   return (
     <section className="section-padding w-full bg-white">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
-          heading={WHY_CHOOSE_US.heading}
-          subheading={WHY_CHOOSE_US.subheading}
+          heading={config.heading}
+          subheading={config.subheading}
           className="mb-8 md:mb-10"
         />
 
