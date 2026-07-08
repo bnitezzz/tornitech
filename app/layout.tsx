@@ -8,12 +8,13 @@ const sora = Sora({
   subsets: ['latin'],
   weight: ['400', '600', '700', '800'],
   variable: '--font-sora',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    default: `${SITE_CONFIG.name} | ${SITE_CONFIG.seo.title}`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.seo.description,
@@ -31,22 +32,22 @@ export const metadata: Metadata = {
     locale: SITE_CONFIG.locale,
     url: '/',
     siteName: SITE_CONFIG.name,
-    title: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.seo.title}`,
     description: SITE_CONFIG.seo.description,
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/logo-tornitech.png',
         width: 1200,
         height: 630,
-        alt: `${SITE_CONFIG.name} - Tornillería y Fijación`,
+        alt: `${SITE_CONFIG.name} — Tornillería y fijación industrial`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_CONFIG.name} | Tornillería y Fijación Industrial`,
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.seo.title}`,
     description: SITE_CONFIG.seo.description,
-    images: ['/og-image.jpg'],
+    images: ['/logo-tornitech.png'],
   },
   robots: {
     index: true,
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
       'es-VE': '/',
     },
   },
-  themeColor: '#1e40af',
+  themeColor: '#052042',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 };
 
@@ -75,10 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={sora.variable}>
+    <html lang="es-VE" className={sora.variable}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/logo-tornitech.png" sizes="any" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}

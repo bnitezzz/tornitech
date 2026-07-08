@@ -149,4 +149,37 @@
     -webkit-backdrop-filter: blur(7.5px) brightness(100%);
     box-shadow: 0px 1px 4px rgba(11,55,0,0.27), inset 0px 4px 5px rgba(255,255,255,0.16);
   }
+
+  /* Secondary CTA — navy outline for corporate actions */
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 rounded-[10px] border border-[#052042] bg-transparent font-medium text-[#052042]
+           transition-all duration-200 ease-out
+           hover:bg-[#052042] hover:text-white hover:shadow-[0_4px_12px_rgba(5,32,66,0.16)]
+           active:scale-[0.98]
+           disabled:pointer-events-none disabled:opacity-60;
+  }
+
+  /* Primary navy submit button */
+  .btn-navy-solid {
+    @apply inline-flex items-center justify-center gap-2 rounded-[8px] bg-[#052042] font-semibold text-white
+           transition-colors duration-300 ease-out
+           hover:bg-[#316d92]
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#316d92] focus-visible:ring-offset-2
+           disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  /* Consistent section container */
+  .section-container {
+    @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Body text scale */
+  .text-body {
+    @apply text-base leading-relaxed sm:text-lg;
+    color: rgba(60, 68, 86, 0.85);
+  }
+
+  .text-body-sm {
+    @apply text-sm leading-relaxed text-[#6b7280];
+  }
 }

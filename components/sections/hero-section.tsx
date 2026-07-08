@@ -3,85 +3,67 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
+import { HERO_CONTENT } from '@/constants/content';
 
 export function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
-      <div className="relative mx-auto min-h-[620px] w-full max-w-[1800px] md:min-h-[720px] lg:min-h-[760px]">
-        {/* Background industrial image */}
+      <div className="relative mx-auto min-h-[580px] w-full max-w-[1800px] md:min-h-[680px] lg:min-h-[720px]">
         <Image
           src="/images/hero-section.jpg"
-          alt="Tornillería industrial"
+          alt="Almacén de tornillería y componentes de fijación industrial"
           fill
           priority
           sizes="(max-width: 1800px) 100vw, 1800px"
           className="object-cover object-center"
         />
 
-        {/* Left-to-right gradient overlay */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(97.74deg, rgba(242,242,242,1) 3.72%, rgba(67,72,73,0) 72.53%)',
+              'linear-gradient(97.74deg, rgba(242,242,242,0.97) 8%, rgba(242,242,242,0.85) 35%, rgba(67,72,73,0) 72%)',
           }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto flex min-h-[620px] w-full max-w-[1440px] items-start px-4 pt-28 pb-16 sm:px-6 md:min-h-[720px] md:px-10 md:pt-36 lg:min-h-[760px] lg:px-[52px] lg:pt-[90px]">
-          {/* Glass card */}
+        <div className="relative z-10 mx-auto flex min-h-[580px] w-full max-w-[1440px] items-center px-4 py-28 sm:px-6 md:min-h-[680px] md:px-10 md:py-32 lg:min-h-[720px] lg:px-[52px]">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="mt-6 w-full max-w-[350px] rounded-[19px] border border-white/[0.12] p-4 sm:p-6 md:p-8 lg:px-[23px] lg:pt-[26px] lg:pb-[40px] sm:max-w-[420px] md:mt-10 md:max-w-[500px] lg:ml-[46px] lg:mt-[110px] lg:max-w-[622px]"
-            style={{
-              background:
-                'linear-gradient(140.57deg, rgba(255,255,255,0.063) 5.96%, rgba(255,255,255,0.012) 68.72%)',
-              boxShadow:
-                '0px 1px 4px rgba(15,23,42,0.18), inset 0px 4px 5px rgba(255,255,255,0.16)',
-              backdropFilter: 'blur(7.5px)',
-              WebkitBackdropFilter: 'blur(7.5px)',
-            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+            className="w-full max-w-[640px]"
           >
-            <div className="flex flex-col items-center text-center">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="w-full font-extrabold uppercase text-[#3c4456] text-[28px] leading-[1.18] tracking-wide sm:text-[32px] md:text-[36px] lg:text-[40px] lg:max-w-[612px]"
-              >
-                TORNILLERÍA Y SISTEMAS DE FIJACIÓN PARA LA INDUSTRIA
-              </motion.h1>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-[#316d92]">
+              Distribución industrial · Caracas, Venezuela
+            </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.35 }}
-                className="mt-4 max-w-[539px] text-base leading-[1.55] text-[#3c4456] sm:text-lg md:mt-5 md:text-xl lg:mt-[22px]"
-              >
-                Suministro especializado para sectores automotriz, metalmecánico, manufactura y construcción.
-              </motion.p>
+            <h1 className="font-extrabold leading-[1.12] tracking-tight text-[#052042] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px]">
+              {HERO_CONTENT.title}
+            </h1>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                className="mt-7 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:mt-[36px] lg:gap-[41px]"
+            <p className="mt-4 text-lg font-semibold leading-snug text-[#316d92] sm:text-xl md:text-2xl">
+              {HERO_CONTENT.subtitle}
+            </p>
+
+            <p className="mt-5 max-w-[560px] text-base leading-relaxed text-[#3c4456]/85 sm:text-lg">
+              {HERO_CONTENT.description}
+            </p>
+
+            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link
+                href="/#contacto"
+                className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base font-semibold sm:w-auto sm:min-w-[200px]"
               >
-                <Link
-                  href="/#contacto"
-                  className="btn-yellow focus-ring min-h-[46px] w-full px-4 py-3 text-center text-lg"
-                >
-                  Solicitar cotización
-                </Link>
-                <Link
-                  href="/#catalogos"
-                  className="btn-yellow focus-ring min-h-[46px] w-full px-4 py-3 text-center text-lg"
-                >
-                  Ver catálogo
-                </Link>
-              </motion.div>
+                {HERO_CONTENT.primaryCta}
+                <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
+              </Link>
+              <Link
+                href="/#catalogos"
+                className="btn-navy focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base sm:w-auto sm:min-w-[200px]"
+              >
+                {HERO_CONTENT.secondaryCta}
+              </Link>
             </div>
           </motion.div>
         </div>

@@ -7,27 +7,28 @@ import {
   Phone,
   Mail,
   MapPin,
+  Clock,
   Facebook,
   Linkedin,
   Instagram,
   MessageCircle,
 } from 'lucide-react';
 import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
+import { FOOTER_CATEGORIES } from '@/constants/content';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#052042] py-12">
-      <div className="container mx-auto px-4 max-w-[1170px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Company info */}
+    <footer className="w-full bg-[#052042] py-14 md:py-16">
+      <div className="section-container max-w-[1170px]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Link href="/" className="focus-ring-inverse relative mb-6 block h-[40px] w-[125px] rounded-sm" aria-label="Tornitech home">
+            <Link href="/" className="focus-ring-inverse relative mb-6 block h-[40px] w-[125px] rounded-sm" aria-label="Tornitech — Inicio">
               <Image
                 src="/logo-tornitech.png"
                 alt="Tornitech"
@@ -36,8 +37,8 @@ export function Footer() {
                 className="object-contain object-left"
               />
             </Link>
-            <p className="text-white/70 mb-6 leading-relaxed text-sm">
-              Distribuidor mayorista de tornillería, anclajes y sistemas de fijación para la industria.
+            <p className="mb-6 text-sm leading-relaxed text-white/70">
+              {SITE_CONFIG.description}
             </p>
             <div className="flex gap-3">
               {SITE_CONFIG.social.facebook && (
@@ -48,7 +49,7 @@ export function Footer() {
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="Facebook"
                 >
-                  <Facebook className="w-5 h-5" strokeWidth={1.75} />
+                  <Facebook className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
               {SITE_CONFIG.social.linkedin && (
@@ -59,7 +60,7 @@ export function Footer() {
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-5 h-5" strokeWidth={1.75} />
+                  <Linkedin className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
               {SITE_CONFIG.social.instagram && (
@@ -70,21 +71,20 @@ export function Footer() {
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
                   aria-label="Instagram"
                 >
-                  <Instagram className="w-5 h-5" strokeWidth={1.75} />
+                  <Instagram className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
             </div>
           </motion.div>
 
-          {/* Navigation */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h4 className="font-extrabold text-white uppercase tracking-wide mb-6">Navegación</h4>
-            <nav className="space-y-3">
+            <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Navegación</h4>
+            <nav aria-label="Enlaces del pie de página" className="space-y-3">
               {NAVIGATION.map((item) => (
                 <Link
                   key={item.name}
@@ -97,59 +97,55 @@ export function Footer() {
             </nav>
           </motion.div>
 
-          {/* Categories */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h4 className="font-extrabold text-white uppercase tracking-wide mb-6">Productos</h4>
-            <nav className="space-y-3">
-              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
-                Tornillería
-              </Link>
-              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
-                Anclajes
-              </Link>
-              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
-                Fijación Estructural
-              </Link>
-              <Link href="/#productos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
-                Herramientas
-              </Link>
-              <Link href="/#catalogos" className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]">
-                Catálogos
-              </Link>
+            <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Productos</h4>
+            <nav aria-label="Categorías de productos" className="space-y-3">
+              {FOOTER_CATEGORIES.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </motion.div>
 
-          {/* Contact */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <h4 className="font-extrabold text-white uppercase tracking-wide mb-6">Contacto</h4>
-            <address className="not-italic space-y-4">
+            <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Contacto</h4>
+            <address className="space-y-4 not-italic">
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={`tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
-                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
+                <Phone className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.phone}
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
-                <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.email}
               </a>
-              <div className="flex items-start gap-3 text-white/70 text-sm">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" strokeWidth={1.75} />
+              <div className="flex items-start gap-3 text-sm text-white/70">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {SITE_CONFIG.address}
+              </div>
+              <div className="flex items-start gap-3 text-sm text-white/70">
+                <Clock className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
+                {SITE_CONFIG.businessHours}
               </div>
             </address>
 
@@ -160,17 +156,16 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="btn-yellow focus-ring-inverse min-h-[46px] w-full px-6 py-3 text-sm font-semibold"
               >
-                <MessageCircle className="w-4 h-4" strokeWidth={1.75} />
+                <MessageCircle className="h-4 w-4" strokeWidth={1.75} />
                 WhatsApp
               </a>
             </div>
           </motion.div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-white/50 text-center md:text-left">
+        <div className="mt-12 border-t border-white/20 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-center text-sm text-white/50 md:text-left">
               © {currentYear} {SITE_CONFIG.name}. Todos los derechos reservados.
             </p>
             <div className="flex items-center gap-6 text-sm text-white/50">
@@ -178,7 +173,7 @@ export function Footer() {
                 Aviso de Privacidad
               </Link>
               <Link href="/terminos" className="focus-ring-inverse rounded-sm transition-colors hover:text-[#fab43a]">
-                Términos
+                Términos y Condiciones
               </Link>
             </div>
           </div>

@@ -1,0 +1,42 @@
+# CHANGELOG
+
+## 2026-07-07 — Transformación corporativa integral
+
+### Contenido y copywriting
+- Centralizado todo el contenido del sitio en `constants/content.ts`.
+- Reescritos textos de Hero, Nosotros, Productos, Sectores, Proceso, Catálogos, Contacto y Footer con tono industrial corporativo.
+- Eliminadas afirmaciones no verificables: "25 años de experiencia", "empresa líder", certificación ISO 9001 como badge propio.
+- Sustituidas estadísticas ficticias por indicadores operativos cualitativos (normas, stock, entrega, soporte).
+- Enriquecidos productos fallback con especificaciones, aplicaciones, beneficios y sectores.
+
+### Estructura
+- Reordenadas secciones: Hero → Nosotros → Capacidades → Productos → Sectores → Compromiso → Proceso → Normas → Catálogos → Contacto.
+- Alineado el orden de navegación con la estructura real de la página.
+
+### Diseño
+- Rediseñado Hero: tipografía clara, eyebrow corporativo, CTAs primario/secundario.
+- Creado componente reutilizable `SectionHeader` para encabezados consistentes.
+- Añadidas utilidades CSS: `btn-navy`, `btn-navy-solid`, `section-container`, `text-body`.
+- Unificados espaciados de sección (`py-16 md:py-24`) y contenedores (`max-w-[1320px]`).
+- Mejoradas tarjetas de sectores, productos, about (pilares) y partners.
+
+### Proceso de trabajo
+- Ampliado a 7 etapas: Consulta, Análisis, Cotización, Preparación, Control de calidad, Entrega, Soporte.
+
+### Contacto
+- Añadidos horarios, tiempo de respuesta y beneficios de contactar.
+- Eliminados badges de certificación no verificados; reemplazados por lista de beneficios.
+
+### SEO y accesibilidad
+- Corregido `themeColor` a `#052042`.
+- Separado `viewport` de `metadata` (patrón Next.js 14+).
+- Actualizado JSON-LD: logo correcto (`logo-tornitech.png`).
+- Limpiado sitemap: eliminadas URLs con hash (mala práctica SEO).
+- Mejorados textos `alt` de imágenes.
+- `lang="es-VE"` en HTML root.
+- Font display `swap` para mejor LCP.
+
+### Código
+- Reducida duplicación de copy hardcodeado en componentes.
+- Partners: "Marcas y certificaciones" → "Normas técnicas" (estándares de producto, no certificaciones propias).
+- Catálogos: eliminados metadatos ficticios de páginas/tamaño PDF.

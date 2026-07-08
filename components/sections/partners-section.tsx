@@ -2,73 +2,70 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-
-const certifications = [
-  { name: 'ISO 9001', abbr: 'ISO' },
-  { name: 'DIN', abbr: 'DIN' },
-  { name: 'ASTM', abbr: 'ASTM' },
-  { name: 'API', abbr: 'API' },
-  { name: 'ANSI', abbr: 'ANSI' },
-];
+import { PARTNERS_CONTENT, TECHNICAL_STANDARDS } from '@/constants/content';
 
 export function PartnersSection() {
   return (
-    <section className="w-full bg-[#f2f2f7] px-4 pb-16 pt-10 md:px-8 md:pb-20 lg:px-[134px]">
-      <div className="mx-auto flex w-full max-w-[1171px] flex-col gap-10">
-        <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Marcas y Certificaciones */}
+    <section className="w-full bg-[#f2f2f7] py-16 md:py-24">
+      <div className="section-container flex flex-col gap-12">
+        <div className="grid w-full grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col items-center gap-6"
+            className="flex flex-col items-center gap-6 lg:items-start"
           >
-            <h3 className="w-full max-w-[361px] text-center text-[25px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-              MARCAS Y CERTIFICACIONES
-            </h3>
-            <div className="grid w-full max-w-[480px] grid-cols-3 gap-6 sm:gap-8">
-              {certifications.map((cert) => (
+            <div className="text-center lg:text-left">
+              <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-[25px]">
+                {PARTNERS_CONTENT.standardsHeading}
+              </h3>
+              <p className="mt-2 max-w-[400px] text-sm leading-relaxed text-[#6b7280]">
+                {PARTNERS_CONTENT.standardsSubheading}
+              </p>
+            </div>
+            <div className="grid w-full max-w-[480px] grid-cols-3 gap-4 sm:gap-5">
+              {TECHNICAL_STANDARDS.map((standard) => (
                 <div
-                  key={cert.name}
-                  className="flex flex-col items-center justify-center rounded-[10px] border border-[#316d92]/20 bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#316d92]/40 hover:shadow-[0_6px_16px_rgba(15,23,42,0.08)]"
+                  key={standard.abbr}
+                  className="flex flex-col items-center justify-center rounded-[12px] border border-[#316d92]/15 bg-white px-3 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#316d92]/30 hover:shadow-[0_6px_16px_rgba(15,23,42,0.08)]"
                 >
-                  <span className="text-xl font-extrabold text-[#316d92] uppercase">{cert.abbr}</span>
-                  <span className="mt-1 text-xs text-[#3c4456]">{cert.name}</span>
+                  <span className="text-lg font-extrabold text-[#316d92]">{standard.abbr}</span>
+                  <span className="mt-1 text-center text-[11px] leading-tight text-[#6b7280]">{standard.name}</span>
                 </div>
               ))}
             </div>
           </motion.div>
 
-          {/* Socio Comercial - Panama Fasteners */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="flex flex-col items-center gap-6"
+            className="flex flex-col items-center gap-6 lg:items-start"
           >
-            <h3 className="w-full max-w-[361px] text-center text-[25px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-              NUESTRO SOCIO COMERCIAL
-            </h3>
-            <div className="card-elevated w-full max-w-[574px] rounded-[10px] border border-slate-100 bg-white p-[23px]">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-[235px_minmax(0,1fr)] md:items-center md:gap-4">
-                <div className="relative h-[284px] w-full overflow-hidden rounded-[10px] md:w-[235px]">
+            <div className="text-center lg:text-left">
+              <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042] sm:text-[25px]">
+                {PARTNERS_CONTENT.partnerHeading}
+              </h3>
+            </div>
+            <div className="card-elevated w-full max-w-[574px] overflow-hidden rounded-[14px] border border-slate-100 bg-white">
+              <div className="grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)]">
+                <div className="relative h-[200px] w-full md:h-full md:min-h-[240px]">
                   <Image
                     src="https://images.pexels.com/photos/1267317/pexels-photo-1267317.jpeg?auto=compress&cs=tinysrgb&w=400"
-                    alt="Panama Fasteners Inc"
+                    alt="Red de suministro internacional"
                     fill
-                    sizes="(min-width: 768px) 235px, 100vw"
+                    sizes="(min-width: 768px) 220px, 100vw"
                     className="object-cover"
                   />
                 </div>
-                <div className="flex min-h-[284px] flex-col items-center justify-center px-2 text-center">
-                  <h2 className="w-full text-xl font-extrabold uppercase tracking-wide text-[#3c4456] md:max-w-[273px]">
-                    PANAMA FASTENERS INC
-                  </h2>
-                  <p className="mt-3 w-full font-bold text-base text-[#3c4456] md:max-w-[275px]">
-                    Aliado estratégico internacional que garantiza calidad, disponibilidad y soporte.
+                <div className="flex flex-col justify-center px-6 py-8">
+                  <h4 className="text-lg font-bold uppercase tracking-wide text-[#052042]">
+                    {PARTNERS_CONTENT.partnerName}
+                  </h4>
+                  <p className="mt-3 text-sm leading-relaxed text-[#6b7280]">
+                    {PARTNERS_CONTENT.partnerDescription}
                   </p>
-                  <div className="mt-10 h-px w-full max-w-[221px] bg-[#316d92]/30" />
                 </div>
               </div>
             </div>

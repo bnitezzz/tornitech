@@ -2,6 +2,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import {
   HeroSection,
+  AboutSection,
   WhyChooseUsSection,
   ProductsSection,
   SectorsSection,
@@ -9,19 +10,17 @@ import {
   PartnersSection,
   WorkProcessSection,
   CatalogsSection,
-  AboutSection,
   ContactSection,
 } from '@/components/sections';
 import { SITE_CONFIG } from '@/constants/site';
 
-// JSON-LD structured data
 const jsonLdOrganization = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: SITE_CONFIG.name,
   description: SITE_CONFIG.description,
   url: SITE_CONFIG.url,
-  logo: `${SITE_CONFIG.url}/logo.png`,
+  logo: `${SITE_CONFIG.url}/logo-tornitech.png`,
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: SITE_CONFIG.phone,
@@ -51,6 +50,7 @@ const jsonLdLocalBusiness = {
   url: SITE_CONFIG.url,
   telephone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
+  image: `${SITE_CONFIG.url}/logo-tornitech.png`,
   address: {
     '@type': 'PostalAddress',
     streetAddress: SITE_CONFIG.address,
@@ -73,14 +73,14 @@ export default function HomePage() {
       <Header />
       <main>
         <HeroSection />
+        <AboutSection />
         <WhyChooseUsSection />
         <ProductsSection />
         <SectorsSection />
         <StatsSection />
-        <PartnersSection />
         <WorkProcessSection />
+        <PartnersSection />
         <CatalogsSection />
-        <AboutSection />
         <ContactSection />
       </main>
       <Footer />

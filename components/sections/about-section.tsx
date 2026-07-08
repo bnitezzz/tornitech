@@ -2,91 +2,100 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { ShieldCheck } from 'lucide-react';
+import { SectionHeader } from '@/components/ui/section-header';
+import { ABOUT_CONTENT } from '@/constants/content';
 
 export function AboutSection() {
   return (
-    <section id="nosotros" className="relative w-full bg-white py-14 text-[#3c4456] md:py-20">
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center px-6 md:px-10 lg:px-[138px]">
-        {/* Header */}
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
+    <section id="nosotros" className="relative w-full bg-white py-16 md:py-24">
+      <div className="section-container flex flex-col items-center">
+        <SectionHeader
+          heading={ABOUT_CONTENT.heading}
+          className="max-w-[900px]"
+        />
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex w-full max-w-[900px] flex-col items-center gap-6 text-center"
+          className="mt-6 max-w-[800px] text-center text-body"
         >
-          <div className="flex flex-col items-center gap-3">
-            <h2 className="section-heading">¿QUIÉNES SOMOS?</h2>
-            <span className="section-accent" />
-          </div>
-          <p className="text-left text-xl font-normal leading-relaxed text-[#3c4456]">
-            CCS Tornitech C.A. distribuye al mayor y detal tornillería, anclajes y sistemas de fijación nacionales e importados.
-            Su aliado estratégico para proyectos petroleros, eléctricos, de construcción, industriales y automotrices.
-          </p>
-        </motion.header>
+          {ABOUT_CONTENT.intro}
+        </motion.p>
 
-        {/* Misión / Visión cards */}
-        <div className="mt-16 grid w-full grid-cols-1 gap-y-20 lg:grid-cols-2 lg:items-start lg:gap-x-24">
-          {/* Misión */}
+        {/* Mission / Vision */}
+        <div className="mt-14 grid w-full grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
           <motion.article
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="card-elevated flex flex-col rounded-[16px] border border-slate-100 bg-white p-8"
+          >
+            <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042]">
+              {ABOUT_CONTENT.mission.title}
+            </h3>
+            <p className="mt-4 text-body-sm leading-relaxed">{ABOUT_CONTENT.mission.text}</p>
+          </motion.article>
+
+          <motion.article
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="flex flex-col max-w-[510px]"
+            className="flex flex-col rounded-[16px] border border-[#316d92]/10 p-8"
+            style={{
+              background: 'linear-gradient(124deg, rgba(49,109,146,0.06) 0%, rgba(160,172,175,0.03) 100%)',
+            }}
           >
-            <div className="group relative mt-6 h-[200px] w-full overflow-hidden rounded-[10px]">
-              <Image
-                src="https://images.pexels.com/photos/1267317/pexels-photo-1267317.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Misión"
-                fill
-                sizes="(min-width: 1024px) 510px, 100vw"
-                className="img-zoom object-cover"
-              />
-            </div>
-            <div className="card-elevated mt-4 flex min-h-[250px] flex-col items-center rounded-[10px] border border-slate-100 bg-white px-8 pb-10 pt-8">
-              <h3 className="w-full max-w-[184px] text-center text-[40px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-                MISIÓN
-              </h3>
-              <p className="mt-6 text-left text-lg font-normal leading-relaxed text-[#3c4456]/85">
-                Impulsar la industria venezolana con soluciones de fijación de vanguardia, respaldadas por calidad internacional,
-                asesoría técnica y una logística eficiente.
-              </p>
-            </div>
-          </motion.article>
-
-          {/* Visión */}
-          <motion.article
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col max-w-[479px] justify-self-end"
-          >
-            <div
-              className="card-elevated flex min-h-[266px] flex-col items-center rounded-[10px] border border-[#316d92]/10 px-8 pb-10 pt-8"
-              style={{
-                background: 'linear-gradient(124deg, rgba(49,109,146,0.08) 0%, rgba(160,172,175,0.04) 100%)',
-              }}
-            >
-              <h3 className="w-full max-w-[212px] text-center text-[40px] font-extrabold uppercase tracking-wide text-[#3c4456]">
-                VISIÓN
-              </h3>
-              <p className="mt-6 text-left text-lg font-normal leading-relaxed text-[#3c4456]/85">
-                Consolidarnos como el referente líder en elementos de fijación en Venezuela, impulsando con innovación y excelencia
-                los proyectos industriales y de construcción más exigentes.
-              </p>
-            </div>
-            <div className="group relative mt-4 mb-6 h-[200px] w-full overflow-hidden rounded-[10px]">
-              <Image
-                src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="Visión"
-                fill
-                sizes="(min-width: 1024px) 479px, 100vw"
-                className="img-zoom object-cover"
-              />
-            </div>
+            <h3 className="text-2xl font-extrabold uppercase tracking-wide text-[#052042]">
+              {ABOUT_CONTENT.vision.title}
+            </h3>
+            <p className="mt-4 text-body-sm leading-relaxed">{ABOUT_CONTENT.vision.text}</p>
           </motion.article>
         </div>
+
+        {/* Pillars */}
+        <div className="mt-14 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {ABOUT_CONTENT.pillars.map((pillar, index) => (
+            <motion.div
+              key={pillar.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+              className="card-elevated rounded-[14px] border border-slate-100 bg-white p-6"
+            >
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-[10px] bg-[#316d92]/10">
+                <pillar.icon className="h-5 w-5 text-[#316d92]" strokeWidth={1.75} />
+              </div>
+              <h4 className="font-bold text-[#052042]">{pillar.title}</h4>
+              <p className="mt-2 text-sm leading-relaxed text-[#6b7280]">{pillar.description}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative mt-14 h-[220px] w-full overflow-hidden rounded-[16px] sm:h-[280px] md:h-[320px]"
+        >
+          <Image
+            src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Componentes de fijación industrial en almacén"
+            fill
+            sizes="(max-width: 1320px) 100vw, 1320px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#052042]/60 to-transparent" />
+          <div className="absolute bottom-6 left-6 flex items-center gap-3 text-white sm:bottom-8 sm:left-8">
+            <ShieldCheck className="h-6 w-6 text-[#fab43a]" strokeWidth={1.75} />
+            <p className="max-w-[400px] text-sm font-medium leading-relaxed sm:text-base">
+              Material identificado con ficha técnica y norma de referencia en cada pedido.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

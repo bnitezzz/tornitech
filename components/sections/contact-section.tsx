@@ -2,36 +2,35 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Loader2, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { submitContact } from '@/actions/contact';
 import { contactFormSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
+import { CONTACT_CONTENT } from '@/constants/content';
 
 const helpOptions = [
   {
-    title: 'Solicitar una cotización',
-    description: 'Solicita precios y disponibilidad de nuestros productos.',
+    title: CONTACT_CONTENT.helpOptions[0].title,
+    description: CONTACT_CONTENT.helpOptions[0].description,
     href: `https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo solicitar una cotización.')}`,
     external: true,
   },
   {
-    title: 'Hablar con un asesor',
-    description: 'Recibe atención personalizada para tu proyecto.',
+    title: CONTACT_CONTENT.helpOptions[1].title,
+    description: CONTACT_CONTENT.helpOptions[1].description,
     href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`,
     external: false,
   },
   {
-    title: 'Convertirse en distribuidor',
-    description: 'Conoce nuestro programa de socios comerciales.',
+    title: CONTACT_CONTENT.helpOptions[2].title,
+    description: CONTACT_CONTENT.helpOptions[2].description,
     href: `mailto:${SITE_CONFIG.email}?subject=${encodeURIComponent('Programa de distribuidores')}`,
     external: false,
   },
 ];
-
-const trustBadges = ['ISO 9001', 'DIN', 'ASTM', 'API', 'ANSI'];
 
 const fieldClassName =
   'h-[52px] rounded-[8px] border-[#E5E7EB] bg-white text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
@@ -94,6 +93,7 @@ export function ContactSection() {
     { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
     { icon: Phone, label: 'Teléfono', value: SITE_CONFIG.phone, href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}` },
     { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
+    { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },
   ];
 
   return (
@@ -203,6 +203,12 @@ export function ContactSection() {
                     <><Send className="h-4 w-4" strokeWidth={1.75} /> Enviar Mensaje</>
                   )}
                 </button>
+
+                <p className="flex items-start gap-2 text-xs leading-relaxed text-[#6B7280]">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#316d92]" strokeWidth={1.75} />
+                  Respondemos su solicitud el mismo día hábil. Su información solo se utiliza para dar
+                  seguimiento a esta consulta.
+                </p>
               </form>
             </div>
 
@@ -248,7 +254,7 @@ export function ContactSection() {
               ¿Cómo podemos ayudarte?
             </h2>
             <p className="mt-4 max-w-[480px] text-base leading-relaxed text-[#6B7280]">
-              Selecciona una de las siguientes opciones o completa el formulario para ponerte en contacto con nuestro equipo.
+              Complete el formulario o seleccione una opción directa. {SITE_CONFIG.responseTime}
             </p>
 
             <div className="mt-8">
@@ -274,18 +280,19 @@ export function ContactSection() {
 
             <div className="mt-10 border-t border-[#E5E7EB] pt-8">
               <p className="text-xs font-semibold uppercase tracking-wide text-[#6B7280]">
-                Empresas que confían en nosotros
+                Al contactarnos usted obtiene
               </p>
-              <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5">
-                {trustBadges.map((badge) => (
-                  <div
-                    key={badge}
-                    className="flex h-12 items-center justify-center rounded-[8px] border border-[#E5E7EB] bg-white px-2 text-center text-xs font-bold uppercase tracking-wide text-[#9CA3AF] grayscale transition-all duration-300 hover:text-[#316d92] hover:grayscale-0"
-                  >
-                    {badge}
-                  </div>
+              <ul className="mt-4 space-y-3">
+                {CONTACT_CONTENT.benefits.map((benefit) => (
+                  <li key={benefit} className="flex items-start gap-2 text-sm text-[#3c4456]">
+                    <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#316d92]" strokeWidth={1.75} />
+                    {benefit}
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <p className="mt-6 text-xs leading-relaxed text-[#6B7280]">
+                {CONTACT_CONTENT.trustText}
+              </p>
             </div>
           </motion.div>
         </div>

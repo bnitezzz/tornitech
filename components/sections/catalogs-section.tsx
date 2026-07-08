@@ -11,6 +11,8 @@ import { useCatalogs } from '@/hooks/use-supabase';
 import { submitCatalogDownload } from '@/actions/contact';
 import { catalogDownloadSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
+import { CATALOGS_CONTENT, DEFAULT_CATALOGS } from '@/constants/content';
+import { SectionHeader } from '@/components/ui/section-header';
 
 const catalogPreviews = [
   {
@@ -23,36 +25,7 @@ const catalogPreviews = [
   },
 ];
 
-const defaultCatalogs = [
-  {
-    id: 'cat-1',
-    title: 'Catálogo General de Tornillería',
-    slug: 'catalogo-tornilleria-general',
-    description: 'Catálogo completo con toda nuestra línea de tornillos, pernos, tuercas y arandelas industriales.',
-    file_url: '/catalogs/tornilleria-general-2024.pdf',
-    file_size: '12 MB',
-    pages: 156,
-    version: '2024',
-    is_featured: true,
-    is_active: true,
-    display_order: 1,
-    download_count: 0,
-  },
-  {
-    id: 'cat-2',
-    title: 'Catálogo de Fijación Estructural',
-    slug: 'catalogo-fijacion-estructural',
-    description: 'Guía completa de elementos de fijación para construcción y estructuras metálicas.',
-    file_url: '/catalogs/fijacion-estructural-2024.pdf',
-    file_size: '8 MB',
-    pages: 98,
-    version: '2024',
-    is_featured: true,
-    is_active: true,
-    display_order: 2,
-    download_count: 0,
-  },
-];
+const defaultCatalogs = DEFAULT_CATALOGS;
 
 export function CatalogsSection() {
   const { catalogs } = useCatalogs();
@@ -132,17 +105,13 @@ export function CatalogsSection() {
   };
 
   return (
-    <section id="catalogos" className="w-full bg-white py-14 md:py-20">
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center px-4 md:px-8">
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-10 flex w-full flex-col items-center gap-3 md:mb-14"
-        >
-          <h2 className="section-heading text-center">CATÁLOGO GENERAL</h2>
-          <span className="section-accent" />
-        </motion.header>
+    <section id="catalogos" className="w-full bg-white py-16 md:py-24">
+      <div className="section-container flex flex-col items-center">
+        <SectionHeader
+          heading={CATALOGS_CONTENT.heading}
+          subheading={CATALOGS_CONTENT.subheading}
+          className="mb-10 md:mb-14"
+        />
 
         <div className="mx-auto grid w-full max-w-[886px] grid-cols-1 justify-items-center gap-8 md:grid-cols-2 md:gap-[145px]">
           {catalogPreviews.map((img, index) => (
@@ -167,21 +136,22 @@ export function CatalogsSection() {
 
         <nav
           aria-label="Acciones del catálogo"
-          className="mt-16 flex w-full max-w-[945px] flex-col items-center justify-center gap-6 md:flex-row md:gap-[383px]"
+          className="mt-14 flex w-full max-w-[640px] flex-col items-stretch gap-4 sm:flex-row sm:justify-center"
         >
           <a
-            href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP || SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo ver el catálogo online.')}`}
+            href={`https://wa.me/${SITE_CONFIG.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Hola, deseo consultar el catálogo de productos.')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-yellow focus-ring min-h-[46px] w-full max-w-[280px] px-6 py-3 text-lg"
+            className="btn-navy focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base sm:flex-1"
           >
-            Ver catálogo online
+            Consultar catálogo
           </a>
           <button
             onClick={() => displayCatalogs[0] && openModal(displayCatalogs[0])}
-            className="btn-yellow focus-ring min-h-[46px] w-full max-w-[280px] px-6 py-3 text-lg"
+            className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-base sm:flex-1"
           >
-            Descargar catálogo PDF
+            <Download className="h-4 w-4" strokeWidth={1.75} />
+            Descargar PDF
           </button>
         </nav>
       </div>

@@ -5,17 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Clock, MapPin, Phone } from 'lucide-react';
-import { SITE_CONFIG } from '@/constants/site';
+import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
 
-const navigationItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Nosotros', href: '/#nosotros' },
-  { name: 'Servicios', href: '/#productos' },
-  { name: 'Contacto', href: '/#contacto' },
-];
+const SECTION_IDS = ['nosotros', 'productos', 'catalogos', 'contacto'];
 
 const infoTickerItems = [
   { icon: Clock, text: SITE_CONFIG.businessHours },
@@ -46,12 +41,32 @@ function InfoTicker() {
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => Boolean(el)
+    );
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -99,18 +114,28 @@ export function Header() {
           </Link>
 
           {/* Desktop nav links */}
-          <ul className="hidden flex-1 items-baseline justify-center gap-8 md:flex lg:gap-[59px]">
-            {navigationItems.map((item) => (
-              <li key={item.name}>
-                <Link
-                  href={item.href}
-                  className="focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal text-[#f2f2f2] transition-colors hover:text-white"
-                >
-                  {item.name}
-                  <span className="absolute inset-x-0 -bottom-0.5 h-px origin-center scale-x-0 bg-[#fab43a] transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                </Link>
-              </li>
-            ))}
+          <ul className="hidden flex-1 items-baseline justify-center gap-5 md:flex lg:gap-10 xl:gap-[42px]">
+            {NAVIGATION.map((item) => {
+              const isActive = item.href === '/#' + activeSection;
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal transition-colors hover:text-white ${
+                      isActive ? 'text-white' : 'text-[#f2f2f2]'
+                    }`}
+                  >
+                    {item.name}
+                    <span
+                      className={`absolute inset-x-0 -bottom-0.5 h-px origin-center bg-[#fab43a] transition-transform duration-300 ease-out group-hover:scale-x-100 ${
+                        isActive ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           {/* CTA button */}
@@ -152,7 +177,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <div className="relative pt-24 px-8 space-y-4">
-              {navigationItems.map((item) => (
+              {NAVIGATION.map((item) => (
                 <motion.div
                   key={item.name}
                   initial={{ opacity: 0, x: -20 }}
