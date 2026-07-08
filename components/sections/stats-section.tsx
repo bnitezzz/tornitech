@@ -3,18 +3,16 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useCountUp } from '@/hooks/use-count-up';
-import { useConfigSection } from '@/hooks/use-configuracion';
 import { SITE_STATS } from '@/constants/content';
-import type { StatItem, StatsSectionConfig } from '@/types/configuracion';
 
 const numberFormatter = new Intl.NumberFormat('es-VE');
 
-function StatItemView({
+function StatItem({
   stat,
   index,
   isInView,
 }: {
-  stat: StatItem;
+  stat: (typeof SITE_STATS)[number];
   index: number;
   isInView: boolean;
 }) {
@@ -28,9 +26,9 @@ function StatItemView({
       className="flex min-w-0 flex-col items-center justify-center text-center"
     >
       <dd className="whitespace-nowrap text-[28px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
-        {stat.prefix ?? ''}
+        {stat.prefix}
         {numberFormatter.format(count)}
-        {stat.suffix ?? ''}
+        {stat.suffix}
       </dd>
       <dt className="mt-2.5 text-xs font-medium uppercase tracking-wide text-[#6b7280] sm:text-sm">
         {stat.label}
@@ -42,8 +40,6 @@ function StatItemView({
 export function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
-  const config = useConfigSection<StatsSectionConfig>('stats_section', { items: SITE_STATS });
-  const stats = config.items?.length ? config.items : SITE_STATS;
 
   return (
     <section className="relative w-full bg-white pb-4 sm:pb-6 md:pb-8" aria-label="Indicadores destacados">
@@ -52,8 +48,8 @@ export function StatsSection() {
         className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-6 py-8 shadow-[0_12px_40px_-12px_rgba(5,32,66,0.18)] sm:px-10 sm:py-10"
       >
         <dl className="grid grid-cols-2 items-center gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-10">
-          {stats.map((stat, index) => (
-            <StatItemView key={stat.label} stat={stat} index={index} isInView={isInView} />
+          {SITE_STATS.map((stat, index) => (
+            <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}
         </dl>
       </div>

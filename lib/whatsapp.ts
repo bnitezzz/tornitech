@@ -14,8 +14,6 @@ export type WhatsAppMessageType =
 type ProductQuoteParams = {
   name: string;
   sku: string;
-  din?: string;
-  material?: string;
   quantity?: string;
   company?: string;
 };
@@ -41,15 +39,17 @@ export function buildWhatsAppMessage(
 
     case 'product_quote':
       return [
-        'Hola. Deseo cotizar el siguiente producto.',
+        'Hola.',
+        '',
+        'Deseo cotizar el siguiente producto.',
+        '',
         `Producto: ${params?.name ?? ''}`,
         `Código: ${params?.sku ?? ''}`,
-        `DIN: ${params?.din ?? ''}`,
-        `Material: ${params?.material ?? ''}`,
-        'Cantidad: ',
-        'Empresa: ',
-        'Muchas gracias.',
-      ].join(' | ');
+        `Cantidad: ${params?.quantity ?? ''}`,
+        `Empresa: ${params?.company ?? ''}`,
+        '',
+        'Gracias.',
+      ].join('\n');
 
     case 'catalog_inquiry':
       return 'Hola. Deseo consultar el catálogo de productos disponibles.';
@@ -81,19 +81,4 @@ export function getWhatsAppLink(
 
 export function getWhatsAppPhone(): string {
   return DEFAULT_WHATSAPP;
-}
-
-/** Builds WhatsApp RFQ URL for a catalog product. */
-export function buildProductQuoteUrl(producto: {
-  nombre: string;
-  sku: string;
-  din?: string | null;
-  material?: string | null;
-}): string {
-  return getWhatsAppLink('product_quote', {
-    name: producto.nombre,
-    sku: producto.sku,
-    din: producto.din ?? '',
-    material: producto.material ?? '',
-  });
 }

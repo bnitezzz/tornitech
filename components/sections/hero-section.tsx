@@ -3,22 +3,11 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { HERO_CONTENT } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
-import { useConfigSection } from '@/hooks/use-configuracion';
-import type { HeroConfig } from '@/types/configuracion';
-
-const heroFallback: HeroConfig = {
-  title: 'TORNILLERÍA Y SISTEMAS DE FIJACIÓN PARA LA INDUSTRIA',
-  subtitle: 'Suministro especializado para sectores automotriz, metalmecánico, manufactura y construcción.',
-  heading: '',
-  primaryCta: 'Solicitar cotización',
-  secondaryCta: 'Ver catálogo',
-  badges: ['Calidad certificada', 'Entrega Nacional', 'Soporte Técnico'],
-};
 
 export function HeroSection() {
-  const hero = useConfigSection('hero', heroFallback);
   return (
     <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
       <div className="relative mx-auto min-h-[520px] w-full max-w-[1800px] md:min-h-[600px] lg:min-h-[640px]">
@@ -51,35 +40,30 @@ export function HeroSection() {
             </p>
 
             <h1 className="font-extrabold leading-[1.12] tracking-tight text-[#052042] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px]">
-              {hero.title}
+              {HERO_CONTENT.title}
             </h1>
 
             <p className="mt-4 text-lg font-semibold leading-snug text-[#316d92] sm:text-xl md:text-2xl">
-              {hero.subtitle}
+              {HERO_CONTENT.subtitle}
             </p>
 
-            <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm text-[#3c4456]/85">
-              {hero.badges.map((badge) => (
-                <li key={badge} className="flex items-center gap-1.5">
-                  <Check className="h-4 w-4 text-[#316d92]" />
-                  {badge}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-5 max-w-[560px] text-base leading-relaxed text-[#3c4456]/85 sm:text-lg">
+              {HERO_CONTENT.description}
+            </p>
 
             <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
               <Link
                 href="/#contacto"
                 className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base font-semibold sm:w-auto sm:min-w-[200px]"
               >
-                {hero.primaryCta}
+                {HERO_CONTENT.primaryCta}
                 <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
               </Link>
               <Link
                 href="/#catalogos"
                 className="btn-navy focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base sm:w-auto sm:min-w-[200px]"
               >
-                {hero.secondaryCta}
+                {HERO_CONTENT.secondaryCta}
               </Link>
             </div>
           </motion.div>

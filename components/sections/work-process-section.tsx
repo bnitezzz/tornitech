@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WORK_PROCESS } from '@/constants/content';
-import { useConfigSection } from '@/hooks/use-configuracion';
-import type { SectionHeading } from '@/types/configuracion';
 
 function ProcessStepCard({
   step,
@@ -38,17 +36,12 @@ function ProcessStepCard({
 }
 
 export function WorkProcessSection() {
-  const config = useConfigSection<SectionHeading>('work_process', {
-    heading: WORK_PROCESS.heading,
-    subheading: WORK_PROCESS.subheading,
-  });
-
   return (
     <section className="section-padding w-full bg-white">
       <div className="section-container">
         <SectionHeader
-          heading={config.heading}
-          subheading={config.subheading}
+          heading={WORK_PROCESS.heading}
+          subheading={WORK_PROCESS.subheading}
           className="mb-8 md:mb-12"
         />
 

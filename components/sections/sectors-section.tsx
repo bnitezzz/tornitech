@@ -4,32 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SectionHeader } from '@/components/ui/section-header';
 import { SECTORS_CONTENT } from '@/constants/content';
-import { useConfigSection } from '@/hooks/use-configuracion';
-import { useSectores } from '@/hooks/use-sectores';
-import type { Sector } from '@/services/sectores';
-import type { SectionHeading } from '@/types/configuracion';
 
 export function SectorsSection() {
-  const config = useConfigSection<SectionHeading>('sectors_section', {
-    heading: SECTORS_CONTENT.heading,
-    subheading: SECTORS_CONTENT.subheading,
-  });
-  const { data: sectores = [] } = useSectores();
-
-  const displaySectors: { title: string; image: string }[] =
-    sectores.length > 0
-      ? sectores.map((s: Sector) => ({
-          title: s.nombre,
-          image: s.imagen ?? '/images/placeholder-sector.png',
-        }))
-      : SECTORS_CONTENT.sectors.map((s) => ({ title: s.title, image: s.image }));
-
   return (
     <section className="relative w-full bg-[#052042] pb-28 pt-14 md:pb-32 md:pt-20">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
-          heading={config.heading}
-          subheading={config.subheading}
+          heading={SECTORS_CONTENT.heading}
+          subheading={SECTORS_CONTENT.subheading}
           inverse
           className="mb-8 md:mb-10"
         />
@@ -41,7 +23,7 @@ export function SectorsSection() {
           transition={{ delay: 0.2 }}
           className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5 lg:gap-6 xl:gap-7 2xl:max-w-[1400px] 2xl:gap-8"
         >
-          {displaySectors.map((sector, index) => (
+          {SECTORS_CONTENT.sectors.map((sector, index) => (
             <motion.article
               key={sector.title}
               initial={{ opacity: 0, scale: 0.95 }}
