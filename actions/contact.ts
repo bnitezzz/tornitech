@@ -8,13 +8,22 @@ import {
   sendEmail,
 } from '@/lib/email';
 import { resolveCatalogForDownload } from '@/lib/catalogs';
-import { createLead, subscribeToMarketing } from '@/lib/leads';
-import { getSupabaseServer } from '@/lib/supabase/server';
+import { createLead, subscribeToMarketing, FormsBackendError } from '@/lib/leads';
+import { getFormsBackend } from '@/lib/supabase/forms';
 import { isValidUuid } from '@/lib/supabase/config';
 import { parseCatalogDownloadForm, parseContactForm } from '@/lib/validation';
 import type { Insertable } from '@/types/database';
 import type { ActionResult, CatalogDownloadResult } from '@/types/actions';
 import type { CatalogDownloadFormData, ContactFormData } from '@/types';
+
+function persistenceErrorMessage(error: unknown): string {
+  if (error instanceof FormsBackendError) {
+    console.error('[forms]', error.message, error.cause);
+    return 'No pudimos guardar su solicitud en este momento. Intente de nuevo o contáctenos por teléfono.';
+  }
+  console.error('[forms]', error);
+  return 'Error al procesar su solicitud. Por favor intente de nuevo.';
+}
 
 export async function submitContact(
   data: ContactFormData
@@ -30,29 +39,11 @@ export async function submitContact(
   const form = parsed.data;
 
   try {
-    const supabase = getSupabaseServer();
+    const supabase = getFormsBackend();
     const acceptsMarketing = form.accepts_marketing ?? false;
     const company = form.company?.trim() || 'No especificada';
 
-    if (supabase) {
-      const submission: Insertable<'contact_submissions'> = {
-        name: form.name,
-        email: form.email,
-        phone: form.phone || null,
-        company: form.company || null,
-        subject: form.subject || null,
-        message: form.message,
-        status: 'new',
-      };
-
-      const { error: contactError } = await supabase
-        .from('contact_submissions')
-        .insert(submission);
-
-      if (contactError) throw contactError;
-    }
-
-    await createLead({
+    const leadId = await createLead({
       name: form.name,
       email: form.email,
       phone: form.phone,
@@ -61,6 +52,25 @@ export async function submitContact(
       acceptsMarketing,
       notes: form.subject ? `Asunto: ${form.subject}` : undefined,
     });
+
+    const submission: Insertable<'contact_submissions'> = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone || null,
+      company: form.company || null,
+      subject: form.subject || null,
+      message: form.message,
+      status: 'new',
+      lead_id: leadId,
+    };
+
+    const { error: contactError } = await supabase
+      .from('contact_submissions')
+      .insert(submission);
+
+    if (contactError) {
+      throw new FormsBackendError('No se pudo guardar el mensaje de contacto.', contactError);
+    }
 
     if (acceptsMarketing) {
       await subscribeToMarketing({
@@ -90,10 +100,9 @@ export async function submitContact(
       message: 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.',
     };
   } catch (error) {
-    console.error('[submitContact]', error);
     return {
       success: false,
-      message: 'Error al enviar el mensaje. Por favor intente de nuevo.',
+      message: persistenceErrorMessage(error),
     };
   }
 }
@@ -123,7 +132,7 @@ export async function submitCatalogDownload(
   }
 
   try {
-    const supabase = getSupabaseServer();
+    const supabase = getFormsBackend();
     const acceptsMarketing = form.accepts_marketing ?? false;
 
     const leadId = await createLead({
@@ -147,7 +156,7 @@ export async function submitCatalogDownload(
       });
     }
 
-    if (supabase && isValidUuid(catalog.id)) {
+    if (isValidUuid(catalog.id)) {
       const downloadRecord: Insertable<'catalog_downloads'> = {
         catalog_id: catalog.id,
         lead_id: leadId,
@@ -159,7 +168,7 @@ export async function submitCatalogDownload(
         .insert(downloadRecord);
 
       if (downloadError) {
-        console.error('[submitCatalogDownload] catalog_downloads:', downloadError);
+        throw new FormsBackendError('No se pudo registrar la descarga del catálogo.', downloadError);
       }
 
       const { error: updateError } = await supabase.rpc('increment_download_count', {
@@ -192,10 +201,9 @@ export async function submitCatalogDownload(
       data: { downloadUrl: catalog.fileUrl },
     };
   } catch (error) {
-    console.error('[submitCatalogDownload]', error);
     return {
       success: false,
-      message: 'Error al registrar la descarga. Por favor intente de nuevo.',
+      message: persistenceErrorMessage(error),
     };
   }
 }

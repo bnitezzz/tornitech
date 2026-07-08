@@ -1,4 +1,4 @@
-import { getSupabaseServer } from '@/lib/supabase/server';
+import { getFormsBackend, FormsBackendError } from '@/lib/supabase/forms';
 import type { Insertable } from '@/types/database';
 
 export type LeadInput = {
@@ -14,10 +14,9 @@ export type LeadInput = {
   notes?: string;
 };
 
-/** Persists a lead in Supabase. Returns lead id or null when DB is unavailable. */
-export async function createLead(input: LeadInput): Promise<string | null> {
-  const supabase = getSupabaseServer();
-  if (!supabase) return null;
+/** Persists a lead in Supabase. Throws when the database write fails. */
+export async function createLead(input: LeadInput): Promise<string> {
+  const supabase = getFormsBackend();
 
   const record: Insertable<'leads'> = {
     name: input.name,
@@ -34,9 +33,9 @@ export async function createLead(input: LeadInput): Promise<string | null> {
 
   const { data, error } = await supabase.from('leads').insert(record).select('id').single();
 
-  if (error) {
+  if (error || !data?.id) {
     console.error('[leads] Insert error:', error);
-    return null;
+    throw new FormsBackendError('No se pudo registrar el contacto en la base de datos.', error);
   }
 
   return data.id;
@@ -50,22 +49,30 @@ export async function subscribeToMarketing(data: {
 }): Promise<void> {
   if (!data.email) return;
 
-  const supabase = getSupabaseServer();
-  if (!supabase) return;
+  try {
+    const supabase = getFormsBackend();
+    const subscriber: Insertable<'newsletter_subscribers'> = {
+      email: data.email,
+      name: data.name || null,
+      company: data.company || null,
+      is_active: true,
+      unsubscribed_at: null,
+    };
 
-  const subscriber: Insertable<'newsletter_subscribers'> = {
-    email: data.email,
-    name: data.name || null,
-    company: data.company || null,
-    is_active: true,
-    unsubscribed_at: null,
-  };
+    const { error } = await supabase
+      .from('newsletter_subscribers')
+      .upsert(subscriber, { onConflict: 'email' });
 
-  const { error } = await supabase
-    .from('newsletter_subscribers')
-    .upsert(subscriber, { onConflict: 'email' });
-
-  if (error) {
-    console.error('[newsletter] Upsert error:', error);
+    if (error) {
+      console.error('[newsletter] Upsert error:', error);
+    }
+  } catch (error) {
+    if (error instanceof FormsBackendError) {
+      console.error('[newsletter] Backend unavailable:', error.message);
+      return;
+    }
+    throw error;
   }
 }
+
+export { FormsBackendError };
