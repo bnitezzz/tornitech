@@ -3,12 +3,19 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
+import { SectionHeader } from '@/components/ui/section-header';
 import { PARTNERS_CONTENT, TECHNICAL_STANDARDS } from '@/constants/content';
 
 export function PartnersSection() {
   return (
-    <section className="section-padding w-full bg-[#f2f2f7]">
-      <div className="section-container flex flex-col gap-10">
+    <section id="normas" className="section-padding w-full bg-[#f2f2f7]">
+      <div className="section-container flex flex-col items-center gap-10">
+        <SectionHeader
+          heading={PARTNERS_CONTENT.sectionHeading}
+          subheading={PARTNERS_CONTENT.sectionSubheading}
+          className="mb-2 md:mb-4"
+        />
+
         <div className="grid w-full grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
           {/* Technical standards */}
           <motion.div
@@ -40,7 +47,7 @@ export function PartnersSection() {
             </div>
           </motion.div>
 
-          {/* Partner card — premium with photo prominence */}
+          {/* Partner card */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

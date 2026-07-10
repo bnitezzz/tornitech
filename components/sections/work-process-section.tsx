@@ -37,7 +37,7 @@ function ProcessStepCard({
 
 export function WorkProcessSection() {
   return (
-    <section className="section-padding w-full bg-white">
+    <section id="proceso" className="section-padding w-full bg-white">
       <div className="section-container">
         <SectionHeader
           heading={WORK_PROCESS.heading}

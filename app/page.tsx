@@ -94,14 +94,14 @@ export default function HomePage() {
       <Header />
       <main id="contenido-principal">
         <HeroSection />
-        <AboutSection />
         <WhyChooseUsSection />
         <ProductsSection />
+        <WorkProcessSection />
+        <CatalogsSection />
+        <AboutSection />
         <SectorsSection />
         <StatsSection />
-        <WorkProcessSection />
         <PartnersSection />
-        <CatalogsSection />
         <ContactSection />
       </main>
       <Footer />

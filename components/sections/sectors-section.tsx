@@ -7,7 +7,7 @@ import { SECTORS_CONTENT } from '@/constants/content';
 
 export function SectorsSection() {
   return (
-    <section className="relative w-full bg-[#052042] pb-28 pt-14 md:pb-32 md:pt-20">
+    <section id="sectores" className="relative w-full bg-[#052042] pb-28 pt-12 md:pb-32 md:pt-16">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={SECTORS_CONTENT.heading}

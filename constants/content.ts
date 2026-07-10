@@ -168,7 +168,7 @@ export const DEFAULT_PRODUCTS = [
 ];
 
 export const SECTORS_CONTENT = {
-  heading: 'Sectores atendidos',
+  heading: 'Sectores que atendemos',
   subheading: 'Componentes de fijación seleccionados según las condiciones de cada industria.',
   sectors: [
     {
@@ -245,9 +245,11 @@ export const TECHNICAL_STANDARDS = [
 ];
 
 export const PARTNERS_CONTENT = {
+  sectionHeading: 'Normas y socio comercial',
+  sectionSubheading: 'Estándares internacionales de fijación y red de abastecimiento.',
   standardsHeading: 'Normas técnicas',
   standardsSubheading: 'Referencias disponibles conforme a estándares internacionales de fijación.',
-  partnerHeading: 'Red de suministro',
+  partnerHeading: 'Socio comercial',
   partnerName: 'Panama Fasteners Inc.',
   partnerLogo: ASSETS.partners.panamaFasteners,
   partnerDescription:
@@ -293,7 +295,7 @@ export const WORK_PROCESS: { heading: string; subheading: string; steps: Process
 };
 
 export const CATALOGS_CONTENT = {
-  heading: 'Documentación técnica',
+  heading: 'Catálogos',
   subheading: 'Catálogos con referencias, medidas y normas de nuestra línea de tornillería y fijación.',
 };
 

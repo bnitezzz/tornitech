@@ -1,3 +1,11 @@
+## 2026-07-10 — Reorden de secciones
+
+### Estructura
+- Nuevo orden: Hero → Capacidades → Productos → Proceso → Catálogos → Nosotros → Sectores → Stats → Normas y socio comercial → Contacto.
+- Stats restaurados entre Sectores y Normas, con tarjeta flotante y contadores animados.
+- Renombrado «Documentación técnica» a «Catálogos».
+- Actualizados títulos de Sectores y Partners en `constants/content.ts`.
+
 ## 2026-07-08 — Refinamiento visual premium
 
 ### Diseño y UX
