@@ -1,0 +1,6 @@
+key,value,description,is_public
+whatsapp_number,584121234567,Número de WhatsApp sin + ni espacios,true
+contact_email,ventas@tornitech.com,Correo comercial principal,true
+company_phone,+58 212 555 1234,Teléfono de atención,true
+company_address,"Av. Principal, Zona Industrial La Yaguara, Caracas 1030, Venezuela",Dirección comercial,true
+business_hours,Lunes a Viernes 8:00 – 18:00 · Sábados 9:00 – 14:00,Horario de atención,true

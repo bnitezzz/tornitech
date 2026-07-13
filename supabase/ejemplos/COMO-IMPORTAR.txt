@@ -1,0 +1,41 @@
+CÓMO IMPORTAR ESTOS EJEMPLOS EN SUPABASE
+========================================
+
+1. Abre tu proyecto en https://supabase.com
+2. Ve a Table Editor (Editor de tablas)
+3. Elige la tabla que corresponde al nombre del archivo CSV
+4. Clic en Insert → Import data from CSV (o "Import")
+5. Selecciona el archivo de esta carpeta
+6. Confirma el mapeo de columnas y guarda
+
+ARCHIVOS → TABLAS
+-----------------
+productos.csv            → tabla "productos"
+                           (catálogo con buscador por categoría)
+
+products.csv             → tabla "products"
+                           (productos destacados de la sección Productos Especiales)
+                           Campos clave: is_featured=true, is_active=true
+
+catalogs.csv             → tabla "catalogs"
+                           (PDFs descargables)
+                           file_url debe apuntar a un PDF real
+                           (en public/catalogs/ o una URL pública / Storage)
+
+configuracion_web.csv    → tabla "configuracion_web"
+                           Solo 1 fila (id=1).
+                           mostrar_productos=true  → muestra la sección
+                           mostrar_productos=false → la oculta
+
+site_config.csv          → tabla "site_config"
+                           Datos de contacto (referencia futura; hoy la web
+                           lee varios de estos valores desde el código)
+
+NOTAS
+-----
+• No importa UUID: Supabase los genera solo (excepto configuracion_web.id = 1).
+• Antes de ir a producción, cambia los textos, imágenes y file_url
+  por los reales del cliente.
+• Los PDF de ejemplo en catalogs.csv apuntan a /catalogs/...;
+  asegúrate de subir esos archivos a public/catalogs/ o a Supabase Storage
+  y actualizar file_url.

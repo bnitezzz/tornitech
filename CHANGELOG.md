@@ -1,3 +1,11 @@
+## 2026-07-13 — Ejemplos CSV para Supabase
+
+### Contenido
+- Carpeta `supabase/ejemplos/` con CSV de ejemplo para importar en Table Editor:
+  `productos.csv`, `products.csv`, `catalogs.csv`, `configuracion_web.csv`, `site_config.csv`.
+- Guía `COMO-IMPORTAR.txt` con pasos de importación y mapeo archivo → tabla.
+- Eliminado `supabase/data/productos.example.csv` (sustituido por `ejemplos/productos.csv`).
+
 ## 2026-07-13 — Sección PRODUCTOS (catálogo Supabase)
 
 ### Funcionalidad
@@ -12,7 +20,7 @@
 - Servicio `lib/productos.ts`, hook `hooks/use-productos.ts`, tipos en `types/producto.ts`.
 
 ### Importación
-- Cargar productos vía CSV en Supabase Table Editor (columnas: `nombre,categoria,descripcion,orden,activo`).
+- Cargar productos vía CSV en Supabase Table Editor (ver `supabase/ejemplos/`).
 
 ## 2026-07-13 — Premium frontend polish
 

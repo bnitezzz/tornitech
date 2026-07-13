@@ -1,6 +1,6 @@
 nombre,categoria,descripcion,orden,activo
-Tornillo hexagonal DIN 933,Tornillería,Acero grado 8.8, rosca métrica completa,1,true
-Tornillo hexagonal DIN 931,Tornillería,Acero grado 10.9, rosca parcial,2,true
+Tornillo hexagonal DIN 933,Tornillería,Acero grado 8.8 — rosca métrica completa,1,true
+Tornillo hexagonal DIN 931,Tornillería,Acero grado 10.9 — rosca parcial,2,true
 Tornillo Allen DIN 912,Tornillería,Cabeza cilíndrica hexágono interior,3,true
 Tornillo inoxidable A2,Tornillería,Acero inoxidable para ambientes húmedos,4,true
 Tornillo galvanizado,Tornillería,Recubrimiento zinc para exterior,5,true
