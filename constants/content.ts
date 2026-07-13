@@ -68,6 +68,14 @@ export const PRODUCTS_CONTENT = {
   subheading: 'Componentes con norma técnica identificada, disponibles para cotización inmediata.',
 };
 
+export const PRODUCTOS_CATALOG_CONTENT = {
+  heading: 'PRODUCTOS',
+  subheading:
+    'Consulta todos los productos disponibles. Utiliza el buscador o explora por categoría.',
+  searchPlaceholder: 'Buscar producto...',
+  emptyMessage: 'No se encontraron productos con ese criterio.',
+};
+
 export const DEFAULT_PRODUCTS = [
   {
     id: '1',

@@ -15,6 +15,9 @@ const WhyChooseUsSection = dynamic(
 const ProductsSection = dynamic(
   () => import('@/components/sections/products-section').then((m) => ({ default: m.ProductsSection }))
 );
+const ProductosCatalogSection = dynamic(
+  () => import('@/components/sections/productos').then((m) => ({ default: m.Productos }))
+);
 const SectorsSection = dynamic(
   () => import('@/components/sections/sectors-section').then((m) => ({ default: m.SectorsSection }))
 );
@@ -94,6 +97,7 @@ export default function HomePage() {
         <HeroSection />
         <WhyChooseUsSection />
         <ProductsSection />
+        <ProductosCatalogSection />
         <WorkProcessSection />
         <CatalogsSection />
         <AboutSection />

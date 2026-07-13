@@ -1,5 +1,5 @@
 /**
- * Supabase database types — synced from supabase/schema.sql + migrations 002/003.
+ * Supabase database types — synced from supabase/schema.sql + migrations 002/003/004.
  * Regenerate remotely: npm run db:types (requires `supabase login`).
  */
 export type Json =
@@ -230,6 +230,54 @@ export interface Database {
         Relationships: [];
       };
 
+      productos: {
+        Row: {
+          id: string;
+          nombre: string;
+          categoria: string;
+          descripcion: string | null;
+          orden: number;
+          activo: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          nombre: string;
+          categoria: string;
+          descripcion?: string | null;
+          orden?: number;
+          activo?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          nombre?: string;
+          categoria?: string;
+          descripcion?: string | null;
+          orden?: number;
+          activo?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      configuracion_web: {
+        Row: {
+          id: number;
+          mostrar_productos: boolean;
+          updated_at: string;
+        };
+        Insert: {
+          id?: number;
+          mostrar_productos?: boolean;
+          updated_at?: string;
+        };
+        Update: {
+          id?: number;
+          mostrar_productos?: boolean;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       products: {
         Row: {
           id: string;

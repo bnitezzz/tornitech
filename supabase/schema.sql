@@ -474,3 +474,33 @@ LEFT JOIN public.catalogs c ON c.id = cd.catalog_id
 GROUP BY l.id;
 
 COMMENT ON VIEW public.v_leads_with_downloads IS 'Leads con conteo y listado de PDFs descargados.';
+-- =============================================================================
+-- CATÁLOGO PRODUCTOS (migración 004)
+-- =============================================================================
+
+CREATE TABLE IF NOT EXISTS public.productos (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  nombre text NOT NULL,
+  categoria text NOT NULL,
+  descripcion text,
+  orden integer NOT NULL DEFAULT 0,
+  activo boolean NOT NULL DEFAULT true,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS productos_activo_categoria_orden_idx
+  ON public.productos (activo, categoria, orden);
+
+ALTER TABLE public.productos ENABLE ROW LEVEL SECURITY;
+
+CREATE TABLE IF NOT EXISTS public.configuracion_web (
+  id integer PRIMARY KEY CHECK (id = 1),
+  mostrar_productos boolean NOT NULL DEFAULT true,
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+INSERT INTO public.configuracion_web (id, mostrar_productos)
+VALUES (1, true)
+ON CONFLICT (id) DO NOTHING;
+
+ALTER TABLE public.configuracion_web ENABLE ROW LEVEL SECURITY;

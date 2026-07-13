@@ -1,3 +1,19 @@
+## 2026-07-13 — Sección PRODUCTOS (catálogo Supabase)
+
+### Funcionalidad
+- Nueva sección **PRODUCTOS** entre Productos Especiales y Proceso de Atención.
+- Datos desde tablas `productos` y `configuracion_web` (toggle `mostrar_productos`).
+- Buscador en tiempo real por nombre, categoría y descripción.
+- Cards por categoría (grid 1 / 2-3 / 5), orden alfabético de categorías y `orden` interno.
+- Si `mostrar_productos = false` o no hay datos, la sección no se renderiza.
+
+### Backend
+- Migración `004_productos_catalogo.sql` con RLS de lectura pública (`activo = true`).
+- Servicio `lib/productos.ts`, hook `hooks/use-productos.ts`, tipos en `types/producto.ts`.
+
+### Importación
+- Cargar productos vía CSV en Supabase Table Editor (columnas: `nombre,categoria,descripcion,orden,activo`).
+
 ## 2026-07-13 — Premium frontend polish
 
 ### UX / UI

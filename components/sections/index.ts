@@ -1,6 +1,7 @@
 export { HeroSection } from './hero-section';
 export { WhyChooseUsSection } from './why-choose-us-section';
 export { ProductsSection } from './products-section';
+export { Productos } from './productos';
 export { SectorsSection } from './sectors-section';
 export { StatsSection } from './stats-section';
 export { WorkProcessSection } from './work-process-section';

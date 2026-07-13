@@ -1,0 +1,8 @@
+nombre,categoria,descripcion,orden,activo
+Tornillo Hexagonal,Tornillería,Tornillo grado 8.8,1,true
+Tornillo Allen,Tornillería,Tornillo cabeza cilíndrica,2,true
+Tornillo Inoxidable,Tornillería,Acero inoxidable A2/A4,3,true
+Tornillo Galvanizado,Tornillería,Recubrimiento zinc,4,true
+Tuerca Hexagonal,Tuercas,Alta resistencia,1,true
+Tuerca Ciega,Tuercas,Acabado cerrado,2,true
+Contratuerca,Tuercas,Fijación antivibración,3,true
