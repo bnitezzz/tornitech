@@ -16,7 +16,7 @@ const itemVariants = {
 
 export function WhyChooseUsSection() {
   return (
-    <section id="capacidades" className="section-padding w-full bg-white">
+    <section id="capacidades" className="section-padding section-bg-soft w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={WHY_CHOOSE_US.heading}

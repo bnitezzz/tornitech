@@ -14,8 +14,8 @@ export function HeroSection() {
   const container = prefersReducedMotion ? reducedMotionVisible : staggerContainer;
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#f2f2f2]">
-      <div className="relative mx-auto min-h-[520px] w-full max-w-[1800px] md:min-h-[600px] lg:min-h-[640px]">
+    <section id="inicio" className="relative w-full overflow-hidden bg-[#f2f2f2]">
+      <div className="relative mx-auto min-h-[520px] w-full max-w-[1800px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[720px] 2xl:max-w-[1920px]">
         <Image
           src={ASSETS.hero}
           alt="Almacén de tornillería y componentes de fijación industrial"
@@ -34,7 +34,7 @@ export function HeroSection() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[520px] w-full max-w-[1440px] items-center px-4 py-20 sm:px-6 md:min-h-[600px] md:px-10 md:py-24 lg:min-h-[640px] lg:px-[52px]">
+        <div className="relative z-10 mx-auto flex min-h-[520px] w-full max-w-[1440px] items-center px-4 py-20 sm:px-6 md:min-h-[600px] md:px-10 md:py-24 lg:min-h-[640px] lg:px-[52px] 2xl:min-h-[720px] 2xl:max-w-[1600px]">
           <motion.div
             variants={container}
             initial="hidden"

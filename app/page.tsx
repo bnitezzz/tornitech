@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { SkipLink } from '@/components/layout/skip-link';
 import { HeroSection } from '@/components/sections/hero-section';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
@@ -90,7 +89,6 @@ export default function HomePage() {
           __html: JSON.stringify([jsonLdOrganization, jsonLdLocalBusiness]),
         }}
       />
-      <SkipLink />
       <Header />
       <main id="contenido-principal">
         <HeroSection />

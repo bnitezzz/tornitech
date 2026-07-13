@@ -117,27 +117,14 @@ export function ContactSection() {
   return (
     <section
       id="contacto"
-      className="section-padding relative w-full overflow-hidden"
-      style={{
-        background:
-          'linear-gradient(165deg, #f2f2f7 0%, #e8eef3 42%, #f8fafc 100%)',
-      }}
+      className="section-padding section-bg-contact relative w-full overflow-hidden"
     >
-      <div
-        className="pointer-events-none absolute -left-24 top-10 h-64 w-64 rounded-full bg-[#316d92]/10 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-16 bottom-0 h-72 w-72 rounded-full bg-[#fab43a]/15 blur-3xl"
-        aria-hidden="true"
-      />
-
       <div className="section-container relative z-10">
-        <div className="mx-auto max-w-[1080px]">
+        <div className="mx-auto max-w-[1080px] 2xl:max-w-[1200px]">
           <SectionHeader
             heading="Contacto"
             subheading={CONTACT_CONTENT.responseTime}
-            className="mb-8 md:mb-10"
+            className="mb-8 md:mb-10 [&_h2]:text-[#052042] [&_p]:text-[#3c4456]/80"
           />
 
           <motion.div

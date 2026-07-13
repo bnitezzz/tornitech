@@ -13,7 +13,7 @@ import { EASE_PREMIUM } from '@/lib/motion';
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
 
-const SECTION_IDS = ['nosotros', 'productos', 'catalogos', 'contacto', 'capacidades', 'proceso', 'sectores', 'normas'];
+const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto'];
 
 const infoTickerItems = [
   { icon: Clock, text: SITE_CONFIG.businessHours },
@@ -133,11 +133,25 @@ export function Header() {
 
           <ul className="hidden flex-1 items-baseline justify-center gap-5 md:flex lg:gap-10 xl:gap-[42px]">
             {NAVIGATION.map((item) => {
-              const isActive = item.href === '/#' + activeSection;
+              const sectionId = item.href.replace('/#', '');
+              const isActive =
+                item.href === '/#' + activeSection ||
+                (sectionId === 'inicio' && (activeSection === 'inicio' || activeSection === ''));
               return (
                 <li key={item.name}>
                   <Link
                     href={item.href}
+                    onClick={(e) => {
+                      if (sectionId === 'inicio') {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setIsMobileMenuOpen(false);
+                        setActiveSection('inicio');
+                        if (typeof window !== 'undefined') {
+                          window.history.replaceState(null, '', '/#inicio');
+                        }
+                      }
+                    }}
                     aria-current={isActive ? 'location' : undefined}
                     className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal transition-colors duration-200 hover:text-white ${
                       isActive ? 'text-white' : 'text-[#f2f2f2]'
@@ -210,7 +224,16 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      const sectionId = item.href.replace('/#', '');
+                      if (sectionId === 'inicio') {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setActiveSection('inicio');
+                        window.history.replaceState(null, '', '/#inicio');
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="focus-ring-inverse block rounded-sm border-b border-white/20 py-3 text-xl font-medium text-white transition-colors hover:text-[#fab43a]"
                   >
                     {item.name}

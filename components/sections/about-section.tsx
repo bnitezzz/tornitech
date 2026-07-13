@@ -11,7 +11,7 @@ const cardClassName =
 
 export function AboutSection() {
   return (
-    <section id="nosotros" className="section-padding relative w-full bg-[#f8fafc]">
+    <section id="nosotros" className="section-padding section-bg-soft relative w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={ABOUT_CONTENT.heading}
