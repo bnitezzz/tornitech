@@ -1,8 +1,21 @@
 nombre,categoria,descripcion,orden,activo
-Tornillo Hexagonal,Tornillería,Tornillo grado 8.8,1,true
-Tornillo Allen,Tornillería,Tornillo cabeza cilíndrica,2,true
-Tornillo Inoxidable,Tornillería,Acero inoxidable A2/A4,3,true
-Tornillo Galvanizado,Tornillería,Recubrimiento zinc,4,true
-Tuerca Hexagonal,Tuercas,Alta resistencia,1,true
-Tuerca Ciega,Tuercas,Acabado cerrado,2,true
-Contratuerca,Tuercas,Fijación antivibración,3,true
+Tornillo hexagonal DIN 933,Tornillería,Acero grado 8.8, rosca métrica completa,1,true
+Tornillo hexagonal DIN 931,Tornillería,Acero grado 10.9, rosca parcial,2,true
+Tornillo Allen DIN 912,Tornillería,Cabeza cilíndrica hexágono interior,3,true
+Tornillo inoxidable A2,Tornillería,Acero inoxidable para ambientes húmedos,4,true
+Tornillo galvanizado,Tornillería,Recubrimiento zinc para exterior,5,true
+Tuerca hexagonal DIN 934,Tuercas,Tuerca métrica de uso general,1,true
+Tuerca autoblocante DIN 985,Tuercas,Inserto nylon antivibración,2,true
+Tuerca ciega,Tuercas,Acabado cerrado decorativo,3,true
+Contratuerca DIN 439,Tuercas,Fijación de seguridad en uniones,4,true
+Tuerca brida,Tuercas,Base dentada antideslizante,5,true
+Arandela plana DIN 125,Arandelas,Distribución de carga estándar,1,true
+Arandela plana DIN 9021,Arandelas,Gran diámetro exterior,2,true
+Arandela de presión DIN 127,Arandelas,Resorte para retención,3,true
+Arandela Grower,Arandelas,Antivibración en uniones dinámicas,4,true
+Arandela inoxidable,Arandelas,Acero inoxidable A2/A4,5,true
+Anclaje químico,Anclajes,Fijación en concreto y mampostería,1,true
+Anclaje mecánico de expansión,Anclajes,Expansión metálica para cargas medias,2,true
+Perno de anclaje,Anclajes,Fijación estructural en obra,3,true
+Anclaje de cuña,Anclajes,Instalación rápida en concreto,4,true
+Varilla roscada para anclaje,Anclajes,Complemento para sistemas químicos,5,true
