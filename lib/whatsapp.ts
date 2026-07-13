@@ -74,11 +74,12 @@ export function buildWhatsAppUrl(message: string, phone?: string): string {
 /** Convenience helper: type + params → full WhatsApp URL. */
 export function getWhatsAppLink(
   type: WhatsAppMessageType,
-  params?: Partial<ProductQuoteParams>
+  params?: Partial<ProductQuoteParams>,
+  phone?: string
 ): string {
-  return buildWhatsAppUrl(buildWhatsAppMessage(type, params));
+  return buildWhatsAppUrl(buildWhatsAppMessage(type, params), phone);
 }
 
-export function getWhatsAppPhone(): string {
-  return DEFAULT_WHATSAPP;
+export function getWhatsAppPhone(phone?: string): string {
+  return (phone ?? DEFAULT_WHATSAPP).replace(/[^0-9]/g, '');
 }

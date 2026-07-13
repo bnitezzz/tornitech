@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { LegalPageShell } from '@/components/layout/legal-page-shell';
 import { SITE_CONFIG } from '@/constants/site';
+import { getCachedSiteContactConfig } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   title: 'Aviso de Privacidad',
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function PrivacidadPage() {
+export default async function PrivacidadPage() {
+  const contact = await getCachedSiteContactConfig();
+
   return (
     <LegalPageShell>
       <div className="container mx-auto max-w-4xl px-4 py-16">
@@ -60,7 +63,7 @@ export default function PrivacidadPage() {
               4. Responsable de Datos
             </h2>
             <p>
-              El responsable del tratamiento de sus datos personales es {SITE_CONFIG.name}, con domicilio en {SITE_CONFIG.address}.
+              El responsable del tratamiento de sus datos personales es {SITE_CONFIG.name}, con domicilio en {contact.address}.
             </p>
           </section>
 
@@ -72,9 +75,9 @@ export default function PrivacidadPage() {
               Para ejercer sus derechos ARCO (Acceso, Rectificación, Cancelación u Oposición), puede contactarnos en:
             </p>
             <ul className="list-none space-y-2">
-              <li><strong>Email:</strong> {SITE_CONFIG.email}</li>
-              <li><strong>Teléfono:</strong> {SITE_CONFIG.phone}</li>
-              <li><strong>Dirección:</strong> {SITE_CONFIG.address}</li>
+              <li><strong>Email:</strong> {contact.email}</li>
+              <li><strong>Teléfono:</strong> {contact.phone}</li>
+              <li><strong>Dirección:</strong> {contact.address}</li>
             </ul>
           </section>
 

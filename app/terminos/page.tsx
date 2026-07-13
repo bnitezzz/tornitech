@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { LegalPageShell } from '@/components/layout/legal-page-shell';
 import { SITE_CONFIG } from '@/constants/site';
+import { getCachedSiteContactConfig } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   title: 'Términos y Condiciones',
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function TerminosPage() {
+export default async function TerminosPage() {
+  const contact = await getCachedSiteContactConfig();
+
   return (
     <LegalPageShell>
       <div className="container mx-auto max-w-4xl px-4 py-16">
@@ -86,9 +89,9 @@ export default function TerminosPage() {
               Para cualquier consulta relacionada con estos términos, puede contactarnos en:
             </p>
             <ul className="list-none space-y-2">
-              <li><strong>Email:</strong> {SITE_CONFIG.email}</li>
-              <li><strong>Teléfono:</strong> {SITE_CONFIG.phone}</li>
-              <li><strong>Dirección:</strong> {SITE_CONFIG.address}</li>
+              <li><strong>Email:</strong> {contact.email}</li>
+              <li><strong>Teléfono:</strong> {contact.phone}</li>
+              <li><strong>Dirección:</strong> {contact.address}</li>
             </ul>
           </section>
 

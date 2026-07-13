@@ -16,10 +16,12 @@ import {
 import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
 import { FOOTER_CATEGORIES } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
+import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const contact = useSiteContact();
 
   return (
     <footer className="w-full bg-[#052042] py-14 md:py-16">
@@ -43,9 +45,9 @@ export function Footer() {
               {SITE_CONFIG.description}
             </p>
             <div className="flex gap-3">
-              {SITE_CONFIG.social.facebook && (
+              {contact.social.facebook && (
                 <a
-                  href={SITE_CONFIG.social.facebook}
+                  href={contact.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
@@ -54,9 +56,9 @@ export function Footer() {
                   <Facebook className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
-              {SITE_CONFIG.social.linkedin && (
+              {contact.social.linkedin && (
                 <a
-                  href={SITE_CONFIG.social.linkedin}
+                  href={contact.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
@@ -65,9 +67,9 @@ export function Footer() {
                   <Linkedin className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
-              {SITE_CONFIG.social.instagram && (
+              {contact.social.instagram && (
                 <a
-                  href={SITE_CONFIG.social.instagram}
+                  href={contact.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
@@ -127,7 +129,7 @@ export function Footer() {
           >
             <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Contacto</h4>
             <address className="space-y-4 not-italic">
-              {SITE_CONFIG.phones.map((number) => (
+              {contact.phones.map((number) => (
                 <a
                   key={number}
                   href={`tel:${number.replace(/[^0-9+]/g, '')}`}
@@ -138,19 +140,19 @@ export function Footer() {
                 </a>
               ))}
               <a
-                href={`mailto:${SITE_CONFIG.email}`}
+                href={`mailto:${contact.email}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
               >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.email}
+                {contact.email}
               </a>
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.address}
+                {contact.address}
               </div>
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.businessHours}
+                {contact.businessHours}
               </div>
             </address>
 

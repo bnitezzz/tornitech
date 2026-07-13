@@ -83,7 +83,7 @@ export async function submitContact(
 
     await Promise.all([
       sendEmail(
-        buildContactNotificationEmail({
+        await buildContactNotificationEmail({
           name: form.name,
           email: form.email,
           phone: form.phone,
@@ -185,7 +185,7 @@ export async function submitCatalogDownload(
     }
 
     await sendEmail(
-      buildCatalogDownloadNotificationEmail({
+      await buildCatalogDownloadNotificationEmail({
         name: form.name,
         email: form.email,
         company: form.company,

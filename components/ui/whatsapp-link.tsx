@@ -1,4 +1,5 @@
 import type { ComponentProps } from 'react';
+import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { getWhatsAppLink, type WhatsAppMessageType } from '@/lib/whatsapp';
 import type { ProductItem } from '@/types/product';
 
@@ -17,6 +18,7 @@ type WhatsAppLinkProps = ComponentProps<'a'> & {
 
 /**
  * Accessible anchor that opens WhatsApp with a pre-filled message.
+ * Phone number comes from site_config (Supabase) via SiteContactProvider.
  */
 export function WhatsAppLink({
   messageType,
@@ -28,14 +30,19 @@ export function WhatsAppLink({
   rel = 'noopener noreferrer',
   ...props
 }: WhatsAppLinkProps) {
+  const { whatsapp } = useSiteContact();
   const linkHref =
     href ??
-    getWhatsAppLink(messageType, {
-      name: product?.name ?? params?.name,
-      sku: product?.sku ?? params?.sku,
-      quantity: params?.quantity,
-      company: params?.company,
-    });
+    getWhatsAppLink(
+      messageType,
+      {
+        name: product?.name ?? params?.name,
+        sku: product?.sku ?? params?.sku,
+        quantity: params?.quantity,
+        company: params?.company,
+      },
+      whatsapp
+    );
 
   return (
     <a href={linkHref} target={target} rel={rel} {...props}>

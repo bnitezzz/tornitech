@@ -5,6 +5,7 @@ import { HeroSection } from '@/components/sections/hero-section';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
 import { WhatsAppFloat } from '@/components/ui/whatsapp-float';
+import { getCachedSiteContactConfig } from '@/lib/site-config';
 
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((m) => ({ default: m.AboutSection }))
@@ -37,53 +38,55 @@ const ContactSection = dynamic(
   () => import('@/components/sections/contact-section').then((m) => ({ default: m.ContactSection }))
 );
 
-const jsonLdOrganization = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: SITE_CONFIG.name,
-  description: SITE_CONFIG.description,
-  url: SITE_CONFIG.url,
-  logo: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: SITE_CONFIG.phone,
-    contactType: 'sales',
-    areaServed: 'VE',
-    availableLanguage: 'Spanish',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: SITE_CONFIG.address,
-    addressLocality: 'Caracas',
-    addressCountry: 'VE',
-  },
-  sameAs: [
-    SITE_CONFIG.social.linkedin,
-    SITE_CONFIG.social.facebook,
-    SITE_CONFIG.social.instagram,
-  ].filter(Boolean),
-};
+export default async function HomePage() {
+  const contact = await getCachedSiteContactConfig();
 
-const jsonLdLocalBusiness = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': SITE_CONFIG.url,
-  name: SITE_CONFIG.name,
-  description: SITE_CONFIG.description,
-  url: SITE_CONFIG.url,
-  telephone: SITE_CONFIG.phone,
-  email: SITE_CONFIG.email,
-  image: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: SITE_CONFIG.address,
-    addressLocality: 'Caracas',
-    addressCountry: 'VE',
-  },
-  openingHours: 'Mo-Fr 08:00-17:00, Sa 09:00-14:00',
-};
+  const jsonLdOrganization = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    logo: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: contact.phone,
+      contactType: 'sales',
+      areaServed: 'VE',
+      availableLanguage: 'Spanish',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.address,
+      addressLocality: 'Caracas',
+      addressCountry: 'VE',
+    },
+    sameAs: [
+      contact.social.linkedin,
+      contact.social.facebook,
+      contact.social.instagram,
+    ].filter(Boolean),
+  };
 
-export default function HomePage() {
+  const jsonLdLocalBusiness = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': SITE_CONFIG.url,
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    telephone: contact.phone,
+    email: contact.email,
+    image: `${SITE_CONFIG.url}${ASSETS.logo.color}`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.address,
+      addressLocality: 'Caracas',
+      addressCountry: 'VE',
+    },
+    openingHours: 'Mo-Fr 08:00-17:00, Sa 09:00-14:00',
+  };
+
   return (
     <>
       <script

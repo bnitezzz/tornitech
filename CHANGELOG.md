@@ -1,3 +1,15 @@
+## 2026-07-13 — Contacto editable desde Supabase
+
+### Funcionalidad
+- La web lee WhatsApp, email, teléfono, dirección, horario y redes desde `site_config`.
+- Fallback a `constants/site.ts` si Supabase no responde o faltan keys.
+- Header, Footer, Contacto, botón WhatsApp, JSON-LD y páginas legales usan esos datos.
+- Inbox de notificaciones: `EMAIL_TO` → `contact_email` en Supabase → constante.
+
+### Código
+- `lib/site-config.ts`, `lib/site-contact-defaults.ts`, `types/site-contact.ts`
+- Provider `SiteContactBridge` / `SiteContactProvider` en el layout.
+
 ## 2026-07-13 — Ejemplos CSV para Supabase
 
 ### Contenido

@@ -27,9 +27,11 @@ configuracion_web.csv    → tabla "configuracion_web"
                            mostrar_productos=true  → muestra la sección
                            mostrar_productos=false → la oculta
 
-site_config.csv          → tabla "site_config"
-                           Datos de contacto (referencia futura; hoy la web
-                           lee varios de estos valores desde el código)
+site_config.csv          → tabla "site_config" (value)
+                           WhatsApp, email, teléfono, dirección, horario
+
+site_config_social.csv   → tabla "site_config" (value_json en key social_links)
+                           Redes sociales en JSON
 
 NOTAS
 -----
@@ -39,3 +41,5 @@ NOTAS
 • Los PDF de ejemplo en catalogs.csv apuntan a /catalogs/...;
   asegúrate de subir esos archivos a public/catalogs/ o a Supabase Storage
   y actualizar file_url.
+• Datos de contacto (site_config) se leen en la web en vivo:
+  header, footer, sección Contacto, WhatsApp y páginas legales.

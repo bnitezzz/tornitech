@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Send, Loader2, Phone, Mail, MapPin, Clock, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import { SectionHeader } from '@/components/ui/section-header';
+import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { submitContact } from '@/actions/contact';
 import { contactFormSchema } from '@/types';
 import { SITE_CONFIG } from '@/constants/site';
@@ -18,18 +19,6 @@ import { EASE_PREMIUM, VIEWPORT_ONCE, fadeUp, reducedMotionVisible } from '@/lib
 
 const fieldClassName =
   'h-[48px] rounded-[10px] border-[#E5E7EB]/80 bg-white/90 text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
-
-const contactInfo = [
-  ...SITE_CONFIG.phones.map((number) => ({
-    icon: Phone,
-    label: 'Teléfono',
-    value: number,
-    href: `tel:${number.replace(/[^0-9+]/g, '')}`,
-  })),
-  { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
-  { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
-  { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },
-];
 
 const whatsappQuestions: { title: string; description: string; messageType: WhatsAppMessageType }[] = [
   {
@@ -52,6 +41,22 @@ const whatsappQuestions: { title: string; description: string; messageType: What
 export function ContactSection() {
   const prefersReducedMotion = useReducedMotion();
   const motionVariants = prefersReducedMotion ? reducedMotionVisible : fadeUp;
+  const contact = useSiteContact();
+
+  const contactInfo = useMemo(
+    () => [
+      ...contact.phones.map((number) => ({
+        icon: Phone,
+        label: 'Teléfono',
+        value: number,
+        href: `tel:${number.replace(/[^0-9+]/g, '')}`,
+      })),
+      { icon: Mail, label: 'Correo', value: contact.email, href: `mailto:${contact.email}` },
+      { icon: MapPin, label: 'Dirección', value: contact.address, href: undefined as string | undefined },
+      { icon: Clock, label: 'Horario', value: contact.businessHours, href: undefined as string | undefined },
+    ],
+    [contact.address, contact.businessHours, contact.email, contact.phones]
+  );
 
   const [formData, setFormData] = useState({
     firstName: '',

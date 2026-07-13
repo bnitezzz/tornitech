@@ -1,5 +1,6 @@
 'use client';
 
+import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -11,9 +12,11 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export function WhatsAppFloat() {
+  const { whatsapp } = useSiteContact();
+
   return (
     <a
-      href={getWhatsAppLink('general_quote')}
+      href={getWhatsAppLink('general_quote', undefined, whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

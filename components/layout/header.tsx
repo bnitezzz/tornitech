@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Menu, X, Clock, MapPin, Phone } from 'lucide-react';
-import { SITE_CONFIG, NAVIGATION } from '@/constants/site';
+import { NAVIGATION } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
+import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
 import { EASE_PREMIUM } from '@/lib/motion';
 
@@ -15,13 +16,17 @@ const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98
 
 const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto'];
 
-const infoTickerItems = [
-  { icon: Clock, text: SITE_CONFIG.businessHours },
-  { icon: MapPin, text: SITE_CONFIG.address },
-  { icon: Phone, text: SITE_CONFIG.phone },
-];
-
 function InfoTicker() {
+  const contact = useSiteContact();
+  const infoTickerItems = useMemo(
+    () => [
+      { icon: Clock, text: contact.businessHours },
+      { icon: MapPin, text: contact.address },
+      { icon: Phone, text: contact.phone },
+    ],
+    [contact.address, contact.businessHours, contact.phone]
+  );
+
   return (
     <div className="w-full overflow-hidden bg-[#052042] py-2 text-white/80" aria-label="Información de contacto">
       <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">

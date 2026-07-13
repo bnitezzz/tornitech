@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 import { Sora } from 'next/font/google';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
+import { SiteContactBridge } from '@/components/providers/site-contact-bridge';
+
+/** Refresh contact data from site_config periodically (ISR). */
+export const revalidate = 60;
 
 const sora = Sora({
   subsets: ['latin'],
@@ -81,7 +85,7 @@ export default function RootLayout({
         <link rel="icon" href={ASSETS.isotipo.color} sizes="any" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
-        {children}
+        <SiteContactBridge>{children}</SiteContactBridge>
       </body>
     </html>
   );

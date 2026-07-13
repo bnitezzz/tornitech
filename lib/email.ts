@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from '@/constants/site';
+import { getSiteContactConfig } from '@/lib/site-config';
 
 type EmailPayload = {
   to: string | string[];
@@ -11,8 +12,20 @@ function getEmailConfig() {
   return {
     apiKey: process.env.RESEND_API_KEY?.trim(),
     from: process.env.EMAIL_FROM?.trim() || `${SITE_CONFIG.name} <noreply@${new URL(SITE_CONFIG.url).hostname}>`,
-    teamInbox: process.env.EMAIL_TO?.trim() || SITE_CONFIG.email,
   };
+}
+
+/** Team inbox: EMAIL_TO env, else contact_email from site_config, else constants. */
+export async function getTeamInbox(): Promise<string> {
+  const fromEnv = process.env.EMAIL_TO?.trim();
+  if (fromEnv) return fromEnv;
+
+  try {
+    const contact = await getSiteContactConfig();
+    return contact.email;
+  } catch {
+    return SITE_CONFIG.email;
+  }
 }
 
 /** Sends an email via Resend HTTP API. Skips silently when RESEND_API_KEY is not set. */
@@ -54,11 +67,7 @@ export async function sendEmail(payload: EmailPayload): Promise<boolean> {
   }
 }
 
-export function getTeamInbox(): string {
-  return getEmailConfig().teamInbox;
-}
-
-export function buildContactNotificationEmail(data: {
+export async function buildContactNotificationEmail(data: {
   name: string;
   email: string;
   phone?: string;
@@ -66,9 +75,9 @@ export function buildContactNotificationEmail(data: {
   subject?: string;
   message: string;
   acceptsMarketing: boolean;
-}): EmailPayload {
+}): Promise<EmailPayload> {
   return {
-    to: getTeamInbox(),
+    to: await getTeamInbox(),
     subject: `[Contacto] ${data.subject || 'Nueva consulta'} — ${data.name}`,
     replyTo: data.email,
     html: `
@@ -102,7 +111,7 @@ export function buildContactConfirmationEmail(data: {
   };
 }
 
-export function buildCatalogDownloadNotificationEmail(data: {
+export async function buildCatalogDownloadNotificationEmail(data: {
   name: string;
   email: string;
   company: string;
@@ -111,9 +120,9 @@ export function buildCatalogDownloadNotificationEmail(data: {
   sector?: string;
   catalogTitle: string;
   acceptsMarketing: boolean;
-}): EmailPayload {
+}): Promise<EmailPayload> {
   return {
-    to: getTeamInbox(),
+    to: await getTeamInbox(),
     subject: `[Catálogo] Descarga — ${data.catalogTitle} — ${data.name}`,
     replyTo: data.email,
     html: `
