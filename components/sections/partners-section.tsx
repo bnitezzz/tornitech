@@ -7,7 +7,7 @@ import { PARTNERS_CONTENT, TECHNICAL_STANDARDS } from '@/constants/content';
 
 export function PartnersSection() {
   return (
-    <section id="normas" className="section-bg-partners w-full pb-12 pt-6 md:pb-14 md:pt-8 lg:pb-16 lg:pt-10">
+    <section id="normas" className="section-bg-ffffff w-full pb-12 pt-6 md:pb-14 md:pt-8 lg:pb-16 lg:pt-10">
       <div className="section-container flex flex-col items-center gap-8 md:gap-10">
         <SectionHeader
           heading={PARTNERS_CONTENT.sectionHeading}
