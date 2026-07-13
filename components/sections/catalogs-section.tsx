@@ -133,7 +133,7 @@ export function CatalogsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="card-elevated card-elevated-hover group w-full max-w-[372px] overflow-hidden rounded-[10px] border border-slate-100"
+              className="card-elevated card-elevated-hover group w-full max-w-[372px] overflow-hidden rounded-xl border border-slate-100"
             >
               <Image
                 className="img-zoom h-auto w-full object-cover"

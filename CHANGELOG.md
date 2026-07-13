@@ -1,3 +1,19 @@
+## 2026-07-13 — Premium frontend polish
+
+### UX / UI
+- Navbar sticky con efecto glass al scroll, shrink suave y `aria-controls` en menú móvil.
+- Contacto rediseñado con panel glassmorphism, fondo atmosférico y `SectionHeader` unificado.
+- Presets de motion compartidos (`lib/motion.ts`) con easing premium y soporte `prefers-reduced-motion`.
+- Ritmo visual: fondos alternados (proceso/nosotros `#f8fafc`), cards con `card-elevated`.
+- Tipografía Sora con peso 800 real; botones navy solid unificados a `rounded-[10px]`.
+
+### Accesibilidad
+- CSS global para reducir motion; heading hierarchy en Misión/Visión (`h3`).
+- Eliminado icono de enlace engañoso en socio comercial.
+
+### Rendimiento
+- Animaciones desacopladas y viewport once; sin nuevas dependencias.
+
 ## 2026-07-10 — Reorden de secciones
 
 ### Estructura

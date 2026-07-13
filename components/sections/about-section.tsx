@@ -7,11 +7,11 @@ import { ABOUT_CONTENT } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 
 const cardClassName =
-  'flex flex-col items-center rounded-xl border border-slate-100 bg-white px-5 py-6 text-center sm:px-6 sm:py-7';
+  'card-elevated flex flex-col items-center rounded-xl border border-slate-100 bg-white px-5 py-6 text-center sm:px-6 sm:py-7';
 
 export function AboutSection() {
   return (
-    <section id="nosotros" className="section-padding relative w-full bg-white">
+    <section id="nosotros" className="section-padding relative w-full bg-[#f8fafc]">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={ABOUT_CONTENT.heading}
@@ -21,7 +21,8 @@ export function AboutSection() {
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: '-48px' }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-5 max-w-[760px] text-center text-body xl:max-w-[820px] 2xl:max-w-[880px]"
         >
           {ABOUT_CONTENT.intro}
@@ -32,12 +33,13 @@ export function AboutSection() {
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: '-48px' }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className={cardClassName}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
               {ABOUT_CONTENT.mission.title}
-            </p>
+            </h3>
             <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
               {ABOUT_CONTENT.mission.text}
             </p>
@@ -46,13 +48,13 @@ export function AboutSection() {
           <motion.article
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.06 }}
+            viewport={{ once: true, margin: '-48px' }}
+            transition={{ delay: 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className={cardClassName}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-[#316d92]">
               {ABOUT_CONTENT.vision.title}
-            </p>
+            </h3>
             <p className="mt-3 text-sm leading-relaxed text-[#3c4456]/85 sm:text-base">
               {ABOUT_CONTENT.vision.text}
             </p>

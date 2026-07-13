@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { EASE_PREMIUM, VIEWPORT_ONCE, reducedMotionVisible, fadeUp } from '@/lib/motion';
 
 type SectionHeaderProps = {
   heading: string;
@@ -17,13 +18,16 @@ export function SectionHeader({
   className = '',
   align = 'center',
 }: SectionHeaderProps) {
+  const prefersReducedMotion = useReducedMotion();
   const alignClass = align === 'center' ? 'items-center text-center' : 'items-start text-left';
 
   return (
     <motion.header
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      variants={prefersReducedMotion ? reducedMotionVisible : fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VIEWPORT_ONCE}
+      transition={{ duration: 0.45, ease: EASE_PREMIUM }}
       className={`flex flex-col gap-3 ${alignClass} ${className}`}
     >
       <h2 className={inverse ? 'section-heading-inverse' : 'section-heading'}>{heading}</h2>

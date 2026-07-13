@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { SectionHeader } from '@/components/ui/section-header';
 import { WORK_PROCESS } from '@/constants/content';
+import { EASE_PREMIUM, VIEWPORT_ONCE } from '@/lib/motion';
 
 function ProcessStepCard({
   step,
@@ -11,15 +12,17 @@ function ProcessStepCard({
   step: (typeof WORK_PROCESS.steps)[number];
   index: number;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      viewport={VIEWPORT_ONCE}
+      transition={{ delay: prefersReducedMotion ? 0 : index * 0.08, duration: 0.45, ease: EASE_PREMIUM }}
       className="group flex flex-col items-center text-center"
     >
-      <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 border-[#316d92]/25 bg-white shadow-[0_2px_12px_rgba(49,109,146,0.1)] transition-transform duration-300 group-hover:scale-105 sm:h-[80px] sm:w-[80px]">
+      <div className="flex h-[72px] w-[72px] items-center justify-center rounded-full border-2 border-[#316d92]/25 bg-white shadow-[0_2px_12px_rgba(49,109,146,0.1)] transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 sm:h-[80px] sm:w-[80px]">
         <step.icon className="h-7 w-7 text-[#316d92] sm:h-8 sm:w-8" strokeWidth={1.75} />
       </div>
 
@@ -37,12 +40,12 @@ function ProcessStepCard({
 
 export function WorkProcessSection() {
   return (
-    <section id="proceso" className="section-padding w-full bg-white">
+    <section id="proceso" className="section-padding w-full bg-[#f8fafc]">
       <div className="section-container">
         <SectionHeader
           heading={WORK_PROCESS.heading}
           subheading={WORK_PROCESS.subheading}
-          className="mb-8 md:mb-12"
+          className="mb-8 md:mb-10"
         />
 
         <div className="relative">

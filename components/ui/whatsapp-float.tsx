@@ -17,7 +17,7 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
-      className="focus-ring fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] active:scale-95 sm:bottom-6 sm:right-6"
+      className="focus-ring fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
     >
       <WhatsAppIcon className="h-7 w-7" />
     </a>

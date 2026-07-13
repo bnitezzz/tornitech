@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
 import { SectionHeader } from '@/components/ui/section-header';
 import { PARTNERS_CONTENT, TECHNICAL_STANDARDS } from '@/constants/content';
 
@@ -72,23 +71,16 @@ export function PartnersSection() {
               </div>
 
               <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                <div className="flex items-end justify-between gap-4">
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#fab43a]">
-                      Socio comercial
-                    </p>
-                    <h4 className="mt-1 text-lg font-bold text-white sm:text-xl">
-                      {PARTNERS_CONTENT.partnerName}
-                    </h4>
-                    <p className="mt-2 max-w-[400px] text-sm leading-relaxed text-white/75">
-                      {PARTNERS_CONTENT.partnerDescription}
-                    </p>
-                  </div>
-                  <div className="hidden shrink-0 sm:flex">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors group-hover:bg-white/20">
-                      <ExternalLink className="h-4 w-4" strokeWidth={1.75} />
-                    </span>
-                  </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#fab43a]">
+                    Socio comercial
+                  </p>
+                  <h4 className="mt-1 text-lg font-bold text-white sm:text-xl">
+                    {PARTNERS_CONTENT.partnerName}
+                  </h4>
+                  <p className="mt-2 max-w-[400px] text-sm leading-relaxed text-white/75">
+                    {PARTNERS_CONTENT.partnerDescription}
+                  </p>
                 </div>
               </div>
             </article>
