@@ -38,7 +38,7 @@ export function ProductsSection() {
 
         <motion.div
           layout
-          className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid w-full grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4"
         >
           <AnimatePresence initial={false} mode="popLayout">
             {visibleProducts.map((product, index) => (
@@ -55,40 +55,40 @@ export function ProductsSection() {
                 }}
                 className="h-full"
               >
-                <div className="card-elevated card-elevated-hover group flex h-full flex-col overflow-hidden rounded-xl border border-slate-100 bg-white">
-                  <div className="relative mx-3 mt-3 aspect-[245/158] overflow-hidden rounded-lg">
+                <div className="card-elevated card-elevated-hover group flex h-full flex-col overflow-hidden rounded-lg border border-slate-100 bg-white sm:rounded-xl">
+                  <div className="relative mx-2 mt-2 aspect-[4/3] overflow-hidden rounded-md sm:mx-3 sm:mt-3 sm:aspect-[245/158] sm:rounded-lg">
                     <Image
                       className="img-zoom object-cover"
                       alt={product.name}
                       src={getProductImage(product)}
                       fill
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 280px"
+                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 45vw, 280px"
                     />
                   </div>
 
-                  <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-wider text-[#316d92]">
+                  <div className="flex flex-1 flex-col px-2.5 pb-2.5 pt-2 sm:px-4 sm:pb-4 sm:pt-3">
+                    <p className="truncate text-[10px] font-semibold uppercase tracking-wider text-[#316d92] sm:text-[11px]">
                       {product.sku}
                     </p>
-                    <h3 className="mt-1 line-clamp-2 text-base font-bold leading-snug text-[#052042]">
+                    <h3 className="mt-0.5 line-clamp-2 text-sm font-bold leading-snug text-[#052042] sm:mt-1 sm:text-base">
                       {product.name}
                     </h3>
 
                     {product.specs && (
-                      <p className="mt-2 line-clamp-1 text-[11px] font-medium text-[#6b7280]">
+                      <p className="mt-1.5 hidden line-clamp-1 text-[11px] font-medium text-[#6b7280] sm:mt-2 sm:block">
                         {product.specs}
                       </p>
                     )}
 
-                    <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#3c4456]/75">
+                    <p className="mt-1.5 hidden line-clamp-2 text-xs leading-relaxed text-[#3c4456]/75 sm:mt-2 sm:block">
                       {product.short_description || product.description}
                     </p>
 
-                    <div className="mt-auto flex justify-end pt-3">
+                    <div className="mt-auto flex justify-stretch pt-2 sm:justify-end sm:pt-3">
                       <WhatsAppLink
                         messageType="product_quote"
                         product={product}
-                        className="btn-yellow focus-ring min-w-[100px] px-5 py-2 text-sm"
+                        className="btn-yellow focus-ring w-full px-3 py-1.5 text-xs sm:w-auto sm:min-w-[100px] sm:px-5 sm:py-2 sm:text-sm"
                       >
                         Cotizar
                       </WhatsAppLink>

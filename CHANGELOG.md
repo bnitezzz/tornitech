@@ -1,6 +1,7 @@
 ## 2026-07-13 — Premium frontend polish
 
 ### UX / UI
+- Productos: grid 2×2 en móvil con cards compactas (tipografía, padding y CTA adaptados).
 - Navbar sticky con efecto glass al scroll, shrink suave y `aria-controls` en menú móvil.
 - Contacto rediseñado con panel glassmorphism, fondo atmosférico y `SectionHeader` unificado.
 - Presets de motion compartidos (`lib/motion.ts`) con easing premium y soporte `prefers-reduced-motion`.
