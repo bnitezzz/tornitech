@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -10,11 +10,17 @@ import { ASSETS } from '@/constants/assets';
 import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
 import { EASE_PREMIUM } from '@/lib/motion';
+import {
+  getPreferredScrollBehavior,
+  getSectionIdFromHref,
+  scrollToSectionId,
+} from '@/lib/scroll';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
 
-const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto'];
+/** Must match real section ids on the homepage */
+const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto'] as const;
 
 function InfoTicker() {
   const contact = useSiteContact();
@@ -49,7 +55,7 @@ function InfoTicker() {
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>('inicio');
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -59,11 +65,39 @@ export function Header() {
     returnFocusRef: menuToggleRef,
   });
 
+  const handleNavClick = useCallback(
+    (href: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+      const sectionId = getSectionIdFromHref(href);
+      if (!sectionId) return;
+
+      // Same-page anchor: custom smooth scroll with sticky-header offset
+      event.preventDefault();
+      const behavior = getPreferredScrollBehavior();
+      const scrolled = scrollToSectionId(sectionId, behavior);
+      if (scrolled) {
+        setActiveSection(sectionId === 'top' ? 'inicio' : sectionId);
+      }
+      setIsMobileMenuOpen(false);
+    },
+    []
+  );
+
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Initial hash support (direct URL or refresh mid-page)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    const frame = window.requestAnimationFrame(() => {
+      scrollToSectionId(hash, 'auto');
+      setActiveSection(hash === 'top' ? 'inicio' : hash);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -74,11 +108,14 @@ export function Header() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id);
+        }
       },
-      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5] }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -118,7 +155,8 @@ export function Header() {
           style={isScrolled ? undefined : { background: NAV_GRADIENT }}
         >
           <Link
-            href="/"
+            href="/#inicio"
+            onClick={(e) => handleNavClick('/#inicio', e)}
             className={`focus-ring-inverse relative shrink-0 rounded-sm transition-all duration-300 ${
               isScrolled
                 ? 'h-[30px] w-[96px] sm:h-[34px] sm:w-[110px] lg:h-[40px] lg:w-[130px]'
@@ -138,25 +176,13 @@ export function Header() {
 
           <ul className="hidden flex-1 items-baseline justify-center gap-5 md:flex lg:gap-10 xl:gap-[42px]">
             {NAVIGATION.map((item) => {
-              const sectionId = item.href.replace('/#', '');
-              const isActive =
-                item.href === '/#' + activeSection ||
-                (sectionId === 'inicio' && (activeSection === 'inicio' || activeSection === ''));
+              const sectionId = getSectionIdFromHref(item.href) ?? '';
+              const isActive = activeSection === sectionId;
               return (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    onClick={(e) => {
-                      if (sectionId === 'inicio') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        setIsMobileMenuOpen(false);
-                        setActiveSection('inicio');
-                        if (typeof window !== 'undefined') {
-                          window.history.replaceState(null, '', '/#inicio');
-                        }
-                      }
-                    }}
+                    onClick={(e) => handleNavClick(item.href, e)}
                     aria-current={isActive ? 'location' : undefined}
                     className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal transition-colors duration-200 hover:text-white ${
                       isActive ? 'text-white' : 'text-[#f2f2f2]'
@@ -176,6 +202,7 @@ export function Header() {
 
           <Link
             href="/#contacto"
+            onClick={(e) => handleNavClick('/#contacto', e)}
             className={`btn-yellow-pill focus-ring-inverse hidden text-sm md:inline-flex transition-all duration-300 ${
               isScrolled ? 'min-w-[120px] px-5 py-[6px]' : 'min-w-[135px] px-6 py-[7px]'
             }`}
@@ -229,16 +256,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    onClick={(e) => {
-                      const sectionId = item.href.replace('/#', '');
-                      if (sectionId === 'inicio') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        setActiveSection('inicio');
-                        window.history.replaceState(null, '', '/#inicio');
-                      }
-                      setIsMobileMenuOpen(false);
-                    }}
+                    onClick={(e) => handleNavClick(item.href, e)}
                     className="focus-ring-inverse block rounded-sm border-b border-white/20 py-3 text-xl font-medium text-white transition-colors hover:text-[#fab43a]"
                   >
                     {item.name}
@@ -247,7 +265,7 @@ export function Header() {
               ))}
               <Link
                 href="/#contacto"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick('/#contacto', e)}
                 className="btn-yellow-pill focus-ring-inverse mt-6 w-full px-6 py-3 text-base"
               >
                 Cotizar

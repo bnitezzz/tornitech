@@ -1,3 +1,11 @@
+## 2026-07-13 — Navbar: anclas y scroll con offset
+
+### Navegación
+- Enlaces del Header (y Footer) hacen scroll suave a las secciones correctas: `#inicio`, `#productos`, `#catalogos`, `#nosotros`, `#contacto`.
+- Offset de ~72px para que el sticky header no tape el título de la sección.
+- Soporte de hash al cargar/recargar (`/#productos`, etc.) y `prefers-reduced-motion`.
+- `scroll-padding-top` / `scroll-margin-top` en CSS global.
+
 ## 2026-07-13 — Contacto editable desde Supabase
 
 ### Funcionalidad

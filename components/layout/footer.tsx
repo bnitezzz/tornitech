@@ -18,10 +18,22 @@ import { FOOTER_CATEGORIES } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
+import {
+  getPreferredScrollBehavior,
+  getSectionIdFromHref,
+  scrollToSectionId,
+} from '@/lib/scroll';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const contact = useSiteContact();
+
+  const handleNavClick = (href: string, event: React.MouseEvent<HTMLAnchorElement>) => {
+    const sectionId = getSectionIdFromHref(href);
+    if (!sectionId) return;
+    event.preventDefault();
+    scrollToSectionId(sectionId, getPreferredScrollBehavior());
+  };
 
   return (
     <footer className="w-full bg-[#052042] py-14 md:py-16">
@@ -93,6 +105,7 @@ export function Footer() {
                 <Link
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => handleNavClick(item.href, e)}
                   className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
                 >
                   {item.name}
@@ -113,6 +126,7 @@ export function Footer() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  onClick={(e) => handleNavClick(item.href, e)}
                   className="focus-ring-inverse block rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
                 >
                   {item.label}
