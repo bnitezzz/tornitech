@@ -20,7 +20,7 @@ export function Productos() {
   }
 
   return (
-    <section id="lista-productos" className="section-padding section-bg-soft w-full">
+    <section id="lista-productos" className="section-padding section-bg-soft-solid w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={PRODUCTOS_CATALOG_CONTENT.heading}

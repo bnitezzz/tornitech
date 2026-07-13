@@ -226,6 +226,11 @@
     );
   }
 
+  /* Solid soft blue — same tint as section-bg-soft, no gradient */
+  .section-bg-soft-solid {
+    background-color: #f0f5f8;
+  }
+
   /* Capacidades: soft tint at top fading to pure white */
   .section-bg-fade-top {
     background: linear-gradient(
