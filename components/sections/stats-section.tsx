@@ -42,7 +42,7 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative w-full section-bg-soft pb-4 sm:pb-6 md:pb-8" aria-label="Indicadores destacados">
+    <section className="relative w-full bg-white pb-2 sm:pb-3 md:pb-4" aria-label="Indicadores destacados">
       <div
         ref={ref}
         className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-6 py-8 card-elevated sm:px-10 sm:py-10"

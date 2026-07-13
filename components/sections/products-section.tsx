@@ -28,7 +28,7 @@ export function ProductsSection() {
   const hasMore = displayProducts.length > INITIAL_VISIBLE_COUNT;
 
   return (
-    <section id="productos" className="section-padding section-bg-ffffff w-full">
+    <section id="productos" className="section-padding section-bg-fade-bottom w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={PRODUCTS_CONTENT.heading}

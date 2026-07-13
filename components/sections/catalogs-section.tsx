@@ -117,7 +117,7 @@ export function CatalogsSection() {
   };
 
   return (
-    <section id="catalogos" className="section-padding section-bg-soft w-full">
+    <section id="catalogos" className="section-padding section-bg-fade-bottom w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={CATALOGS_CONTENT.heading}
