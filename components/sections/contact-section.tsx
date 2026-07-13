@@ -20,7 +20,12 @@ const fieldClassName =
   'h-[48px] rounded-[10px] border-[#E5E7EB]/80 bg-white/90 text-[#1F2937] placeholder:text-[#9CA3AF] transition-colors duration-200 focus-visible:border-[#316d92] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[#316d92]/15 focus-visible:ring-offset-0';
 
 const contactInfo = [
-  { icon: Phone, label: 'Teléfono', value: SITE_CONFIG.phone, href: `tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}` },
+  ...SITE_CONFIG.phones.map((number) => ({
+    icon: Phone,
+    label: 'Teléfono',
+    value: number,
+    href: `tel:${number.replace(/[^0-9+]/g, '')}`,
+  })),
   { icon: Mail, label: 'Correo', value: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
   { icon: MapPin, label: 'Dirección', value: SITE_CONFIG.address, href: undefined },
   { icon: Clock, label: 'Horario', value: SITE_CONFIG.businessHours, href: undefined },

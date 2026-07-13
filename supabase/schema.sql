@@ -409,17 +409,17 @@ CREATE POLICY "public_insert_newsletter" ON public.newsletter_subscribers
 -- DATOS INICIALES: configuración del sitio
 -- =============================================================================
 INSERT INTO public.site_config (key, value, description, is_public) VALUES
-  ('whatsapp_number',   '+584121234567',              'Número de WhatsApp con código de país', true),
-  ('contact_email',     'ventas@tornitech.com',       'Correo principal de contacto', true),
-  ('sales_email',       'ventas@tornitech.com',       'Correo del equipo comercial', false),
-  ('phone',             '+58 212 555 1234',           'Teléfono de la empresa', true),
-  ('address',           'Av. Principal, Zona Industrial La Yaguara, Caracas 1030, Venezuela', 'Dirección física', true),
-  ('business_hours',    'Lunes a Viernes 8:00 – 18:00 · Sábados 9:00 – 14:00', 'Horario de atención', true),
+  ('whatsapp_number',   '584242818062',               'Número de WhatsApp con código de país', true),
+  ('contact_email',     'ventasccstornitech@gmail.com', 'Correo principal de contacto', true),
+  ('sales_email',       'ventasccstornitech@gmail.com', 'Correo del equipo comercial', false),
+  ('phone',             '0212-2398501 / 0212-2358456', 'Teléfono de la empresa', true),
+  ('address',           'Av. tercera transversal de Montecristo entre 1era y 2da Av., Caracas 1071', 'Dirección física', true),
+  ('business_hours',    'Lunes a Viernes 8:00am – 5:00pm · Sábado 9:00am – 2:00pm', 'Horario de atención', true),
   ('site_url',          'https://tornitech.com',      'URL del sitio web', true)
 ON CONFLICT (key) DO NOTHING;
 
 INSERT INTO public.site_config (key, value_json, description, is_public) VALUES
-  ('social_links', '{"linkedin":"https://linkedin.com/company/tornitech","facebook":"https://facebook.com/tornitech","instagram":"https://instagram.com/tornitech"}', 'Redes sociales', true)
+  ('social_links', '{"instagram":"https://www.instagram.com/ccstornitech/"}', 'Redes sociales', true)
 ON CONFLICT (key) DO NOTHING;
 
 -- Productos de ejemplo

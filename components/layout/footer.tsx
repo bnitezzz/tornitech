@@ -127,13 +127,16 @@ export function Footer() {
           >
             <h4 className="mb-6 font-extrabold uppercase tracking-wide text-white">Contacto</h4>
             <address className="space-y-4 not-italic">
-              <a
-                href={`tel:${SITE_CONFIG.phone.replace(/\s+/g, '')}`}
-                className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
-              >
-                <Phone className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
-                {SITE_CONFIG.phone}
-              </a>
+              {SITE_CONFIG.phones.map((number) => (
+                <a
+                  key={number}
+                  href={`tel:${number.replace(/[^0-9+]/g, '')}`}
+                  className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
+                >
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
+                  {number}
+                </a>
+              ))}
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
                 className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
