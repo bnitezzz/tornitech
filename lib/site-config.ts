@@ -1,6 +1,5 @@
 import { unstable_cache } from 'next/cache';
-import { getSupabaseClient } from '@/lib/supabase/client';
-import { getSupabaseFormsClient } from '@/lib/supabase/server';
+import { getSupabaseFormsClient, getSupabaseServer } from '@/lib/supabase/server';
 import {
   getDefaultSiteContact,
   parsePhoneList,
@@ -51,7 +50,7 @@ function mergeRows(rows: SiteConfigRow[]): SiteContactConfig {
 }
 
 async function fetchSiteConfigRows(): Promise<SiteConfigRow[] | null> {
-  const supabase = getSupabaseFormsClient() ?? getSupabaseClient();
+  const supabase = getSupabaseServer() ?? getSupabaseFormsClient();
   if (!supabase) return null;
 
   const { data, error } = await supabase
@@ -60,7 +59,9 @@ async function fetchSiteConfigRows(): Promise<SiteConfigRow[] | null> {
     .in('key', [...CONTACT_KEYS]);
 
   if (error) {
-    console.error('[site-config] Failed to load site_config:', error.message);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[site-config] Failed to load site_config:', error.message);
+    }
     return null;
   }
 

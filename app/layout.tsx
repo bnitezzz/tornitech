@@ -83,6 +83,7 @@ export default function RootLayout({
     <html lang="es-VE" className={sora.variable}>
       <head>
         <link rel="icon" href={ASSETS.isotipo.color} sizes="any" />
+        <link rel="manifest" href="/manifest.webmanifest" />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <SiteContactBridge>{children}</SiteContactBridge>
