@@ -61,8 +61,8 @@ export function AboutSection() {
           </motion.article>
         </div>
 
-        {/* Pillars */}
-        <div className="mx-auto mt-4 grid w-full max-w-[1100px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5 xl:max-w-[1200px] 2xl:max-w-[1280px]">
+        {/* Pillars / Valores — sin recuadros en móvil para reducir fatiga visual */}
+        <div className="mx-auto mt-8 grid w-full max-w-[1100px] grid-cols-1 gap-0 sm:mt-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-5 xl:max-w-[1200px] 2xl:max-w-[1280px]">
           {ABOUT_CONTENT.pillars.map((pillar, index) => (
             <motion.div
               key={pillar.title}
@@ -70,13 +70,13 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.06 }}
-              className={cardClassName}
+              className="flex flex-col items-start border-b border-slate-200/80 py-5 text-left last:border-b-0 sm:items-center sm:rounded-xl sm:border sm:border-slate-100 sm:bg-white sm:px-6 sm:py-7 sm:text-center sm:shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_20px_-6px_rgba(15,23,42,0.12)]"
             >
-              <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-[#316d92]/[0.06]">
+              <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-[#316d92]/[0.06] sm:mb-3 sm:h-9 sm:w-9">
                 <pillar.icon className="h-[18px] w-[18px] text-[#316d92]" strokeWidth={1.75} />
               </div>
               <h4 className="text-sm font-bold text-[#052042]">{pillar.title}</h4>
-              <p className="mt-1.5 text-xs leading-relaxed text-[#6b7280] sm:text-sm">
+              <p className="mt-1 text-xs leading-relaxed text-[#6b7280] sm:mt-1.5 sm:text-sm">
                 {pillar.description}
               </p>
             </motion.div>

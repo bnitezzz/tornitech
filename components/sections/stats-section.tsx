@@ -25,12 +25,12 @@ function StatItem({
       transition={{ delay: index * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className="flex min-w-0 flex-col items-center justify-center text-center"
     >
-      <dd className="whitespace-nowrap text-[28px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
+      <dd className="whitespace-nowrap text-[20px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
         {stat.prefix}
         {numberFormatter.format(count)}
         {stat.suffix}
       </dd>
-      <dt className="mt-2.5 text-xs font-medium uppercase tracking-wide text-[#6b7280] sm:text-sm">
+      <dt className="mt-1.5 text-[9px] font-medium uppercase leading-tight tracking-wide text-[#6b7280] sm:mt-2.5 sm:text-sm sm:leading-normal">
         {stat.label}
       </dt>
     </motion.div>
@@ -42,12 +42,12 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative w-full bg-white pb-2 sm:pb-3 md:pb-4" aria-label="Indicadores destacados">
+    <section className="relative w-full bg-white pb-2 pt-6 sm:pb-3 sm:pt-0 md:pb-4" aria-label="Indicadores destacados">
       <div
         ref={ref}
-        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-6 py-8 card-elevated sm:px-10 sm:py-10"
+        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-6 rounded-2xl border border-slate-100/80 bg-white px-3 py-6 card-elevated sm:-translate-y-1/2 sm:px-10 sm:py-10"
       >
-        <dl className="grid grid-cols-2 items-center gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-10">
+        <dl className="grid grid-cols-4 items-start gap-x-2 gap-y-0 sm:items-center sm:gap-x-6 md:gap-x-10">
           {SITE_STATS.map((stat, index) => (
             <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}

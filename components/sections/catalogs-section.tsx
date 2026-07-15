@@ -125,25 +125,45 @@ export function CatalogsSection() {
           className="mb-8 md:mb-10"
         />
 
-        <div className="mx-auto grid w-full max-w-[886px] grid-cols-1 justify-items-center gap-6 md:grid-cols-2 md:gap-10">
-          {catalogPreviews.map((img, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="card-elevated card-elevated-hover group w-full max-w-[372px] overflow-hidden rounded-xl border border-slate-100"
-            >
-              <Image
-                className="img-zoom h-auto w-full object-cover"
-                alt={img.alt}
-                src={img.src}
-                width={372}
-                height={462}
-              />
-            </motion.div>
-          ))}
+        <div className="mx-auto flex w-full max-w-[886px] flex-col gap-3 md:grid md:grid-cols-2 md:justify-items-center md:gap-10">
+          {catalogPreviews.map((img, index) => {
+            const catalog = displayCatalogs[index];
+            const title = catalog?.title ?? img.alt;
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="card-elevated card-elevated-hover group flex w-full overflow-hidden rounded-xl border border-slate-100 md:max-w-[372px] md:flex-col"
+              >
+                <div className="relative h-[88px] w-[96px] shrink-0 overflow-hidden sm:h-[100px] sm:w-[112px] md:aspect-[372/462] md:h-auto md:w-full">
+                  <Image
+                    className="img-zoom object-cover"
+                    alt={img.alt}
+                    src={img.src}
+                    fill
+                    sizes="(max-width: 768px) 112px, 372px"
+                  />
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col justify-center px-3.5 py-3 md:hidden">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-[#316d92]">
+                    Catálogo PDF
+                  </p>
+                  <h3 className="mt-0.5 line-clamp-2 text-sm font-bold leading-snug text-[#052042]">
+                    {title}
+                  </h3>
+                  {catalog?.description && (
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6b7280]">
+                      {catalog.description}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         <nav

@@ -42,6 +42,14 @@
 ### Importación
 - Cargar productos vía CSV en Supabase Table Editor (ver `supabase/ejemplos/`).
 
+## 2026-07-15 — Mobile layout refinements
+
+### UX / UI
+- Proceso de atención: carrusel con timeline 1–4 en móvil.
+- Catálogos: cards horizontales compactas en pantallas pequeñas.
+- Valores (pilares): lista sin recuadros en móvil.
+- Stats: una sola fila en móvil y más separación respecto a Sectores.
+
 ## 2026-07-13 — Premium frontend polish
 
 ### UX / UI
