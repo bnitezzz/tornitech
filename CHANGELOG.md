@@ -1,3 +1,19 @@
+## 2026-07-15 — Header ancho, límites de productos y scroll horizontal
+
+### Layout
+- Header (cinta + navbar) a ancho completo hasta 1920px, fondo full-bleed y más padding lateral.
+- Secciones densas con `.section-padding-tight` para reducir fatiga de scroll.
+
+### Productos
+- Productos especiales y catálogo de categorías: máximo **5** en home (sin expandir listas largas).
+- Carruseles horizontales en Capacidades, Productos, Sectores.
+
+### Catálogos
+- Recuadros horizontales compactos con descarga por fila.
+
+### Banners
+- Franjas CTA entre Productos/Proceso y antes de Contacto (`PromoBanner`).
+
 ## 2026-07-13 — Navbar: anclas y scroll con offset
 
 ### Navegación

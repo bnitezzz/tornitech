@@ -34,19 +34,21 @@ function InfoTicker() {
   );
 
   return (
-    <div className="w-full overflow-hidden bg-[#052042] py-2 text-white/80" aria-label="Información de contacto">
-      <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
-        {[0, 1].map((copy) => (
-          <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
-            {infoTickerItems.map((item, index) => (
-              <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-5 text-xs font-medium tracking-wide sm:text-[13px]">
-                <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
-                <span>{item.text}</span>
-                <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
-              </li>
-            ))}
-          </ul>
-        ))}
+    <div className="w-full overflow-hidden bg-[#052042] text-white/80" aria-label="Información de contacto">
+      <div className="mx-auto flex w-full max-w-[1920px] overflow-hidden py-2.5">
+        <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+              {infoTickerItems.map((item, index) => (
+                <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-6 text-xs font-medium tracking-wide sm:px-8 sm:text-[13px]">
+                  <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
+                  <span>{item.text}</span>
+                  <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -144,15 +146,17 @@ export function Header() {
     <>
       <InfoTicker />
 
-      <header className="sticky top-0 z-50 w-full">
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ease-out ${
+          isScrolled ? 'nav-glass shadow-[0_8px_28px_-10px_rgba(5,32,66,0.4)]' : ''
+        }`}
+        style={isScrolled ? undefined : { background: NAV_GRADIENT }}
+      >
         <nav
           aria-label="Navegación principal"
-          className={`mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-4 transition-all duration-300 ease-out sm:px-6 md:px-8 lg:pl-[56px] lg:pr-[27px] xl:pl-[87px] ${
-            isScrolled
-              ? 'nav-glass min-h-[44px] py-1 shadow-[0_8px_28px_-10px_rgba(5,32,66,0.4)]'
-              : 'min-h-[50px] py-[1px] shadow-none'
+          className={`mx-auto flex w-full max-w-[1920px] items-center justify-between gap-4 px-5 transition-all duration-300 ease-out sm:px-8 md:px-10 lg:px-12 xl:px-16 2xl:px-20 ${
+            isScrolled ? 'min-h-[48px] py-1.5' : 'min-h-[56px] py-1'
           }`}
-          style={isScrolled ? undefined : { background: NAV_GRADIENT }}
         >
           <Link
             href="/#inicio"

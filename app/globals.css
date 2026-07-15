@@ -222,6 +222,20 @@
     @apply py-12 md:py-14 lg:py-16 2xl:py-20;
   }
 
+  /* Compact sections with carousels / dense cards */
+  .section-padding-tight {
+    @apply py-9 md:py-11 lg:py-12 2xl:py-14;
+  }
+
+  /* Hide native scrollbar for horizontal carousels */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Soft light-blue fade for light sections (proceso / nosotros) */
   .section-bg-soft {
     background: linear-gradient(

@@ -117,73 +117,77 @@ export function CatalogsSection() {
   };
 
   return (
-    <section id="catalogos" className="section-padding section-bg-fade-bottom w-full">
+    <section id="catalogos" className="section-padding-tight section-bg-fade-bottom w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={CATALOGS_CONTENT.heading}
           subheading={CATALOGS_CONTENT.subheading}
-          className="mb-8 md:mb-10"
+          className="mb-6 md:mb-8"
         />
 
-        <div className="mx-auto flex w-full max-w-[886px] flex-col gap-3 md:grid md:grid-cols-2 md:justify-items-center md:gap-10">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-2.5">
           {catalogPreviews.map((img, index) => {
             const catalog = displayCatalogs[index];
-            const title = catalog?.title ?? img.alt;
+            if (!catalog) return null;
+            const title = catalog.title ?? img.alt;
 
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
+              <motion.article
+                key={catalog.id}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="card-elevated card-elevated-hover group flex w-full overflow-hidden rounded-xl border border-slate-100 md:max-w-[372px] md:flex-col"
+                transition={{ delay: index * 0.08 }}
+                className="card-elevated card-elevated-hover group flex w-full items-stretch overflow-hidden rounded-lg border border-slate-100"
               >
-                <div className="relative h-[88px] w-[96px] shrink-0 overflow-hidden sm:h-[100px] sm:w-[112px] md:aspect-[372/462] md:h-auto md:w-full">
+                <div className="relative h-[72px] w-[88px] shrink-0 overflow-hidden sm:h-[80px] sm:w-[104px]">
                   <Image
                     className="img-zoom object-cover"
                     alt={img.alt}
                     src={img.src}
                     fill
-                    sizes="(max-width: 768px) 112px, 372px"
+                    sizes="104px"
                   />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col justify-center px-3.5 py-3 md:hidden">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-[#316d92]">
-                    Catálogo PDF
-                  </p>
-                  <h3 className="mt-0.5 line-clamp-2 text-sm font-bold leading-snug text-[#052042]">
-                    {title}
-                  </h3>
-                  {catalog?.description && (
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#6b7280]">
-                      {catalog.description}
+                <div className="flex min-w-0 flex-1 items-center gap-3 px-3 py-2.5 sm:px-4">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-[#316d92]">
+                      Catálogo PDF{catalog.version ? ` · ${catalog.version}` : ''}
                     </p>
-                  )}
+                    <h3 className="mt-0.5 line-clamp-1 text-sm font-bold leading-snug text-[#052042] sm:text-[15px]">
+                      {title}
+                    </h3>
+                    {catalog.description && (
+                      <p className="mt-0.5 hidden line-clamp-1 text-xs text-[#6b7280] sm:block">
+                        {catalog.description}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    ref={index === 0 ? downloadTriggerRef : undefined}
+                    onClick={() => openModal(catalog)}
+                    className="btn-yellow focus-ring shrink-0 px-3 py-1.5 text-xs sm:px-4 sm:text-sm"
+                  >
+                    <Download className="h-3.5 w-3.5" strokeWidth={1.75} />
+                    <span className="hidden sm:inline">Descargar</span>
+                  </button>
                 </div>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>
 
         <nav
           aria-label="Acciones del catálogo"
-          className="mt-10 flex w-full max-w-[640px] flex-col items-stretch gap-4 sm:flex-row sm:justify-center"
+          className="mt-7 flex w-full max-w-md flex-col items-stretch gap-3 sm:mt-8 sm:flex-row sm:justify-center"
         >
           <WhatsAppLink
             messageType="catalog_inquiry"
-            className="btn-navy focus-ring min-h-[48px] w-full px-6 py-3 text-center text-base sm:flex-1"
+            className="btn-navy focus-ring min-h-[44px] w-full px-5 py-2.5 text-center text-sm sm:flex-1"
           >
             Consultar catálogo
           </WhatsAppLink>
-          <button
-            ref={downloadTriggerRef}
-            onClick={() => displayCatalogs[0] && openModal(displayCatalogs[0])}
-            className="btn-yellow focus-ring min-h-[48px] w-full px-6 py-3 text-base sm:flex-1"
-          >
-            <Download className="h-4 w-4" strokeWidth={1.75} />
-            Descargar PDF
-          </button>
         </nav>
       </div>
 

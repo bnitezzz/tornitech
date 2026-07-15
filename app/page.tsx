@@ -2,8 +2,10 @@ import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero-section';
+import { PromoBanner } from '@/components/ui/promo-banner';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
+import { PROMO_BANNERS } from '@/constants/content';
 import { WhatsAppFloat } from '@/components/ui/whatsapp-float';
 import { getCachedSiteContactConfig } from '@/lib/site-config';
 
@@ -101,12 +103,14 @@ export default async function HomePage() {
         <WhyChooseUsSection />
         <ProductsSection />
         <ProductosCatalogSection />
+        <PromoBanner {...PROMO_BANNERS.catalogs} variant="blue" />
         <WorkProcessSection />
         <CatalogsSection />
         <AboutSection />
         <SectorsSection />
         <StatsSection />
         <PartnersSection />
+        <PromoBanner {...PROMO_BANNERS.quote} variant="navy" />
         <ContactSection />
       </main>
       <Footer />

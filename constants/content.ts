@@ -65,16 +65,23 @@ export const WHY_CHOOSE_US = {
 
 export const PRODUCTS_CONTENT = {
   heading: 'Productos Especiales',
-  subheading: 'Componentes con norma técnica identificada, disponibles para cotización inmediata.',
+  subheading: 'Selección destacada de componentes con norma técnica para cotización inmediata.',
 };
 
 export const PRODUCTOS_CATALOG_CONTENT = {
   heading: 'PRODUCTOS',
   subheading:
-    'Consulta todos los productos disponibles. Utiliza el buscador o explora por categoría.',
+    'Vista previa de las principales categorías. Busca por nombre o explora las primeras líneas.',
   searchPlaceholder: 'Buscar producto...',
   emptyMessage: 'No se encontraron productos con ese criterio.',
+  homeLimitNote: 'Mostramos las primeras 5 categorías en la página de inicio.',
 };
+
+/** Max category cards on the homepage catalog section */
+export const PRODUCTOS_HOME_LIMIT = 5;
+
+/** Max items listed inside each category card on home */
+export const PRODUCTOS_PREVIEW_LIMIT = 5;
 
 export const DEFAULT_PRODUCTS = [
   {
@@ -304,8 +311,25 @@ export const WORK_PROCESS: { heading: string; subheading: string; steps: Process
 
 export const CATALOGS_CONTENT = {
   heading: 'Catálogos',
-  subheading: 'Catálogos con referencias, medidas y normas de nuestra línea de tornillería y fijación.',
+  subheading: 'Descargas técnicas con referencias, medidas y normas de tornillería y fijación.',
 };
+
+export const PROMO_BANNERS = {
+  quote: {
+    eyebrow: 'Asesoría técnica',
+    title: '¿Necesita fijación certificada para su proyecto?',
+    description: 'Indique norma, material y aplicación; le enviamos una cotización clara.',
+    ctaLabel: 'Solicitar cotización',
+    ctaHref: '/#contacto',
+  },
+  catalogs: {
+    eyebrow: 'Documentación',
+    title: 'Descargue el catálogo y compare referencias técnicas',
+    description: 'PDF con medidas, normas DIN, ISO y ASTM para su especificación.',
+    ctaLabel: 'Ver catálogos',
+    ctaHref: '/#catalogos',
+  },
+} as const;
 
 export const DEFAULT_CATALOGS = [
   {

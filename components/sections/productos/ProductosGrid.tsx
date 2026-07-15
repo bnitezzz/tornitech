@@ -1,7 +1,8 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { ProductosCard } from './ProductosCard';
+import { HorizontalScroll } from '@/components/ui/horizontal-scroll';
 import type { ProductoCategoria } from '@/types/producto';
 
 type ProductosGridProps = {
@@ -15,22 +16,19 @@ export function ProductosGrid({
 }: ProductosGridProps) {
   if (categorias.length === 0) {
     return (
-      <p role="status" className="py-10 text-center text-sm text-[#6b7280]">
+      <p role="status" className="py-8 text-center text-sm text-[#6b7280]">
         {emptyMessage}
       </p>
     );
   }
 
   return (
-    <motion.div
-      layout
-      className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
-    >
-      <AnimatePresence initial={false} mode="popLayout">
+    <HorizontalScroll ariaLabel="Categorías de productos" className="w-full">
+      <AnimatePresence initial={false}>
         {categorias.map((group, index) => (
           <ProductosCard key={group.categoria} group={group} index={index} />
         ))}
       </AnimatePresence>
-    </motion.div>
+    </HorizontalScroll>
   );
 }
