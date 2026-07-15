@@ -10,7 +10,15 @@
     "typecheck": "tsc --noEmit",
     "db:types": "supabase gen types typescript --project-id xlczdqqtdwuniivhztom --schema public > types/database.ts",
     "db:types:local": "node scripts/generate-supabase-types.mjs",
-    "verify:supabase": "node scripts/verify-supabase.mjs"
+    "verify:supabase": "node scripts/verify-supabase.mjs",
+    "verify:env": "node scripts/verify-netlify-env.mjs",
+    "verify:site-config": "node scripts/verify-site-config.mjs",
+    "update:site-config": "node scripts/update-site-config.mjs",
+    "verify:resend": "node scripts/verify-resend.mjs",
+    "verify:whatsapp": "node scripts/verify-whatsapp.mjs",
+    "verify:forms": "node scripts/verify-forms.mjs",
+    "verify:sprint1": "node scripts/verify-sprint1.mjs",
+    "apply:rate-limit-migration": "node scripts/apply-rate-limit-migration.mjs"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.15.1",

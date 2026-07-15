@@ -810,6 +810,14 @@ export interface Database {
       };
     };
     Functions: {
+      check_rate_limit: {
+        Args: {
+          p_bucket_key: string;
+          p_limit: number;
+          p_window_seconds: number;
+        };
+        Returns: Json;
+      };
       increment_download_count: {
         Args: { catalog_id: string };
         Returns: undefined;

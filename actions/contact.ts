@@ -12,6 +12,7 @@ import { createLead, subscribeToMarketing, FormsBackendError } from '@/lib/leads
 import { getFormsBackend } from '@/lib/supabase/forms';
 import { getSupabaseServer } from '@/lib/supabase/server';
 import { isValidUuid } from '@/lib/supabase/config';
+import { enforceFormRateLimit } from '@/lib/rate-limit';
 import { parseCatalogDownloadForm, parseContactForm } from '@/lib/validation';
 import type { Insertable } from '@/types/database';
 import type { ActionResult, CatalogDownloadResult } from '@/types/actions';
@@ -38,6 +39,18 @@ export async function submitContact(
   }
 
   const form = parsed.data;
+
+  const rateLimit = await enforceFormRateLimit({
+    scope: 'contact',
+    email: form.email,
+  });
+
+  if (!rateLimit.allowed) {
+    return {
+      success: false,
+      message: rateLimit.message ?? 'Demasiadas solicitudes. Intente más tarde.',
+    };
+  }
 
   try {
     const supabase = getFormsBackend();
@@ -123,6 +136,19 @@ export async function submitCatalogDownload(
   }
 
   const form = parsed.data;
+
+  const rateLimit = await enforceFormRateLimit({
+    scope: 'catalog',
+    email: form.email,
+  });
+
+  if (!rateLimit.allowed) {
+    return {
+      success: false,
+      message: rateLimit.message ?? 'Demasiadas solicitudes. Intente más tarde.',
+    };
+  }
+
   const catalog = await resolveCatalogForDownload(data.catalogId, data.catalogSlug);
 
   if (!catalog) {
