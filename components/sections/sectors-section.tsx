@@ -7,13 +7,13 @@ import { SECTORS_CONTENT } from '@/constants/content';
 
 export function SectorsSection() {
   return (
-    <section id="sectores" className="section-bg-sectors relative w-full pb-28 pt-12 md:pb-32 md:pt-16">
+    <section id="sectores" className="section-bg-sectors relative w-full pb-24 pt-9 md:pb-28 md:pt-12 lg:pb-32 lg:pt-14">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={SECTORS_CONTENT.heading}
           subheading={SECTORS_CONTENT.subheading}
           inverse
-          className="mb-8 md:mb-10"
+          className="mb-5 md:mb-7"
         />
 
         <motion.div

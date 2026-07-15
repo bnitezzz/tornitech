@@ -72,6 +72,13 @@
 ### Importación
 - Cargar productos vía CSV en Supabase Table Editor (ver `supabase/ejemplos/`).
 
+## 2026-07-15 — Scroll density pass
+
+### UX / UI
+- Capacidades: cards más compactas (imagen, tipografía y gaps reducidos).
+- Ritmo vertical más corto: `section-padding` / `section-padding-tight` ajustados.
+- Hero, Nosotros, Sectores, Proceso, Productos, banners y Contacto con menos aire entre bloques.
+
 ## 2026-07-15 — Mobile layout refinements
 
 ### UX / UI

@@ -122,7 +122,7 @@ export function CatalogsSection() {
         <SectionHeader
           heading={CATALOGS_CONTENT.heading}
           subheading={CATALOGS_CONTENT.subheading}
-          className="mb-6 md:mb-8"
+          className="mb-5 md:mb-7"
         />
 
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-2.5">

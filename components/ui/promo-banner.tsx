@@ -45,7 +45,7 @@ export function PromoBanner({
       : 'bg-gradient-to-r from-[#052042] via-[#0a3358] to-[#316d92]';
 
   return (
-    <section className={cn('w-full py-6 md:py-8', className)} aria-label={title}>
+    <section className={cn('w-full py-4 md:py-6', className)} aria-label={title}>
       <div className="section-container">
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
@@ -53,7 +53,7 @@ export function PromoBanner({
           viewport={VIEWPORT_ONCE}
           transition={{ duration: 0.45, ease: EASE_PREMIUM }}
           className={cn(
-            'relative overflow-hidden rounded-xl px-5 py-6 text-white shadow-[0_10px_28px_-12px_rgba(5,32,66,0.45)] sm:px-8 sm:py-7 md:rounded-2xl md:px-10',
+            'relative overflow-hidden rounded-xl px-5 py-5 text-white shadow-[0_10px_28px_-12px_rgba(5,32,66,0.45)] sm:px-8 sm:py-6 md:rounded-2xl md:px-10',
             bg
           )}
         >

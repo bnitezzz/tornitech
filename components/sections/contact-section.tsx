@@ -134,7 +134,7 @@ export function ContactSection() {
           <SectionHeader
             heading="Contacto"
             subheading={CONTACT_CONTENT.responseTime}
-            className="mb-8 md:mb-10 [&_h2]:text-[#052042] [&_p]:text-[#3c4456]/80"
+            className="mb-5 md:mb-7 [&_h2]:text-[#052042] [&_p]:text-[#3c4456]/80"
           />
 
           <motion.div

@@ -156,12 +156,12 @@ function ProcessMobileCarousel() {
 
 export function WorkProcessSection() {
   return (
-    <section id="proceso" className="section-padding section-bg-soft w-full">
+    <section id="proceso" className="section-padding-tight section-bg-soft w-full">
       <div className="section-container">
         <SectionHeader
           heading={WORK_PROCESS.heading}
           subheading={WORK_PROCESS.subheading}
-          className="mb-8 md:mb-10"
+          className="mb-5 md:mb-7"
         />
 
         <ProcessMobileCarousel />

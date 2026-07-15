@@ -28,12 +28,12 @@ export function ProductsSection() {
   const hasMore = displayProducts.length > INITIAL_VISIBLE_COUNT;
 
   return (
-    <section id="productos" className="section-padding section-bg-fade-bottom w-full">
+    <section id="productos" className="section-padding-tight section-bg-fade-bottom w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={PRODUCTS_CONTENT.heading}
           subheading={PRODUCTS_CONTENT.subheading}
-          className="mb-8 md:mb-10"
+          className="mb-5 md:mb-7"
         />
 
         <motion.div
@@ -101,7 +101,7 @@ export function ProductsSection() {
         </motion.div>
 
         {hasMore && (
-          <div className="mt-8 flex w-full justify-center">
+          <div className="mt-6 flex w-full justify-center">
             <button
               type="button"
               onClick={() => setShowAll((prev) => !prev)}
