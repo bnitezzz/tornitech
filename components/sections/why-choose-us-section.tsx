@@ -3,55 +3,66 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SectionHeader } from '@/components/ui/section-header';
-import { HorizontalScroll } from '@/components/ui/horizontal-scroll';
 import { WHY_CHOOSE_US } from '@/constants/content';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
 
 export function WhyChooseUsSection() {
   return (
-    <section id="capacidades" className="section-padding-tight section-bg-fade-top w-full">
+    <section id="capacidades" className="section-padding section-bg-fade-top w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={WHY_CHOOSE_US.heading}
           subheading={WHY_CHOOSE_US.subheading}
-          className="mb-6 md:mb-8"
+          className="mb-8 md:mb-10"
         />
 
-        <HorizontalScroll ariaLabel="Capacidades Tornitech" className="w-full">
-          {WHY_CHOOSE_US.items.map((item, index) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid w-full grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 xl:grid-cols-6"
+        >
+          {WHY_CHOOSE_US.items.map((item) => (
             <motion.article
               key={item.title}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: Math.min(index * 0.05, 0.3) }}
-              className="w-[min(72vw,200px)] shrink-0 snap-start sm:w-[180px] lg:w-[188px]"
+              variants={itemVariants}
+              className="h-full w-full"
             >
-              <div className="card-elevated card-elevated-hover group flex h-full flex-col overflow-hidden rounded-xl border border-slate-100 bg-white">
-                <div className="relative h-[110px] w-full shrink-0 overflow-hidden sm:h-[118px]">
+              <div className="card-elevated card-elevated-hover group flex h-full min-h-[240px] w-full flex-col overflow-hidden rounded-xl border border-slate-100 bg-white">
+                <div className="relative h-[140px] w-full shrink-0 overflow-hidden sm:h-[150px]">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
-                    sizes="200px"
+                    sizes="(max-width: 640px) 45vw, 174px"
                     className={
                       item.imageVariant === 'icon'
-                        ? 'object-contain bg-[#f8fafc] p-4'
+                        ? 'object-contain bg-[#f8fafc] p-5'
                         : 'img-zoom object-cover'
                     }
                   />
                 </div>
-                <div className="flex flex-1 flex-col px-3 py-3">
-                  <h3 className="line-clamp-2 text-xs font-bold uppercase leading-tight tracking-wide text-[#052042] sm:text-sm">
+                <div className="flex flex-1 flex-col justify-center px-4 py-4">
+                  <h3 className="line-clamp-2 text-sm font-bold uppercase leading-tight tracking-wide text-[#052042] sm:text-base">
                     {item.title}
                   </h3>
-                  <p className="mt-1.5 line-clamp-3 text-[11px] leading-relaxed text-[#6b7280] sm:text-xs">
+                  <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-[#6b7280] sm:text-sm">
                     {item.description}
                   </p>
                 </div>
               </div>
             </motion.article>
           ))}
-        </HorizontalScroll>
+        </motion.div>
       </div>
     </section>
   );
