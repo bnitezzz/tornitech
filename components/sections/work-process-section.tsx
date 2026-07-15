@@ -47,7 +47,10 @@ function ProcessTimeline({
   onSelect: (index: number) => void;
 }) {
   return (
-    <ol className="mb-6 flex items-center justify-between px-1" aria-label="Pasos del proceso">
+    <ol
+      className="mx-auto mb-8 flex w-full max-w-[300px] items-center justify-center"
+      aria-label="Pasos del proceso"
+    >
       {WORK_PROCESS.steps.map((step, index) => {
         const isActive = index === activeIndex;
         const isCompleted = index < activeIndex;
@@ -59,7 +62,7 @@ function ProcessTimeline({
               onClick={() => onSelect(index)}
               aria-current={isActive ? 'step' : undefined}
               aria-label={`Paso ${step.number}: ${step.title}`}
-              className={`focus-ring flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-colors duration-300 ${
+              className={`focus-ring flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 text-base font-extrabold transition-colors duration-300 ${
                 isActive || isCompleted
                   ? 'border-[#316d92] bg-[#316d92] text-white'
                   : 'border-[#316d92]/30 bg-white text-[#316d92]'
@@ -69,7 +72,7 @@ function ProcessTimeline({
             </button>
             {index < WORK_PROCESS.steps.length - 1 && (
               <div
-                className="mx-1.5 h-0.5 flex-1 rounded-full bg-[#316d92]/15"
+                className="mx-2 h-0.5 flex-1 rounded-full bg-[#316d92]/15"
                 aria-hidden="true"
               >
                 <div
@@ -132,8 +135,8 @@ function ProcessMobileCarousel() {
             className="w-full shrink-0 snap-center px-1"
             aria-label={`Paso ${step.number}: ${step.title}`}
           >
-            <div className="flex min-h-[220px] flex-col items-center rounded-xl border border-slate-100 bg-white px-5 py-7 text-center shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_20px_-6px_rgba(15,23,42,0.12)]">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#316d92]/25 bg-white shadow-[0_2px_12px_rgba(49,109,146,0.1)]">
+            <div className="flex flex-col items-center px-4 py-2 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#316d92]/25 bg-white">
                 <step.icon className="h-7 w-7 text-[#316d92]" strokeWidth={1.75} />
               </div>
               <p className="mt-4 text-xs font-bold uppercase tracking-wider text-[#316d92]">

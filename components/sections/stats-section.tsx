@@ -42,10 +42,10 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative w-full bg-white pb-2 pt-6 sm:pb-3 sm:pt-0 md:pb-4" aria-label="Indicadores destacados">
+    <section className="relative z-10 w-full bg-white pb-2 sm:pb-3 md:pb-4" aria-label="Indicadores destacados">
       <div
         ref={ref}
-        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-6 rounded-2xl border border-slate-100/80 bg-white px-3 py-6 card-elevated sm:-translate-y-1/2 sm:px-10 sm:py-10"
+        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-3 py-6 card-elevated sm:px-10 sm:py-10"
       >
         <dl className="grid grid-cols-4 items-start gap-x-2 gap-y-0 sm:items-center sm:gap-x-6 md:gap-x-10">
           {SITE_STATS.map((stat, index) => (

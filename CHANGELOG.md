@@ -45,10 +45,10 @@
 ## 2026-07-15 — Mobile layout refinements
 
 ### UX / UI
-- Proceso de atención: carrusel con timeline 1–4 en móvil.
+- Proceso de atención: carrusel con timeline 1–4 en móvil; timeline centrado con números más grandes y banners sin recuadro.
 - Catálogos: cards horizontales compactas en pantallas pequeñas.
 - Valores (pilares): lista sin recuadros en móvil.
-- Stats: una sola fila en móvil y más separación respecto a Sectores.
+- Stats: una sola fila en móvil, sobrepuesta a mitad entre Sectores (azul) y el fondo blanco.
 
 ## 2026-07-13 — Premium frontend polish
 
