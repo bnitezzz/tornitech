@@ -34,7 +34,7 @@ export function HeroSection() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[520px] w-full max-w-[1440px] items-center px-4 py-20 sm:px-6 md:min-h-[600px] md:px-10 md:py-24 lg:min-h-[640px] lg:px-[52px] 2xl:min-h-[720px] 2xl:max-w-[1600px]">
+        <div className="section-container relative z-10 flex min-h-[520px] items-center py-20 md:min-h-[600px] md:py-24 lg:min-h-[640px] 2xl:min-h-[720px]">
           <motion.div
             variants={container}
             initial="hidden"

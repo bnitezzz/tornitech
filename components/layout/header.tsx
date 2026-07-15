@@ -34,21 +34,19 @@ function InfoTicker() {
   );
 
   return (
-    <div className="w-full overflow-hidden bg-[#052042] text-white/80" aria-label="Información de contacto">
-      <div className="mx-auto flex w-full max-w-[1920px] overflow-hidden py-2.5">
-        <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
-          {[0, 1].map((copy) => (
-            <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
-              {infoTickerItems.map((item, index) => (
-                <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-6 text-xs font-medium tracking-wide sm:px-8 sm:text-[13px]">
-                  <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
-                  <span>{item.text}</span>
-                  <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
+    <div className="w-full overflow-hidden bg-[#052042] py-2.5 text-white/80" aria-label="Información de contacto">
+      <div className="flex w-max items-center animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
+        {[0, 1].map((copy) => (
+          <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+            {infoTickerItems.map((item, index) => (
+              <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-6 text-xs font-medium tracking-wide sm:px-8 sm:text-[13px]">
+                <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
+                <span>{item.text}</span>
+                <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
+              </li>
+            ))}
+          </ul>
+        ))}
       </div>
     </div>
   );
@@ -154,8 +152,8 @@ export function Header() {
       >
         <nav
           aria-label="Navegación principal"
-          className={`mx-auto flex w-full max-w-[1920px] items-center justify-between gap-4 px-5 transition-all duration-300 ease-out sm:px-8 md:px-10 lg:px-12 xl:px-16 2xl:px-20 ${
-            isScrolled ? 'min-h-[48px] py-1.5' : 'min-h-[56px] py-1'
+          className={`page-header-inner flex items-center justify-between gap-4 transition-all duration-300 ease-out ${
+            isScrolled ? 'min-h-[56px] py-2' : 'min-h-[64px] py-2'
           }`}
         >
           <Link
@@ -163,8 +161,8 @@ export function Header() {
             onClick={(e) => handleNavClick('/#inicio', e)}
             className={`focus-ring-inverse relative shrink-0 rounded-sm transition-all duration-300 ${
               isScrolled
-                ? 'h-[30px] w-[96px] sm:h-[34px] sm:w-[110px] lg:h-[40px] lg:w-[130px]'
-                : 'h-[34px] w-[106px] sm:h-[40px] sm:w-[125px] lg:h-[48px] lg:w-[150px]'
+                ? 'h-[34px] w-[108px] sm:h-[38px] sm:w-[122px] lg:h-[44px] lg:w-[140px]'
+                : 'h-[38px] w-[118px] sm:h-[44px] sm:w-[138px] lg:h-[52px] lg:w-[160px]'
             }`}
             aria-label="Tornitech — Inicio"
           >

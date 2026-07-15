@@ -37,7 +37,7 @@ export function Footer() {
 
   return (
     <footer className="w-full bg-[#052042] py-14 md:py-16">
-      <div className="section-container max-w-[1170px]">
+      <div className="section-container">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

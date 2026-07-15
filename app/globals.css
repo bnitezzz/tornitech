@@ -58,12 +58,12 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 72px;
+    scroll-padding-top: 96px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
-      scroll-padding-top: 72px;
+      scroll-padding-top: 96px;
     }
     *,
     *::before,
@@ -79,7 +79,7 @@
 
   /* Offset sticky navbar when jumping to in-page anchors */
   section[id] {
-    scroll-margin-top: 72px;
+    scroll-margin-top: 96px;
   }
 }
 
@@ -212,9 +212,14 @@
            disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100;
   }
 
-  /* Consistent section container — wider on large monitors */
+  /* Consistent centered page column */
   .section-container {
-    @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8 xl:max-w-[1400px] 2xl:max-w-[1560px] 2xl:px-10;
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:max-w-[1280px] lg:px-8 xl:max-w-[1360px] 2xl:max-w-[1440px] 2xl:px-10;
+  }
+
+  /* Header / ticker content alignment — same center axis as sections */
+  .page-header-inner {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6 lg:max-w-[1280px] lg:px-8 xl:max-w-[1360px] 2xl:max-w-[1440px] 2xl:px-10;
   }
 
   /* Optimized vertical rhythm — tighter but breathable */

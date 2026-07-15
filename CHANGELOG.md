@@ -1,3 +1,10 @@
+## 2026-07-15 — Revert grids, centrar página, header más alto
+
+### Layout
+- Sectores, Productos especiales y Capacidades vuelven a grid (sin scroll horizontal).
+- Columna de contenido unificada (header + secciones + hero) centrada hasta 1440px.
+- Navbar un poco más alta (`min-h` 64 / 56).
+
 ## 2026-07-15 — Header ancho, límites de productos y scroll horizontal
 
 ### Layout

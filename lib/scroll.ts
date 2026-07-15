@@ -3,7 +3,7 @@
  * Accounts for the sticky header so section titles are not hidden underneath.
  */
 
-const STICKY_HEADER_OFFSET = 72;
+const STICKY_HEADER_OFFSET = 96;
 
 export function getSectionIdFromHref(href: string): string | null {
   if (!href.includes('#')) return null;
