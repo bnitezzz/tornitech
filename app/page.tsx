@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { SkipLink } from '@/components/layout/skip-link';
 import { HeroSection } from '@/components/sections/hero-section';
 import { PromoBanner } from '@/components/ui/promo-banner';
 import { SITE_CONFIG } from '@/constants/site';
@@ -61,6 +62,7 @@ export default async function HomePage() {
       '@type': 'PostalAddress',
       streetAddress: contact.address,
       addressLocality: 'Caracas',
+      postalCode: '1071',
       addressCountry: 'VE',
     },
     sameAs: [
@@ -84,6 +86,7 @@ export default async function HomePage() {
       '@type': 'PostalAddress',
       streetAddress: contact.address,
       addressLocality: 'Caracas',
+      postalCode: '1071',
       addressCountry: 'VE',
     },
     openingHours: 'Mo-Fr 08:00-17:00, Sa 09:00-14:00',
@@ -97,13 +100,14 @@ export default async function HomePage() {
           __html: JSON.stringify([jsonLdOrganization, jsonLdLocalBusiness]),
         }}
       />
+      <SkipLink />
       <Header />
       <main id="contenido-principal">
         <HeroSection />
         <WhyChooseUsSection />
         <ProductsSection />
         <ProductosCatalogSection />
-        <PromoBanner {...PROMO_BANNERS.catalogs} variant="soft" />
+        <PromoBanner {...PROMO_BANNERS.catalogs} variant="blue" className="section-bg-soft-solid" />
         <WorkProcessSection />
         <CatalogsSection />
         <AboutSection />
