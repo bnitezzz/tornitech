@@ -2,11 +2,7 @@ import {
   ClipboardList,
   SearchCheck,
   PenTool,
-  ShieldCheck,
   Truck,
-  Users,
-  Layers,
-  Thermometer,
   type LucideIcon,
 } from 'lucide-react';
 import { ASSETS } from './assets';
@@ -370,11 +366,29 @@ export const ABOUT_CONTENT = {
     title: 'Visión',
     text: 'Consolidarnos como referente técnico en tornillería y fijación industrial, priorizando trazabilidad de material, cumplimiento normativo y continuidad operativa para nuestros clientes.',
   },
+  valuesHeading: 'Nuestros valores',
+  valuesIntro: 'Definen nuestra operación y cada asesoría técnica que entregamos.',
   pillars: [
-    { icon: Layers, title: 'Procesos', description: 'Flujo de cotización, verificación y despacho documentado en cada pedido.' },
-    { icon: ShieldCheck, title: 'Calidad', description: 'Material identificado con ficha técnica y norma de referencia.' },
-    { icon: Users, title: 'Equipo', description: 'Personal con experiencia en selección de componentes para entornos industriales.' },
-    { icon: Thermometer, title: 'Compromiso', description: 'Seguimiento postventa y atención a requerimientos recurrentes.' },
+    {
+      title: 'Orientación total al cliente',
+      description: 'Escuchamos el requerimiento técnico y acompañamos cada proyecto.',
+    },
+    {
+      title: 'Calidad y estándar',
+      description: 'Precisión bajo normas ASTM y ASME en material nacional e importado.',
+    },
+    {
+      title: 'Integridad y ética',
+      description: 'Transparencia, honestidad y palabra empeñada en cada relación.',
+    },
+    {
+      title: 'Mejora continua',
+      description: 'Optimizamos procesos y catálogo de forma permanente.',
+    },
+    {
+      title: 'Talento humano',
+      description: 'Capacitación, respeto y seguridad laboral para el equipo.',
+    },
   ],
 };
 

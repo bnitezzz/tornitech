@@ -1,3 +1,10 @@
+## 2026-07-15 — Nuestros valores (timeline)
+
+### Contenido / UI
+- Valores corporativos del PDF: títulos reales y texto mínimo (5 puntos).
+- Vista timeline numerada, sin recuadros; misión/visión también sin tarjetas.
+- Menos fatiga visual en Quiénes somos.
+
 ## 2026-07-15 — Revert grids, centrar página, header más alto
 
 ### Layout
