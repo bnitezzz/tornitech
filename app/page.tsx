@@ -103,7 +103,7 @@ export default async function HomePage() {
         <WhyChooseUsSection />
         <ProductsSection />
         <ProductosCatalogSection />
-        <PromoBanner {...PROMO_BANNERS.catalogs} variant="blue" />
+        <PromoBanner {...PROMO_BANNERS.catalogs} variant="soft" />
         <WorkProcessSection />
         <CatalogsSection />
         <AboutSection />
