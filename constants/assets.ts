@@ -33,7 +33,7 @@ export const ASSETS = {
   },
   catalogs: {
     general: '/images/img-catalogo.png',
-    estructural: '/images/img-catalogo-automotriz.png',
+    automotriz: '/images/img-catalogo-automotriz.png',
   },
   partners: {
     panamaFasteners: '/images/panamafasteners.jpeg',

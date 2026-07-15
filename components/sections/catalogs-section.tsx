@@ -20,11 +20,11 @@ import type { CatalogItem } from '@/types/catalog';
 const catalogPreviews = [
   {
     src: ASSETS.catalogs.general,
-    alt: 'Catálogo general de tornillería',
+    alt: 'Catálogo general',
   },
   {
-    src: ASSETS.catalogs.estructural,
-    alt: 'Catálogo de fijación estructural',
+    src: ASSETS.catalogs.automotriz,
+    alt: 'Catálogo Automotriz',
   },
 ];
 

@@ -433,20 +433,20 @@ ON CONFLICT (sku) DO NOTHING;
 -- Catálogos PDF de ejemplo
 INSERT INTO public.catalogs (title, slug, description, file_url, version, is_featured, display_order) VALUES
   (
-    'Catálogo general de tornillería',
-    'catalogo-tornilleria-general',
-    'Referencia completa de tornillos, pernos, tuercas y arandelas industriales.',
-    '/catalogs/tornilleria-general-2024.pdf',
-    '2024',
+    'Catálogo general',
+    'catalogo-general',
+    'Referencia completa de tornillería y fijación industrial — Volumen 1, 2025.',
+    '/catalogs/catalogo-general-vol1-2025.pdf',
+    '2025',
     true,
     1
   ),
   (
-    'Catálogo de fijación estructural',
-    'catalogo-fijacion-estructural',
-    'Elementos de fijación para construcción y estructuras metálicas.',
-    '/catalogs/fijacion-estructural-2024.pdf',
-    '2024',
+    'Catálogo Automotriz',
+    'catalogo-automotriz',
+    'Tornillería y elementos de fijación para el sector automotriz — Volumen 1, 2025.',
+    '/catalogs/catalogo-automotriz-vol1-2025.pdf',
+    '2025',
     true,
     2
   )

@@ -14,6 +14,7 @@
     "verify:env": "node scripts/verify-netlify-env.mjs",
     "verify:site-config": "node scripts/verify-site-config.mjs",
     "update:site-config": "node scripts/update-site-config.mjs",
+    "update:catalogs": "node scripts/update-catalogs.mjs",
     "verify:resend": "node scripts/verify-resend.mjs",
     "verify:whatsapp": "node scripts/verify-whatsapp.mjs",
     "verify:forms": "node scripts/verify-forms.mjs",
