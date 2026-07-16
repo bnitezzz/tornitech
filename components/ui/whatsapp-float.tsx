@@ -1,7 +1,9 @@
 'use client';
 
 import { useSiteContact } from '@/components/providers/site-contact-provider';
-import { getWhatsAppLink } from '@/lib/whatsapp';
+import { buildWhatsAppUrl } from '@/lib/whatsapp';
+
+const FLOAT_MESSAGE = 'Buenas, me gustaria cotizar con ustedes';
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -16,13 +18,33 @@ export function WhatsAppFloat() {
 
   return (
     <a
-      href={getWhatsAppLink('general_quote', undefined, whatsapp)}
+      href={buildWhatsAppUrl(FLOAT_MESSAGE, whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Contactar por WhatsApp"
-      className="focus-ring fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_16px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6"
+      aria-label="Cotizar por WhatsApp"
+      className="whatsapp-float focus-ring group fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_6px_22px_rgba(37,211,102,0.55)] transition-transform duration-300 hover:scale-110 hover:bg-[#1ebe57] hover:shadow-[0_8px_28px_rgba(37,211,102,0.65)] active:scale-95 motion-reduce:animate-none motion-reduce:transition-none motion-reduce:hover:scale-100 sm:bottom-6 sm:right-6 sm:h-16 sm:w-16"
     >
-      <WhatsAppIcon className="h-7 w-7" />
+      {/* Pulse rings */}
+      <span
+        className="whatsapp-float-ping pointer-events-none absolute inset-0 rounded-full bg-[#25D366]/50 motion-reduce:hidden"
+        aria-hidden="true"
+      />
+      <span
+        className="whatsapp-float-ping pointer-events-none absolute inset-0 rounded-full bg-[#25D366]/35 motion-reduce:hidden [animation-delay:0.9s]"
+        aria-hidden="true"
+      />
+
+      <WhatsAppIcon className="relative z-[1] h-7 w-7 sm:h-8 sm:w-8" />
+
+      {/* Active notification badge */}
+      <span
+        className="absolute -right-0.5 -top-0.5 z-[2] flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ef4444] px-1 text-[10px] font-bold leading-none text-white shadow-[0_2px_8px_rgba(239,68,68,0.55)] ring-2 ring-white"
+        aria-hidden="true"
+      >
+        1
+        <span className="whatsapp-float-badge-pulse absolute inset-0 rounded-full bg-[#ef4444] motion-reduce:hidden" />
+      </span>
+      <span className="sr-only">1 mensaje nuevo</span>
     </a>
   );
 }

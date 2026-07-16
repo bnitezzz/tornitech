@@ -25,17 +25,7 @@ export function buildWhatsAppMessage(
 ): string {
   switch (type) {
     case 'general_quote':
-      return [
-        'Hola.',
-        '',
-        'Deseo solicitar una cotización.',
-        '',
-        'Empresa:',
-        '',
-        'Detalle del requerimiento:',
-        '',
-        'Gracias.',
-      ].join('\n');
+      return 'Buenas, me gustaria cotizar con ustedes';
 
     case 'product_quote':
       return [
