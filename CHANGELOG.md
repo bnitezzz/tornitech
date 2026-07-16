@@ -64,6 +64,12 @@
 - Soporte de hash al cargar/recargar (`/#productos`, etc.) y `prefers-reduced-motion`.
 - `scroll-padding-top` / `scroll-margin-top` en CSS global.
 
+## 2026-07-15 — Imágenes de productos desde Supabase Storage
+
+### Fix
+- `next.config.js`: permitido el hostname del proyecto Supabase para `next/image`
+  (`…supabase.co/storage/v1/object/public/**`), para que `image_url` de Storage se renderice.
+
 ## 2026-07-13 — Contacto editable desde Supabase
 
 ### Funcionalidad
