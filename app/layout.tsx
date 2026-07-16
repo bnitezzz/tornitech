@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     description: SITE_CONFIG.seo.description,
     images: [
       {
-        url: ASSETS.logo.color,
+        url: ASSETS.social.ogImage,
         width: 1200,
         height: 630,
         alt: `${SITE_CONFIG.name} — Tornillería y fijación industrial`,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_CONFIG.name} | ${SITE_CONFIG.seo.title}`,
     description: SITE_CONFIG.seo.description,
-    images: [ASSETS.logo.color],
+    images: [ASSETS.social.ogImage],
   },
   robots: {
     index: true,

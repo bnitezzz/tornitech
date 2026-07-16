@@ -1,3 +1,31 @@
+## 2026-07-15 — Sprint 2 (P1) estabilidad y mantenibilidad
+
+### P1-2 Formularios
+- `contact-section` y `catalogs-section` divididos en hooks + componentes UI.
+- Misma validación Zod y mismas server actions (sin cambio de negocio).
+
+### P1-3 Middleware
+- Eliminado middleware de refresh de sesión Supabase (landing pública sin auth SSR).
+
+### P1-4 Open Graph
+- `public/images/og-image.jpg` profesional 1200×630 + `ASSETS.social.ogImage`.
+- Metadata Open Graph / Twitter actualizada (ya no usa el logo 680×217).
+- Nota: Next 13.5 del proyecto no tipa `next/og`; se usó asset estático.
+
+### P1-5 PDFs
+- Portada Tornitech con email/tel/WhatsApp/dirección correctos prepended a ambos catálogos.
+- Metadatos PDF actualizados; páginas técnicas del socio se conservan.
+
+### P1-6 Docs
+- `docs/CONTENT-OPS.md` — products vs productos.
+
+### P1-7 CI
+- `.github/workflows/ci.yml` — npm ci, typecheck, lint, build en push/PR.
+
+### Fuera de alcance
+- Sentry omitido por instrucción del sprint.
+- Sprint 3/4 no iniciados.
+
 ## 2026-07-15 — Nuestros valores (timeline)
 
 ### Contenido / UI

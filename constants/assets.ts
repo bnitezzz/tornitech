@@ -35,6 +35,10 @@ export const ASSETS = {
     general: '/images/img-catalogo.png',
     automotriz: '/images/img-catalogo-automotriz.png',
   },
+  social: {
+    /** Open Graph / Twitter card — 1200×630 */
+    ogImage: '/images/og-image.jpg',
+  },
   partners: {
     panamaFasteners: '/images/panamafasteners.jpeg',
   },
