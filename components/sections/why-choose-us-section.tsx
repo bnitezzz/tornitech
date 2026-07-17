@@ -16,11 +16,15 @@ const itemVariants = {
 
 export function WhyChooseUsSection() {
   return (
-    <section id="capacidades" className="section-padding-tight section-bg-fade-top w-full">
+    <section
+      id="capacidades"
+      className="section-bg-sectors relative w-full pb-24 pt-10 md:pb-28 md:pt-12 lg:pb-32 lg:pt-14"
+    >
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={WHY_CHOOSE_US.heading}
           subheading={WHY_CHOOSE_US.subheading}
+          inverse
           className="mb-5 md:mb-7"
         />
 
@@ -32,12 +36,8 @@ export function WhyChooseUsSection() {
           className="grid w-full grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-6"
         >
           {WHY_CHOOSE_US.items.map((item) => (
-            <motion.article
-              key={item.title}
-              variants={itemVariants}
-              className="h-full w-full"
-            >
-              <div className="card-elevated card-elevated-hover group flex h-full w-full flex-col overflow-hidden rounded-lg border border-slate-100 bg-white sm:rounded-xl">
+            <motion.article key={item.title} variants={itemVariants} className="h-full w-full">
+              <div className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-[2px] transition-colors duration-300 hover:border-white/20 hover:bg-white/10 sm:rounded-xl">
                 <div className="relative h-[84px] w-full shrink-0 overflow-hidden sm:h-[100px] md:h-[110px]">
                   <Image
                     src={item.image}
@@ -46,16 +46,16 @@ export function WhyChooseUsSection() {
                     sizes="(max-width: 640px) 45vw, 174px"
                     className={
                       item.imageVariant === 'icon'
-                        ? 'object-contain bg-[#f8fafc] p-3 sm:p-4'
+                        ? 'object-contain bg-white/90 p-3 sm:p-4'
                         : 'img-zoom object-cover'
                     }
                   />
                 </div>
                 <div className="flex flex-1 flex-col justify-center px-2.5 py-2.5 sm:px-3.5 sm:py-3">
-                  <h3 className="line-clamp-2 text-xs font-bold uppercase leading-tight tracking-wide text-[#052042] sm:text-sm">
+                  <h3 className="line-clamp-2 text-xs font-bold uppercase leading-tight tracking-wide text-white sm:text-sm">
                     {item.title}
                   </h3>
-                  <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-[#6b7280] sm:mt-1.5 sm:text-xs">
+                  <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-white/70 sm:mt-1.5 sm:text-xs">
                     {item.description}
                   </p>
                 </div>

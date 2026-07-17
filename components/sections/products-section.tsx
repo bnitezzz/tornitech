@@ -12,12 +12,16 @@ import type { ProductItem } from '@/types/product';
 
 const INITIAL_VISIBLE_COUNT = 4;
 
+const FALLBACK_PRODUCT_IMAGE =
+  'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600';
+
 function getProductImage(product: ProductItem): string {
-  return (
-    product.image ||
-    product.image_url ||
-    'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=600'
-  );
+  const src = product.image || product.image_url || '';
+  // No mostrar material/branding de Panama Fasteners en la vitrina de productos
+  if (!src || /panama\s*fasteners|panamafasteners/i.test(src)) {
+    return FALLBACK_PRODUCT_IMAGE;
+  }
+  return src;
 }
 
 export function ProductsSection() {

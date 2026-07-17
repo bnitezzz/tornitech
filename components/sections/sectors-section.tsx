@@ -28,7 +28,7 @@ function SectorFlipCard({
         aria-pressed={flipped}
         aria-label={`${sector.title}. ${flipped ? 'Mostrar sector' : 'Mostrar soluciones de fijación'}`}
         onClick={() => setFlipped((prev) => !prev)}
-        className="focus-ring relative h-full w-full rounded-[14px] text-left"
+        className="focus-ring group relative h-full w-full rounded-[14px] text-left"
       >
         <div
           className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none ${
@@ -36,34 +36,34 @@ function SectorFlipCard({
           }`}
         >
           {/* Front — sector */}
-          <div className="absolute inset-0 overflow-hidden rounded-[14px] shadow-[0_4px_14px_rgba(0,0,0,0.2)] [backface-visibility:hidden]">
+          <div className="absolute inset-0 overflow-hidden rounded-[14px] shadow-[0_4px_14px_rgba(0,0,0,0.2)] transition-shadow duration-300 group-hover:shadow-[0_10px_28px_rgba(5,32,66,0.35)] [backface-visibility:hidden]">
             <Image
               src={sector.image}
               alt=""
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent transition-colors duration-300 group-hover:from-black/55 group-hover:via-black/10" />
             <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
               <h3 className="text-center text-xs font-extrabold uppercase tracking-wide text-white drop-shadow sm:text-sm md:text-base">
                 {sector.title}
               </h3>
-              <p className="mt-1 text-center text-[10px] text-white/70 sm:text-[11px]">
+              <p className="mt-1 text-center text-[10px] text-white/80 sm:text-[11px]">
                 {SECTORS_CONTENT.flipHint}
               </p>
             </div>
           </div>
 
-          {/* Back — soluciones */}
+          {/* Back — soluciones (texto blanco) */}
           <div className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-[14px] bg-[#052042] px-3.5 py-4 shadow-[0_4px_14px_rgba(0,0,0,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#fab43a]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90">
               Soluciones de fijación clave
             </p>
             <h3 className="mt-1 text-sm font-extrabold uppercase tracking-wide text-white">
               {sector.title}
             </h3>
-            <p className="mt-2.5 text-xs leading-relaxed text-white/85 sm:text-sm">
+            <p className="mt-2.5 text-xs leading-relaxed text-white sm:text-sm">
               {sector.solutions}
             </p>
           </div>

@@ -13,6 +13,12 @@ import { getCachedSiteContactConfig } from '@/lib/site-config';
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((m) => ({ default: m.AboutSection }))
 );
+const WhyChooseUsSection = dynamic(
+  () =>
+    import('@/components/sections/why-choose-us-section').then((m) => ({
+      default: m.WhyChooseUsSection,
+    }))
+);
 const ProductsSection = dynamic(
   () => import('@/components/sections/products-section').then((m) => ({ default: m.ProductsSection }))
 );
@@ -108,6 +114,7 @@ export default async function HomePage() {
         <WorkProcessSection />
         <CatalogsSection />
         <AboutSection />
+        <WhyChooseUsSection />
         <StatsSection />
         <PartnersSection />
         <PromoBanner {...PROMO_BANNERS.quote} variant="navy" />

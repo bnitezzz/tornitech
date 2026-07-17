@@ -184,7 +184,7 @@ export const SECTORS_CONTENT = {
   flipHint: 'Clic para ver soluciones',
   sectors: [
     {
-      title: 'Petrolero y energía',
+      title: 'Petróleo',
       image: ASSETS.sectors.petroleo,
       solutions:
         'Barras Roscadas B-7, B-7M, B8, B8M, L7, Acero Inoxidable y Aleaciones Especiales.',
@@ -205,7 +205,7 @@ export const SECTORS_CONTENT = {
       solutions: 'Tornillos Métricos (8.8 y 12.9) y Abrazaderas de Manguera.',
     },
     {
-      title: 'Ferretero y talleres',
+      title: 'Ferretero',
       image: ASSETS.sectors.ferretera,
       solutions: 'Tornillos Grado 2, Guayas y Tensores.',
     },

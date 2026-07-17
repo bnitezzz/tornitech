@@ -16,16 +16,20 @@ function StatItem({
   index: number;
   isInView: boolean;
 }) {
-  const count = useCountUp(stat.staticValue ? 0 : stat.value, isInView && !stat.staticValue, 1.4 + index * 0.12);
+  const count = useCountUp(
+    stat.staticValue ? 0 : stat.value,
+    isInView && !stat.staticValue,
+    1.4 + index * 0.12
+  );
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ delay: index * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="flex min-w-0 flex-col items-center justify-center text-center"
     >
-      <dd className="whitespace-nowrap text-[20px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
+      <dd className="whitespace-nowrap text-[18px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[28px] md:text-[34px]">
         {stat.staticValue ? (
           stat.staticValue
         ) : (
@@ -36,7 +40,7 @@ function StatItem({
           </>
         )}
       </dd>
-      <dt className="mt-1.5 text-[9px] font-medium uppercase leading-tight tracking-wide text-[#6b7280] sm:mt-2.5 sm:text-sm sm:leading-normal">
+      <dt className="mt-1 text-[9px] font-medium uppercase leading-tight tracking-wide text-[#6b7280] sm:mt-1.5 sm:text-xs md:text-sm">
         {stat.label}
       </dt>
     </motion.div>
@@ -48,12 +52,15 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative z-10 w-full bg-white py-6 sm:py-8 md:py-10" aria-label="Indicadores destacados">
+    <section
+      className="relative z-10 w-full bg-white pb-2 pt-0 sm:pb-3 md:pb-4"
+      aria-label="Indicadores destacados"
+    >
       <div
         ref={ref}
-        className="relative z-10 mx-auto w-[92%] max-w-[1100px] rounded-2xl border border-slate-100/80 bg-white px-4 py-6 card-elevated sm:px-10 sm:py-10"
+        className="card-elevated relative z-10 mx-auto w-[92%] max-w-[960px] -translate-y-1/2 rounded-xl border border-slate-100/80 bg-white px-3 py-3.5 sm:rounded-2xl sm:px-8 sm:py-5"
       >
-        <dl className="grid grid-cols-3 items-start gap-x-3 gap-y-0 sm:items-center sm:gap-x-8 md:gap-x-12">
+        <dl className="grid grid-cols-3 items-center gap-x-2 sm:gap-x-6 md:gap-x-10">
           {SITE_STATS.map((stat, index) => (
             <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}
