@@ -1,3 +1,14 @@
+## 2026-07-17 — Productos especiales con fotos reales
+
+### UI / contenido
+- Reemplazo de la vitrina **Productos Especiales** por referencias reales:
+  - **2013 / 2014** Anclaje de ojo y gancho zincados (foto conjunta)
+  - **1035** Anclaje de concreto inoxidable 304 (texto listo; foto pendiente)
+  - **2202** Tornillo hexagonal rosca corrida en bronce silicio
+  - **0317** Tornillo estructural A325 con tuerca A194-2H (negro / galvanizado en caliente)
+- Fotos locales en `public/images/products/`; cards con `object-contain` sobre fondo blanco.
+- Fallback offline y CSV de ejemplo alineados; registros destacados actualizados en Supabase.
+
 ## 2026-07-17 — Sectores flip, stats, normas, correo y header
 
 ### UI / contenido

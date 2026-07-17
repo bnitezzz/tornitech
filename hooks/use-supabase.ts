@@ -24,7 +24,9 @@ export function useProducts(options?: { featured?: boolean; limit?: number }) {
       try {
         let query = supabase
           .from('products')
-          .select('id, sku, name, short_description, description, image_url, is_featured, is_active, display_order')
+          .select(
+            'id, sku, name, short_description, description, image_url, material, grade, standard, applications, sectors, is_featured, is_active, display_order'
+          )
           .eq('is_active', true)
           .order('display_order');
 
@@ -41,17 +43,24 @@ export function useProducts(options?: { featured?: boolean; limit?: number }) {
         if (queryError) throw queryError;
 
         setProducts(
-          ((data ?? []) as ProductRow[]).map((row) => ({
-            id: row.id,
-            sku: row.sku,
-            name: row.name,
-            short_description: row.short_description,
-            description: row.description,
-            image_url: row.image_url,
-            image: row.image_url,
-            is_featured: row.is_featured,
-            is_active: row.is_active,
-          }))
+          ((data ?? []) as ProductRow[]).map((row) => {
+            const specs = [row.standard, row.grade, row.material].filter(Boolean).join(' · ') || undefined;
+
+            return {
+              id: row.id,
+              sku: row.sku,
+              name: row.name,
+              short_description: row.short_description,
+              description: row.description,
+              image_url: row.image_url,
+              image: row.image_url,
+              applications: row.applications ?? undefined,
+              sectors: row.sectors ?? undefined,
+              specs,
+              is_featured: row.is_featured,
+              is_active: row.is_active,
+            };
+          })
         );
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to fetch products'));
