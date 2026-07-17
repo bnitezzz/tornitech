@@ -15,7 +15,7 @@ export const ASSETS = {
     positivo: '/images/isotipo-positivo.png',
   },
   hero: '/images/hero-section.jpg',
-  about: '/images/img-catalogo.png',
+  about: '/images/img-nosotros.jpg',
   icons: {
     venta: '/icon/icon-venta.png',
     asesoria: '/icon/icon-asesoria.png',

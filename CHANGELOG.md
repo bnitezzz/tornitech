@@ -1,3 +1,8 @@
+## 2026-07-17 — Foto Quiénes somos
+
+### UI / contenido
+- Imagen de fachada Tornitech en `public/images/img-nosotros.jpg` para la sección Nosotros (`ASSETS.about`).
+
 ## 2026-07-17 — Navbar scroll spy
 
 ### UI

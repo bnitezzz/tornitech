@@ -126,12 +126,12 @@ export function AboutSection() {
         >
           <Image
             src={ASSETS.about}
-            alt="Componentes de fijación industrial en almacén"
+            alt="Fachada de la tienda física de CCS Tornitech con su logo y eslogan Fijamos Soluciones"
             fill
             sizes="(max-width: 880px) 100vw, 880px"
-            className="object-cover"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#052042]/55 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#052042]/70 via-[#052042]/25 to-transparent" />
           <p className="absolute bottom-4 left-1/2 max-w-[420px] -translate-x-1/2 px-4 text-center text-sm font-medium leading-relaxed text-white sm:bottom-5 sm:text-base">
             Material identificado con ficha técnica y norma de referencia en cada pedido.
           </p>
