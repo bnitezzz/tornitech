@@ -74,6 +74,17 @@
 - Soporte de hash al cargar/recargar (`/#productos`, etc.) y `prefers-reduced-motion`.
 - `scroll-padding-top` / `scroll-margin-top` en CSS global.
 
+## 2026-07-17 — Auditoría Functions/Views (RPC)
+
+### Verificación
+- Probes con anon key: `increment_download_count` y `check_rate_limit` → HTTP 401.
+- Vista `v_leads_with_downloads` → HTTP 401.
+- `set_updated_at` no es RPC usable (trigger) → HTTP 404; EXECUTE revocado a anon/authenticated (migración 007).
+
+### Advisors
+- Sin WARN/ERROR de SECURITY DEFINER VIEW, PUBLIC FUNCTION ni EXECUTE público.
+- Solo INFO esperado: RLS sin policies en tablas de captura (deny-all).
+
 ## 2026-07-17 — Hardening de seguridad (P0/P1)
 
 ### Supabase (migración `006_security_hardening`)
