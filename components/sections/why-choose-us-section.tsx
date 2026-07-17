@@ -37,8 +37,8 @@ export function WhyChooseUsSection() {
         >
           {WHY_CHOOSE_US.items.map((item) => (
             <motion.article key={item.title} variants={itemVariants} className="h-full w-full">
-              <div className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-[2px] transition-colors duration-300 hover:border-white/20 hover:bg-white/10 sm:rounded-xl">
-                <div className="relative h-[84px] w-full shrink-0 overflow-hidden sm:h-[100px] md:h-[110px]">
+              <div className="card-elevated group flex h-full w-full flex-col overflow-hidden rounded-lg border border-[#fab43a]/35 bg-white shadow-[0_8px_24px_-10px_rgba(0,0,0,0.45)] transition-all duration-300 hover:border-[#fab43a] hover:shadow-[0_12px_28px_-8px_rgba(250,180,58,0.35)] sm:rounded-xl">
+                <div className="relative h-[100px] w-full shrink-0 overflow-hidden bg-[#f0f5f8] sm:h-[118px] md:h-[128px]">
                   <Image
                     src={item.image}
                     alt={item.title}
@@ -46,16 +46,16 @@ export function WhyChooseUsSection() {
                     sizes="(max-width: 640px) 45vw, 174px"
                     className={
                       item.imageVariant === 'icon'
-                        ? 'object-contain bg-white/90 p-3 sm:p-4'
+                        ? 'object-contain p-2.5 sm:p-3'
                         : 'img-zoom object-cover'
                     }
                   />
                 </div>
-                <div className="flex flex-1 flex-col justify-center px-2.5 py-2.5 sm:px-3.5 sm:py-3">
-                  <h3 className="line-clamp-2 text-xs font-bold uppercase leading-tight tracking-wide text-white sm:text-sm">
+                <div className="flex flex-1 flex-col justify-center px-2.5 py-3 sm:px-3.5 sm:py-3.5">
+                  <h3 className="line-clamp-2 text-xs font-bold uppercase leading-tight tracking-wide text-[#052042] sm:text-sm">
                     {item.title}
                   </h3>
-                  <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-white/70 sm:mt-1.5 sm:text-xs">
+                  <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-[#3c4456] sm:mt-1.5 sm:text-xs">
                     {item.description}
                   </p>
                 </div>

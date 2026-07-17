@@ -20,7 +20,7 @@ const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(1
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
 
 /** Must match real section ids on the homepage */
-const SECTION_IDS = ['inicio', 'sectores', 'productos', 'catalogos', 'nosotros', 'contacto'] as const;
+const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto'] as const;
 
 function InfoTicker() {
   const contact = useSiteContact();
@@ -176,7 +176,7 @@ export function Header() {
             />
           </Link>
 
-          <ul className="hidden flex-1 items-center justify-center gap-3 md:flex lg:gap-6 xl:gap-8">
+          <ul className="hidden flex-1 items-center justify-center gap-5 md:flex lg:gap-10 xl:gap-[42px]">
             {NAVIGATION.map((item) => {
               const sectionId = getSectionIdFromHref(item.href) ?? '';
               const isActive = activeSection === sectionId;
@@ -186,7 +186,7 @@ export function Header() {
                     href={item.href}
                     onClick={(e) => handleNavClick(item.href, e)}
                     aria-current={isActive ? 'location' : undefined}
-                    className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-sm font-normal transition-colors duration-200 hover:text-white lg:text-base ${
+                    className={`focus-ring-inverse group relative inline-block whitespace-nowrap py-1 text-base font-normal transition-colors duration-200 hover:text-white ${
                       isActive ? 'text-white' : 'text-[#f2f2f2]'
                     }`}
                   >

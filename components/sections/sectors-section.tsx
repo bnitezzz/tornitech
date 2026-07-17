@@ -55,12 +55,12 @@ function SectorFlipCard({
             </div>
           </div>
 
-          {/* Back — soluciones (texto blanco) */}
+          {/* Back — soluciones */}
           <div className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-[14px] bg-[#052042] px-3.5 py-4 shadow-[0_4px_14px_rgba(0,0,0,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/90">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7eb8d4]">
               Soluciones de fijación clave
             </p>
-            <h3 className="mt-1 text-sm font-extrabold uppercase tracking-wide text-white">
+            <h3 className="mt-1 text-sm font-extrabold uppercase tracking-wide text-[#fab43a]">
               {sector.title}
             </h3>
             <p className="mt-2.5 text-xs leading-relaxed text-white sm:text-sm">

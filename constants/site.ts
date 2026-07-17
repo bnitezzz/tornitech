@@ -28,7 +28,6 @@ export const SITE_CONFIG = {
 
 export const NAVIGATION = [
   { name: 'Inicio', href: '/#inicio' },
-  { name: 'Sectores', href: '/#sectores' },
   { name: 'Productos', href: '/#productos' },
   { name: 'Catálogos', href: '/#catalogos' },
   { name: 'Nosotros', href: '/#nosotros' },
