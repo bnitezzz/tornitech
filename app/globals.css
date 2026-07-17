@@ -58,12 +58,12 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 108px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
-      scroll-padding-top: 96px;
+      scroll-padding-top: 108px;
     }
     *,
     *::before,
@@ -79,7 +79,7 @@
 
   /* Offset sticky navbar when jumping to in-page anchors */
   section[id] {
-    scroll-margin-top: 96px;
+    scroll-margin-top: 108px;
   }
 }
 

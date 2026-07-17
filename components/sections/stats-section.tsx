@@ -16,7 +16,7 @@ function StatItem({
   index: number;
   isInView: boolean;
 }) {
-  const count = useCountUp(stat.value, isInView, 1.4 + index * 0.12);
+  const count = useCountUp(stat.staticValue ? 0 : stat.value, isInView && !stat.staticValue, 1.4 + index * 0.12);
 
   return (
     <motion.div
@@ -26,9 +26,15 @@ function StatItem({
       className="flex min-w-0 flex-col items-center justify-center text-center"
     >
       <dd className="whitespace-nowrap text-[20px] font-extrabold leading-none tabular-nums text-[#316d92] sm:text-[36px] md:text-[44px]">
-        {stat.prefix}
-        {numberFormatter.format(count)}
-        {stat.suffix}
+        {stat.staticValue ? (
+          stat.staticValue
+        ) : (
+          <>
+            {stat.prefix}
+            {numberFormatter.format(count)}
+            {stat.suffix}
+          </>
+        )}
       </dd>
       <dt className="mt-1.5 text-[9px] font-medium uppercase leading-tight tracking-wide text-[#6b7280] sm:mt-2.5 sm:text-sm sm:leading-normal">
         {stat.label}
@@ -42,12 +48,12 @@ export function StatsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="relative z-10 w-full bg-white pb-2 sm:pb-3 md:pb-4" aria-label="Indicadores destacados">
+    <section className="relative z-10 w-full bg-white py-6 sm:py-8 md:py-10" aria-label="Indicadores destacados">
       <div
         ref={ref}
-        className="relative z-10 mx-auto w-[92%] max-w-[1100px] -translate-y-1/2 rounded-2xl border border-slate-100/80 bg-white px-3 py-6 card-elevated sm:px-10 sm:py-10"
+        className="relative z-10 mx-auto w-[92%] max-w-[1100px] rounded-2xl border border-slate-100/80 bg-white px-4 py-6 card-elevated sm:px-10 sm:py-10"
       >
-        <dl className="grid grid-cols-4 items-start gap-x-2 gap-y-0 sm:items-center sm:gap-x-6 md:gap-x-10">
+        <dl className="grid grid-cols-3 items-start gap-x-3 gap-y-0 sm:items-center sm:gap-x-8 md:gap-x-12">
           {SITE_STATS.map((stat, index) => (
             <StatItem key={stat.label} stat={stat} index={index} isInView={isInView} />
           ))}

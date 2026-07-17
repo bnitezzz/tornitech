@@ -1,51 +1,93 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { SectionHeader } from '@/components/ui/section-header';
 import { SECTORS_CONTENT } from '@/constants/content';
 
+function SectorFlipCard({
+  sector,
+  index,
+}: {
+  sector: (typeof SECTORS_CONTENT.sectors)[number];
+  index: number;
+}) {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06, duration: 0.4 }}
+      className="h-full min-h-[200px] w-full [perspective:1000px] sm:min-h-[220px]"
+    >
+      <button
+        type="button"
+        aria-pressed={flipped}
+        aria-label={`${sector.title}. ${flipped ? 'Mostrar sector' : 'Mostrar soluciones de fijación'}`}
+        onClick={() => setFlipped((prev) => !prev)}
+        className="focus-ring relative h-full w-full rounded-[14px] text-left"
+      >
+        <div
+          className={`relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none ${
+            flipped ? '[transform:rotateY(180deg)]' : ''
+          }`}
+        >
+          {/* Front — sector */}
+          <div className="absolute inset-0 overflow-hidden rounded-[14px] shadow-[0_4px_14px_rgba(0,0,0,0.2)] [backface-visibility:hidden]">
+            <Image
+              src={sector.image}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+              <h3 className="text-center text-xs font-extrabold uppercase tracking-wide text-white drop-shadow sm:text-sm md:text-base">
+                {sector.title}
+              </h3>
+              <p className="mt-1 text-center text-[10px] text-white/70 sm:text-[11px]">
+                {SECTORS_CONTENT.flipHint}
+              </p>
+            </div>
+          </div>
+
+          {/* Back — soluciones */}
+          <div className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-[14px] bg-[#052042] px-3.5 py-4 shadow-[0_4px_14px_rgba(0,0,0,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-4">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#fab43a]">
+              Soluciones de fijación clave
+            </p>
+            <h3 className="mt-1 text-sm font-extrabold uppercase tracking-wide text-white">
+              {sector.title}
+            </h3>
+            <p className="mt-2.5 text-xs leading-relaxed text-white/85 sm:text-sm">
+              {sector.solutions}
+            </p>
+          </div>
+        </div>
+      </button>
+    </motion.div>
+  );
+}
+
 export function SectorsSection() {
   return (
-    <section id="sectores" className="section-bg-sectors relative w-full pb-24 pt-9 md:pb-28 md:pt-12 lg:pb-32 lg:pt-14">
+    <section id="sectores" className="section-padding-tight section-bg-fade-top w-full">
       <div className="section-container flex flex-col items-center">
         <SectionHeader
           heading={SECTORS_CONTENT.heading}
           subheading={SECTORS_CONTENT.subheading}
-          inverse
           className="mb-5 md:mb-7"
         />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5 lg:gap-6 xl:gap-7 2xl:max-w-[1400px] 2xl:gap-8"
-        >
+        <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 lg:gap-5">
           {SECTORS_CONTENT.sectors.map((sector, index) => (
-            <motion.article
-              key={sector.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.07 }}
-              className="group relative aspect-[4/3] w-full overflow-hidden rounded-[14px] shadow-[0_4px_14px_rgba(0,0,0,0.25)] transition-shadow duration-300 hover:shadow-[0_8px_24px_rgba(0,0,0,0.35)] xl:rounded-2xl 2xl:aspect-[5/4]"
-            >
-              <Image
-                src={sector.image}
-                alt={`Sector ${sector.title}`}
-                fill
-                sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, (max-width: 1536px) 19vw, 240px"
-                className="img-zoom object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-              <h3 className="absolute bottom-3 left-1/2 w-[calc(100%-16px)] -translate-x-1/2 text-center text-xs font-extrabold uppercase tracking-wide text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)] sm:bottom-4 sm:text-sm md:text-base xl:text-lg">
-                {sector.title}
-              </h3>
-            </motion.article>
+            <SectorFlipCard key={sector.title} sector={sector} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

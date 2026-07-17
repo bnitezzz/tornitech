@@ -8,7 +8,7 @@ export const SITE_CONFIG = {
   phone: '0212-2398501 / 0212-2358456',
   phones: ['0212-2398501', '0212-2358456'],
   whatsapp: '+584242818062',
-  email: 'ventasccstornitech@gmail.com',
+  email: 'info@tornitech.com',
   address: 'Av. tercera transversal de Montecristo entre 1era y 2da Av., Caracas 1071',
   businessHours: 'Lunes a Viernes 8:00am – 5:00pm · Sábado 9:00am – 2:00pm',
   responseTime: 'Respuesta en horario comercial dentro de las 24 horas hábiles.',

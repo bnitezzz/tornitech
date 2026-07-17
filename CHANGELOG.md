@@ -1,3 +1,13 @@
+## 2026-07-17 — Sectores flip, stats, normas, correo y header
+
+### UI / contenido
+- Capacidades operativas sustituida por **Sectores que atendemos** con flip-card (sin Industrial).
+- Hero H1 en mayúsculas; imagen/contenido más separados del navbar.
+- Stats: +30 años, +6.000 productos, Entrega a nivel nacional.
+- Normas técnicas: + AISI, SAE, ASME.
+- Correo unificado a `info@tornitech.com`.
+- Navbar más alto.
+
 ## 2026-07-15 — Sprint 2 (P1) estabilidad y mantenibilidad
 
 ### P1-2 Formularios

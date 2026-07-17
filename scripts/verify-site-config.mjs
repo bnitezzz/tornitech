@@ -9,7 +9,7 @@ import { loadEnv } from './lib/load-env.mjs';
 
 const EXPECTED = {
   whatsapp_number: '584242818062',
-  contact_email: 'ventasccstornitech@gmail.com',
+  contact_email: 'info@tornitech.com',
   phone: '0212-2398501 / 0212-2358456',
   address: 'Av. tercera transversal de Montecristo entre 1era y 2da Av., Caracas 1071',
   business_hours: 'Lunes a Viernes 8:00am – 5:00pm · Sábado 9:00am – 2:00pm',

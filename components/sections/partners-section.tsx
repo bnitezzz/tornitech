@@ -31,14 +31,14 @@ export function PartnersSection() {
                 {PARTNERS_CONTENT.standardsSubheading}
               </p>
             </div>
-            <div className="grid w-full max-w-[440px] grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid w-full max-w-[520px] grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3">
               {TECHNICAL_STANDARDS.map((standard) => (
                 <div
                   key={standard.abbr}
-                  className="flex flex-col items-center justify-center rounded-xl border border-[#316d92]/12 bg-white px-3 py-3.5 transition-all duration-300 hover:border-[#316d92]/25"
+                  className="flex flex-col items-center justify-center rounded-xl border border-[#316d92]/12 bg-white px-2.5 py-3 transition-all duration-300 hover:border-[#316d92]/25 sm:px-3 sm:py-3.5"
                 >
-                  <span className="text-base font-extrabold text-[#316d92] sm:text-lg">{standard.abbr}</span>
-                  <span className="mt-0.5 text-center text-[10px] leading-tight text-[#6b7280] sm:text-[11px]">
+                  <span className="text-sm font-extrabold text-[#316d92] sm:text-base">{standard.abbr}</span>
+                  <span className="mt-0.5 text-center text-[9px] leading-tight text-[#6b7280] sm:text-[10px]">
                     {standard.name}
                   </span>
                 </div>

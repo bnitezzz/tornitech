@@ -15,14 +15,14 @@ export function HeroSection() {
 
   return (
     <section id="inicio" className="relative w-full overflow-hidden bg-[#f2f2f2]">
-      <div className="relative mx-auto min-h-[520px] w-full max-w-[1800px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[720px] 2xl:max-w-[1920px]">
+      <div className="relative mx-auto min-h-[560px] w-full max-w-[1800px] md:min-h-[640px] lg:min-h-[700px] 2xl:min-h-[760px] 2xl:max-w-[1920px]">
         <Image
           src={ASSETS.hero}
           alt="Almacén de tornillería y componentes de fijación industrial"
           fill
           priority
           sizes="(max-width: 1800px) 100vw, 1800px"
-          className="object-cover object-center"
+          className="object-cover object-[center_42%]"
         />
 
         <div
@@ -34,7 +34,7 @@ export function HeroSection() {
           aria-hidden="true"
         />
 
-        <div className="section-container relative z-10 flex min-h-[440px] items-center py-14 md:min-h-[540px] md:py-20 lg:min-h-[600px] 2xl:min-h-[660px]">
+        <div className="section-container relative z-10 flex min-h-[500px] items-center pt-28 pb-16 md:min-h-[580px] md:pt-32 md:pb-20 lg:min-h-[640px] lg:pt-36 2xl:min-h-[700px]">
           <motion.div
             variants={container}
             initial="hidden"
@@ -50,7 +50,7 @@ export function HeroSection() {
 
             <motion.h1
               variants={variants}
-              className="font-extrabold leading-[1.12] tracking-tight text-[#052042] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px]"
+              className="font-extrabold uppercase leading-[1.12] tracking-tight text-[#052042] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px]"
             >
               {HERO_CONTENT.title}
             </motion.h1>

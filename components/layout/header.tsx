@@ -153,7 +153,7 @@ export function Header() {
         <nav
           aria-label="Navegación principal"
           className={`page-header-inner flex items-center justify-between gap-4 transition-all duration-300 ease-out ${
-            isScrolled ? 'min-h-[56px] py-2' : 'min-h-[64px] py-2'
+            isScrolled ? 'min-h-[64px] py-2.5' : 'min-h-[76px] py-3'
           }`}
         >
           <Link
@@ -161,8 +161,8 @@ export function Header() {
             onClick={(e) => handleNavClick('/#inicio', e)}
             className={`focus-ring-inverse relative shrink-0 rounded-sm transition-all duration-300 ${
               isScrolled
-                ? 'h-[34px] w-[108px] sm:h-[38px] sm:w-[122px] lg:h-[44px] lg:w-[140px]'
-                : 'h-[38px] w-[118px] sm:h-[44px] sm:w-[138px] lg:h-[52px] lg:w-[160px]'
+                ? 'h-[38px] w-[120px] sm:h-[42px] sm:w-[134px] lg:h-[48px] lg:w-[150px]'
+                : 'h-[44px] w-[136px] sm:h-[50px] sm:w-[154px] lg:h-[56px] lg:w-[172px]'
             }`}
             aria-label="Tornitech — Inicio"
           >

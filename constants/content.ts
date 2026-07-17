@@ -180,71 +180,48 @@ export const DEFAULT_PRODUCTS = [
 
 export const SECTORS_CONTENT = {
   heading: 'Sectores que atendemos',
-  subheading: 'Componentes de fijación seleccionados según las condiciones de cada industria.',
+  subheading: 'Seleccione un sector para ver las soluciones de fijación clave.',
+  flipHint: 'Clic para ver soluciones',
   sectors: [
     {
-      title: 'Petróleo y gas',
-      description: 'Piezas resistentes a corrosión, presión y ambientes agresivos.',
+      title: 'Petrolero y energía',
       image: ASSETS.sectors.petroleo,
-      products: [
-        'Pernos estructurales ASTM A325',
-        'Tuercas hexagonales DIN 934',
-        'Anclajes químicos para concreto',
-        'Arandelas planas de acero inoxidable',
-      ],
+      solutions:
+        'Barras Roscadas B-7, B-7M, B8, B8M, L7, Acero Inoxidable y Aleaciones Especiales.',
+    },
+    {
+      title: 'Eléctrico',
+      image: ASSETS.sectors.electrica,
+      solutions: 'ASTM A394 (Galvanizado en caliente), Bronce Silicio, Acero Inoxidable 304/316.',
     },
     {
       title: 'Construcción',
-      description: 'Anclajes estructurales y fijación para obras civiles e industriales.',
       image: ASSETS.sectors.construccion,
-      products: [
-        'Pernos hexagonales ISO 4014',
-        'Anclajes químicos HIT-HY',
-        'Tornillería estructural grado 10.9',
-        'Sistemas de fijación para mampostería',
-      ],
-    },
-    {
-      title: 'Electricidad',
-      description: 'Herrajes de fijación para tableros, canalizaciones e instalaciones.',
-      image: ASSETS.sectors.electrica,
-      products: [
-        'Tornillos autorroscantes y métricos',
-        'Tuercas autoblocantes DIN 985',
-        'Arandelas de presión y planas',
-        'Anclajes para montaje de equipos',
-      ],
+      solutions: 'Tornillos Estructural (A-325/A-490), Anclajes Mecánicos y Químicos.',
     },
     {
       title: 'Automotriz',
-      description: 'Tornillería de precisión para líneas de ensamblaje y talleres.',
       image: ASSETS.sectors.automotriz,
-      products: [
-        'Tornillos hexagonales DIN 933',
-        'Tuercas autoblocantes antivibración',
-        'Pernos de alta resistencia',
-        'Arandelas especiales de retención',
-      ],
+      solutions: 'Tornillos Métricos (8.8 y 12.9) y Abrazaderas de Manguera.',
     },
     {
-      title: 'Ferretería',
-      description: 'Surtido para reventa con referencias de rotación constante.',
+      title: 'Ferretero y talleres',
       image: ASSETS.sectors.ferretera,
-      products: [
-        'Tornillería métrica de uso general',
-        'Tuercas y arandelas estándar',
-        'Pernos y tornillos por grado',
-        'Kits de fijación por aplicación',
-      ],
+      solutions: 'Tornillos Grado 2, Guayas y Tensores.',
     },
   ],
 };
 
 export const SITE_STATS = [
-  { value: 5, prefix: '', suffix: '', label: 'Sectores industriales' },
-  { value: 5, prefix: '', suffix: '', label: 'Normas internacionales' },
-  { value: 4, prefix: '', suffix: '', label: 'Etapas de cotización' },
-  { value: 24, prefix: '', suffix: 'h', label: 'Respuesta comercial' },
+  { value: 30, prefix: '+', suffix: '', label: 'años de experiencia', staticValue: null as string | null },
+  { value: 6000, prefix: '+', suffix: '', label: 'productos', staticValue: null as string | null },
+  {
+    value: 0,
+    prefix: '',
+    suffix: '',
+    label: 'a nivel nacional',
+    staticValue: 'Entrega',
+  },
 ];
 
 export const TECHNICAL_STANDARDS = [
@@ -253,6 +230,9 @@ export const TECHNICAL_STANDARDS = [
   { abbr: 'ASTM', name: 'Norma americana' },
   { abbr: 'API', name: 'Petróleo y gas' },
   { abbr: 'ANSI', name: 'Norma industrial' },
+  { abbr: 'AISI', name: 'Aceros e inoxidables' },
+  { abbr: 'SAE', name: 'Automotriz / mecánica' },
+  { abbr: 'ASME', name: 'Equipos a presión' },
 ];
 
 export const PARTNERS_CONTENT = {
