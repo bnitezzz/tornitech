@@ -9,6 +9,7 @@ import { ASSETS } from '@/constants/assets';
 import { PROMO_BANNERS } from '@/constants/content';
 import { WhatsAppFloat } from '@/components/ui/whatsapp-float';
 import { getCachedSiteContactConfig } from '@/lib/site-config';
+import { isSafeHttpUrl, serializeJsonLd } from '@/lib/security';
 
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((m) => ({ default: m.AboutSection }))
@@ -72,7 +73,7 @@ export default async function HomePage() {
       contact.social.linkedin,
       contact.social.facebook,
       contact.social.instagram,
-    ].filter(Boolean),
+    ].filter((url): url is string => Boolean(url) && isSafeHttpUrl(url)),
   };
 
   const jsonLdLocalBusiness = {
@@ -100,7 +101,7 @@ export default async function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([jsonLdOrganization, jsonLdLocalBusiness]),
+          __html: serializeJsonLd([jsonLdOrganization, jsonLdLocalBusiness]),
         }}
       />
       <SkipLink />

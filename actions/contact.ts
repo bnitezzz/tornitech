@@ -13,6 +13,7 @@ import { getFormsBackend } from '@/lib/supabase/forms';
 import { getSupabaseServer } from '@/lib/supabase/server';
 import { isValidUuid } from '@/lib/supabase/config';
 import { enforceFormRateLimit } from '@/lib/rate-limit';
+import { toSafeErrorMessage } from '@/lib/security';
 import { parseCatalogDownloadForm, parseContactForm } from '@/lib/validation';
 import type { Insertable } from '@/types/database';
 import type { ActionResult, CatalogDownloadResult } from '@/types/actions';
@@ -20,10 +21,10 @@ import type { CatalogDownloadFormData, ContactFormData } from '@/types';
 
 function persistenceErrorMessage(error: unknown): string {
   if (error instanceof FormsBackendError) {
-    console.error('[forms]', error.message, error.cause);
+    console.error('[forms]', error.message);
     return 'No pudimos guardar su solicitud en este momento. Intente de nuevo o contáctenos por teléfono.';
   }
-  console.error('[forms]', error);
+  console.error('[forms]', toSafeErrorMessage(error));
   return 'Error al procesar su solicitud. Por favor intente de nuevo.';
 }
 

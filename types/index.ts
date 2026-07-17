@@ -7,19 +7,33 @@ const optionalTrimmed = z
   .optional()
   .transform((value) => (value && value.length > 0 ? value : undefined));
 
+const phoneSchema = z
+  .string()
+  .trim()
+  .max(40)
+  .optional()
+  .transform((value) => (value && value.length > 0 ? value : undefined))
+  .refine(
+    (value) => value === undefined || /^[\d\s+\-()./]{7,40}$/.test(value),
+    'Teléfono inválido'
+  );
+
+const personNameSchema = z
+  .string()
+  .trim()
+  .min(2, 'El nombre debe tener al menos 2 caracteres')
+  .max(120, 'El nombre es demasiado largo')
+  .regex(/^[\p{L}\p{N}\s.'\-]+$/u, 'El nombre contiene caracteres no permitidos');
+
 export const contactFormSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'El nombre debe tener al menos 2 caracteres')
-    .max(120, 'El nombre es demasiado largo'),
+  name: personNameSchema,
   email: z
     .string()
     .trim()
     .email('Correo electrónico inválido')
     .max(254, 'El correo es demasiado largo')
     .transform((value) => value.toLowerCase()),
-  phone: optionalTrimmed,
+  phone: phoneSchema,
   company: optionalTrimmed,
   subject: z
     .string()
@@ -36,18 +50,14 @@ export const contactFormSchema = z.object({
 });
 
 export const catalogDownloadSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, 'El nombre debe tener al menos 2 caracteres')
-    .max(120, 'El nombre es demasiado largo'),
+  name: personNameSchema,
   email: z
     .string()
     .trim()
     .email('Correo electrónico inválido')
     .max(254, 'El correo es demasiado largo')
     .transform((value) => value.toLowerCase()),
-  phone: optionalTrimmed,
+  phone: phoneSchema,
   company: z
     .string()
     .trim()

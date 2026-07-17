@@ -1,5 +1,6 @@
 import { SITE_CONFIG } from '@/constants/site';
 import { getSiteContactConfig } from '@/lib/site-config';
+import { escapeHtml, sanitizeEmailHeader } from '@/lib/security';
 
 type EmailPayload = {
   to: string | string[];
@@ -33,7 +34,7 @@ export async function sendEmail(payload: EmailPayload): Promise<boolean> {
   const { apiKey, from } = getEmailConfig();
   if (!apiKey) {
     if (process.env.NODE_ENV === 'development') {
-      console.info('[email] Skipped (RESEND_API_KEY not set):', payload.subject);
+      console.info('[email] Skipped (RESEND_API_KEY not set):', sanitizeEmailHeader(payload.subject));
     }
     return false;
   }
@@ -48,21 +49,20 @@ export async function sendEmail(payload: EmailPayload): Promise<boolean> {
       body: JSON.stringify({
         from,
         to: Array.isArray(payload.to) ? payload.to : [payload.to],
-        subject: payload.subject,
+        subject: sanitizeEmailHeader(payload.subject),
         html: payload.html,
         reply_to: payload.replyTo,
       }),
     });
 
     if (!response.ok) {
-      const body = await response.text();
-      console.error('[email] Resend error:', response.status, body);
+      console.error('[email] Resend error:', response.status);
       return false;
     }
 
     return true;
-  } catch (error) {
-    console.error('[email] Failed to send:', error);
+  } catch {
+    console.error('[email] Failed to send');
     return false;
   }
 }
@@ -78,7 +78,7 @@ export async function buildContactNotificationEmail(data: {
 }): Promise<EmailPayload> {
   return {
     to: await getTeamInbox(),
-    subject: `[Contacto] ${data.subject || 'Nueva consulta'} — ${data.name}`,
+    subject: sanitizeEmailHeader(`[Contacto] ${data.subject || 'Nueva consulta'} — ${data.name}`),
     replyTo: data.email,
     html: `
       <h2>Nuevo mensaje de contacto</h2>
@@ -101,7 +101,7 @@ export function buildContactConfirmationEmail(data: {
 }): EmailPayload {
   return {
     to: data.email,
-    subject: `Recibimos su mensaje — ${SITE_CONFIG.name}`,
+    subject: sanitizeEmailHeader(`Recibimos su mensaje — ${SITE_CONFIG.name}`),
     html: `
       <p>Estimado/a ${escapeHtml(data.name)},</p>
       <p>Hemos recibido su consulta. Nuestro equipo la revisará y responderá en horario comercial.</p>
@@ -123,7 +123,7 @@ export async function buildCatalogDownloadNotificationEmail(data: {
 }): Promise<EmailPayload> {
   return {
     to: await getTeamInbox(),
-    subject: `[Catálogo] Descarga — ${data.catalogTitle} — ${data.name}`,
+    subject: sanitizeEmailHeader(`[Catálogo] Descarga — ${data.catalogTitle} — ${data.name}`),
     replyTo: data.email,
     html: `
       <h2>Descarga de catálogo registrada</h2>
@@ -137,12 +137,4 @@ export async function buildCatalogDownloadNotificationEmail(data: {
       <p><strong>Acepta promociones:</strong> ${data.acceptsMarketing ? 'Sí' : 'No'}</p>
     `,
   };
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
 }

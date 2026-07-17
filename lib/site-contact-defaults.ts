@@ -1,4 +1,5 @@
 import { SITE_CONFIG } from '@/constants/site';
+import { isSafeHttpUrl } from '@/lib/security';
 import type { SiteContactConfig, SiteSocialLinks } from '@/types/site-contact';
 import type { Json } from '@/types/database';
 
@@ -48,7 +49,10 @@ export function parseSocialLinks(
 
   const pick = (key: keyof SiteSocialLinks) => {
     const candidate = raw?.[key];
-    return typeof candidate === 'string' ? candidate.trim() : fallback[key];
+    if (typeof candidate !== 'string') return fallback[key];
+    const trimmed = candidate.trim();
+    if (!trimmed) return fallback[key];
+    return isSafeHttpUrl(trimmed) ? trimmed : fallback[key];
   };
 
   return {

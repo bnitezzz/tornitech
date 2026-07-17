@@ -1,4 +1,5 @@
 import { getFormsBackend, FormsBackendError } from '@/lib/supabase/forms';
+import { toSafeErrorMessage } from '@/lib/security';
 import type { Insertable } from '@/types/database';
 
 export type LeadInput = {
@@ -34,7 +35,7 @@ export async function createLead(input: LeadInput): Promise<string> {
   const { data, error } = await supabase.from('leads').insert(record).select('id').single();
 
   if (error || !data?.id) {
-    console.error('[leads] Insert error:', error);
+    console.error('[leads] Insert error:', toSafeErrorMessage(error));
     throw new FormsBackendError('No se pudo registrar el contacto en la base de datos.', error);
   }
 
@@ -64,7 +65,7 @@ export async function subscribeToMarketing(data: {
       .upsert(subscriber, { onConflict: 'email', ignoreDuplicates: true });
 
     if (error) {
-      console.error('[newsletter] Upsert error:', error);
+      console.error('[newsletter] Upsert error:', toSafeErrorMessage(error));
     }
   } catch (error) {
     if (error instanceof FormsBackendError) {

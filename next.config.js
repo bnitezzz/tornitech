@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV === 'development';
+
 const securityHeaders = [
   { key: 'X-Frame-Options', value: 'DENY' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -12,15 +14,19 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // Next.js hydration needs 'unsafe-inline'; avoid 'unsafe-eval' in production.
+      isDev
+        ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+        : "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.pexels.com https://xlczdqqtdwuniivhztom.supabase.co",
       "font-src 'self' data:",
-      "connect-src 'self' https://xlczdqqtdwuniivhztom.supabase.co https://*.supabase.co wss://*.supabase.co https://api.resend.com",
+      "connect-src 'self' https://xlczdqqtdwuniivhztom.supabase.co https://*.supabase.co wss://*.supabase.co",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
       "object-src 'none'",
+      "upgrade-insecure-requests",
     ].join('; '),
   },
 ];
@@ -29,6 +35,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       {

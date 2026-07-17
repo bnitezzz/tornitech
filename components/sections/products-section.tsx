@@ -8,6 +8,7 @@ import { SectionHeader } from '@/components/ui/section-header';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import { useProducts } from '@/hooks/use-supabase';
 import { DEFAULT_PRODUCTS, PRODUCTS_CONTENT } from '@/constants/content';
+import { isSafeHttpUrl } from '@/lib/security';
 import type { ProductItem } from '@/types/product';
 
 const INITIAL_VISIBLE_COUNT = 4;
@@ -17,8 +18,7 @@ const FALLBACK_PRODUCT_IMAGE =
 
 function getProductImage(product: ProductItem): string {
   const src = product.image || product.image_url || '';
-  // No mostrar material/branding de Panama Fasteners en la vitrina de productos
-  if (!src || /panama\s*fasteners|panamafasteners/i.test(src)) {
+  if (!src || !isSafeHttpUrl(src) || /panama\s*fasteners|panamafasteners/i.test(src)) {
     return FALLBACK_PRODUCT_IMAGE;
   }
   return src;

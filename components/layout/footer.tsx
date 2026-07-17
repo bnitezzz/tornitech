@@ -18,6 +18,7 @@ import { FOOTER_CATEGORIES } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
+import { safeHttpUrl } from '@/lib/security';
 import {
   getPreferredScrollBehavior,
   getSectionIdFromHref,
@@ -27,6 +28,9 @@ import {
 export function Footer() {
   const currentYear = new Date().getFullYear();
   const contact = useSiteContact();
+  const facebookUrl = safeHttpUrl(contact.social.facebook);
+  const linkedinUrl = safeHttpUrl(contact.social.linkedin);
+  const instagramUrl = safeHttpUrl(contact.social.instagram);
 
   const handleNavClick = (href: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     const sectionId = getSectionIdFromHref(href);
@@ -57,9 +61,9 @@ export function Footer() {
               {SITE_CONFIG.description}
             </p>
             <div className="flex gap-3">
-              {contact.social.facebook && (
+              {facebookUrl && (
                 <a
-                  href={contact.social.facebook}
+                  href={facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
@@ -68,9 +72,9 @@ export function Footer() {
                   <Facebook className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
-              {contact.social.linkedin && (
+              {linkedinUrl && (
                 <a
-                  href={contact.social.linkedin}
+                  href={linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"
@@ -79,9 +83,9 @@ export function Footer() {
                   <Linkedin className="h-5 w-5" strokeWidth={1.75} />
                 </a>
               )}
-              {contact.social.instagram && (
+              {instagramUrl && (
                 <a
-                  href={contact.social.instagram}
+                  href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring-inverse flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/10 text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#fab43a] hover:text-[#3c4456]"

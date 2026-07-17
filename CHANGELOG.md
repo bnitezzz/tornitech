@@ -74,6 +74,21 @@
 - Soporte de hash al cargar/recargar (`/#productos`, etc.) y `prefers-reduced-motion`.
 - `scroll-padding-top` / `scroll-margin-top` en CSS global.
 
+## 2026-07-17 — Auditoría de código (XSS / headers / deps)
+
+### Parches
+- `lib/security.ts`: escapeHtml, serializeJsonLd, sanitizeEmailHeader, isSafeHttpUrl, toSafeErrorMessage.
+- JSON-LD con `serializeJsonLd` (anti `</script>` breakout).
+- Footer / site_config: solo URLs http(s) seguras en redes sociales.
+- Productos: `image_url` validada con `isSafeHttpUrl`.
+- Emails: subject sanitizado; logs sin body/PII.
+- Zod: regex de nombre, teléfono, max lengths.
+- CSP sin `unsafe-eval` en producción; `poweredByHeader: false`.
+- Next.js `13.5.1` → `13.5.11` (último parche 13.x); Zod actualizado.
+
+### Residual
+- Advisories de Next 13 que solo se cierran subiendo a Next 15/16 (major, fuera de alcance sin solicitud).
+
 ## 2026-07-17 — Auditoría Functions/Views (RPC)
 
 ### Verificación
