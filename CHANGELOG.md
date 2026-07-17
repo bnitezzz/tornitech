@@ -1,3 +1,8 @@
+## 2026-07-17 — Navbar scroll spy
+
+### UI
+- El ítem activo del header ya no se queda en Catálogos al pasar por Nosotros: spy por posición de scroll (no IntersectionObserver).
+
 ## 2026-07-17 — Productos especiales con fotos reales
 
 ### UI / contenido

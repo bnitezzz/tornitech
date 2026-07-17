@@ -11,6 +11,7 @@ import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
 import { EASE_PREMIUM } from '@/lib/motion';
 import {
+  getActiveNavSectionId,
   getPreferredScrollBehavior,
   getSectionIdFromHref,
   scrollToSectionId,
@@ -101,25 +102,27 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => Boolean(el)
-    );
-    if (sections.length === 0) return;
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target.id) {
-          setActiveSection(visible[0].target.id);
-        }
-      },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5] }
-    );
+    const syncActiveSection = () => {
+      frame = 0;
+      const next = getActiveNavSectionId(SECTION_IDS);
+      setActiveSection((prev) => (prev === next ? prev : next));
+    };
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const onScrollOrResize = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(syncActiveSection);
+    };
+
+    syncActiveSection();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+    };
   }, []);
 
   useEffect(() => {
