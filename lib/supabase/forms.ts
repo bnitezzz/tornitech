@@ -11,17 +11,17 @@ export class FormsBackendError extends Error {
   }
 }
 
-/** Ensures Supabase is available for form submissions (service role or anon). */
+/** Ensures Supabase service role is available for form submissions. */
 export function getFormsBackend() {
   if (!isFormsBackendConfigured()) {
     throw new FormsBackendError(
-      'Supabase no está configurado. Revise NEXT_PUBLIC_SUPABASE_URL y las claves de Supabase.'
+      'Supabase no está configurado. Revise NEXT_PUBLIC_SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY.'
     );
   }
 
   const supabase = getSupabaseFormsClient();
   if (!supabase) {
-    throw new FormsBackendError('No se pudo inicializar el cliente de Supabase.');
+    throw new FormsBackendError('No se pudo inicializar el cliente de Supabase (service role).');
   }
 
   return supabase;

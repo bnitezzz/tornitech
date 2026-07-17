@@ -16,12 +16,9 @@ export function isSupabaseConfigured(): boolean {
   return Boolean(getSupabaseUrl() && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
 }
 
-/** Returns true when form submissions can reach Supabase (service role or public key). */
+/** Returns true when form submissions can reach Supabase (service role required). */
 export function isFormsBackendConfigured(): boolean {
-  return Boolean(
-    getSupabaseUrl() &&
-      (process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || getSupabasePublicKey())
-  );
+  return Boolean(getSupabaseUrl() && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim());
 }
 
 /** Returns true when the public Supabase client can be initialized. */

@@ -228,8 +228,15 @@ export async function enforceFormRateLimit(options: {
   }
 
   const hasBackend = Boolean(getUpstashConfig() || getSupabaseServer());
-  if (!hasBackend && process.env.NODE_ENV === 'production') {
-    console.warn('[rate-limit] No rate-limit backend configured in production.');
+  if (!hasBackend) {
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[rate-limit] No rate-limit backend configured; rejecting submission.');
+      return {
+        allowed: false,
+        message: RATE_LIMIT_MESSAGE,
+      };
+    }
+    console.warn('[rate-limit] No backend in development; allowing request.');
   }
 
   return { allowed: true };

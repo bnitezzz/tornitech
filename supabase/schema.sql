@@ -370,7 +370,7 @@ ALTER TABLE public.newsletter_subscribers ENABLE ROW LEVEL SECURITY;
 -- Lectura pública: contenido del sitio
 DROP POLICY IF EXISTS "public_read_site_config" ON public.site_config;
 CREATE POLICY "public_read_site_config" ON public.site_config
-  FOR SELECT TO anon, authenticated USING (is_public = true);
+  FOR SELECT TO anon, authenticated USING (is_public IS TRUE);
 
 DROP POLICY IF EXISTS "public_read_categories" ON public.categories;
 CREATE POLICY "public_read_categories" ON public.categories
@@ -384,26 +384,13 @@ DROP POLICY IF EXISTS "public_read_catalogs" ON public.catalogs;
 CREATE POLICY "public_read_catalogs" ON public.catalogs
   FOR SELECT TO anon, authenticated USING (is_active = true);
 
--- Escritura pública: solo captura de formularios (INSERT)
+-- Captura de formularios: SIN políticas INSERT para anon.
+-- Solo Server Actions con service_role (migración 006).
 DROP POLICY IF EXISTS "public_insert_leads" ON public.leads;
-CREATE POLICY "public_insert_leads" ON public.leads
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
 DROP POLICY IF EXISTS "public_insert_catalog_downloads" ON public.catalog_downloads;
-CREATE POLICY "public_insert_catalog_downloads" ON public.catalog_downloads
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
 DROP POLICY IF EXISTS "public_insert_quote_requests" ON public.quote_requests;
-CREATE POLICY "public_insert_quote_requests" ON public.quote_requests
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
 DROP POLICY IF EXISTS "public_insert_contact_submissions" ON public.contact_submissions;
-CREATE POLICY "public_insert_contact_submissions" ON public.contact_submissions
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
 DROP POLICY IF EXISTS "public_insert_newsletter" ON public.newsletter_subscribers;
-CREATE POLICY "public_insert_newsletter" ON public.newsletter_subscribers
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
 
 -- =============================================================================
 -- DATOS INICIALES: configuración del sitio
@@ -453,10 +440,13 @@ INSERT INTO public.catalogs (title, slug, description, file_url, version, is_fea
 ON CONFLICT (slug) DO NOTHING;
 
 -- =============================================================================
--- VISTAS ÚTILES (reportes)
+-- VISTAS INTERNAS (solo service_role — migración 006)
 -- =============================================================================
 
-CREATE OR REPLACE VIEW public.v_leads_with_downloads AS
+DROP VIEW IF EXISTS public.v_leads_with_downloads;
+CREATE VIEW public.v_leads_with_downloads
+WITH (security_invoker = true)
+AS
 SELECT
   l.id,
   l.name,
@@ -473,7 +463,16 @@ LEFT JOIN public.catalog_downloads cd ON cd.lead_id = l.id
 LEFT JOIN public.catalogs c ON c.id = cd.catalog_id
 GROUP BY l.id;
 
-COMMENT ON VIEW public.v_leads_with_downloads IS 'Leads con conteo y listado de PDFs descargados.';
+COMMENT ON VIEW public.v_leads_with_downloads IS
+  'Reporte interno de leads + descargas. Solo service_role / Dashboard.';
+
+REVOKE ALL ON TABLE public.v_leads_with_downloads FROM PUBLIC;
+REVOKE ALL ON TABLE public.v_leads_with_downloads FROM anon, authenticated;
+GRANT SELECT ON TABLE public.v_leads_with_downloads TO service_role;
+
+REVOKE ALL ON FUNCTION public.increment_download_count(uuid) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.increment_download_count(uuid) FROM anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.increment_download_count(uuid) TO service_role;
 -- =============================================================================
 -- CATÁLOGO PRODUCTOS (migración 004)
 -- =============================================================================

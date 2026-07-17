@@ -74,6 +74,22 @@
 - Soporte de hash al cargar/recargar (`/#productos`, etc.) y `prefers-reduced-motion`.
 - `scroll-padding-top` / `scroll-margin-top` en CSS global.
 
+## 2026-07-17 — Hardening de seguridad (P0/P1)
+
+### Supabase (migración `006_security_hardening`)
+- Vista `v_leads_with_downloads`: `security_invoker` + sin acceso anon/authenticated.
+- RPC `increment_download_count` y `check_rate_limit`: EXECUTE solo `service_role`.
+- Eliminados INSERT públicos en leads/contact/catalog_downloads/newsletter/quote_requests.
+- Escrituras de formularios solo con `SUPABASE_SERVICE_ROLE_KEY` (Server Actions).
+- `site_config`: lectura pública requiere `is_public IS TRUE`.
+- Storage `images`: límite 5 MB + MIME de imagen; sin listing público; write solo service_role.
+
+### App
+- Zod con `.max()`, trim y email normalizado.
+- Rate limit fail-closed en producción sin backend.
+- Headers CSP + HSTS en `next.config.js`.
+- Hooks: `select` de columnas explícitas (sin `*`).
+
 ## 2026-07-15 — Imágenes de productos desde Supabase Storage
 
 ### Fix

@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/types/database';
-import { getSupabasePublicKey, getSupabaseUrl, isSupabaseConfigured } from './config';
+import { getSupabaseUrl, isSupabaseConfigured } from './config';
 
 let serverClient: SupabaseClient<Database> | null = null;
 let formsClient: SupabaseClient<Database> | null = null;
@@ -28,27 +28,24 @@ export function getSupabaseServer(): SupabaseClient<Database> | null {
 }
 
 /**
- * Server-side client for public form writes.
- * Prefers service role; falls back to anon key (RLS public_insert_* policies).
+ * Server-side client for form writes.
+ * Requires service role — anon INSERT policies were removed for security.
  */
 export function getSupabaseFormsClient(): SupabaseClient<Database> | null {
   const url = getSupabaseUrl();
-  if (!url) return null;
-
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  const publicKey = getSupabasePublicKey();
-  const key = serviceKey || publicKey;
 
-  if (!key) return null;
-
-  if (!formsClient) {
-    formsClient = createClient<Database>(url, key, serverClientOptions);
-
-    if (!serviceKey && process.env.NODE_ENV === 'development') {
+  if (!url || !serviceKey) {
+    if (process.env.NODE_ENV === 'development' && url && !serviceKey) {
       console.warn(
-        '[supabase] SUPABASE_SERVICE_ROLE_KEY no definida; formularios usan anon key con RLS.'
+        '[supabase] SUPABASE_SERVICE_ROLE_KEY requerida para formularios (INSERT público deshabilitado).'
       );
     }
+    return null;
+  }
+
+  if (!formsClient) {
+    formsClient = createClient<Database>(url, serviceKey, serverClientOptions);
   }
 
   return formsClient;

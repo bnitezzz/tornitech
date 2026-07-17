@@ -24,7 +24,7 @@ export function useProducts(options?: { featured?: boolean; limit?: number }) {
       try {
         let query = supabase
           .from('products')
-          .select('*')
+          .select('id, sku, name, short_description, description, image_url, is_featured, is_active, display_order')
           .eq('is_active', true)
           .order('display_order');
 
@@ -82,7 +82,9 @@ export function useCatalogs(options?: { featured?: boolean }) {
       try {
         let query = supabase
           .from('catalogs')
-          .select('*')
+          .select(
+            'id, title, slug, description, file_url, cover_image_url, version, is_featured, is_active, display_order, download_count'
+          )
           .eq('is_active', true)
           .order('display_order');
 
