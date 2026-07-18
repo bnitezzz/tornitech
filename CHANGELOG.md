@@ -1,3 +1,9 @@
+## 2026-07-18 — Correo corporativo
+
+### Configuración
+- Correo principal, comercial y de formularios actualizado a `info@ccstornitech.com`.
+- Fallback de la aplicación, configuración de Supabase y variables de ejemplo alineados.
+
 ## 2026-07-17 — Foto Quiénes somos
 
 ### UI / contenido

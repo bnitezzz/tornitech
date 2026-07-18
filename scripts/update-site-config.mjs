@@ -16,13 +16,13 @@ const CONTACT_ROWS = [
   },
   {
     key: 'contact_email',
-    value: 'info@tornitech.com',
+    value: 'info@ccstornitech.com',
     description: 'Correo principal de contacto',
     is_public: true,
   },
   {
     key: 'sales_email',
-    value: 'info@tornitech.com',
+    value: 'info@ccstornitech.com',
     description: 'Correo del equipo comercial',
     is_public: false,
   },
