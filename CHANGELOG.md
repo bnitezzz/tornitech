@@ -1,4 +1,19 @@
-## 2026-07-18 — Correo corporativo
+## 2026-07-20 — Catálogo productos (Excel + búsqueda)
+
+### Base de datos
+- Migración `008_productos_catalog_expand`: columnas del Excel Panama Fasteners (`source_id`, `especificacion_tecnica`, `medidas`, `acabado`, `presentacion`, `grupo`, `familia`, `url_fotografia`, `url_producto`, `contenido`) más `sku`, `brand`, `subcategory`, `datasheet_url`, `stock`, `price`, `updated_at`.
+- Índices btree + `pg_trgm` en `nombre`, `sku`, `brand`, `categoria`.
+- RLS: solo `SELECT` para `anon`/`authenticated` (`activo = true`); escrituras vía `service_role`.
+
+### Importación
+- Script `npm run import:productos` (`scripts/import-productos-excel.mjs`) con dedupe por `source_id` / nombre.
+
+### Frontend
+- Buscador server-side con debounce (`SearchProducts` + `ProductModal`).
+- No descarga el catálogo completo al cargar; consulta Supabase al escribir.
+- Placeholder de imagen, skeleton, vacío y errores.
+
+
 
 ### Configuración
 - Correo principal, comercial y de formularios actualizado a `info@ccstornitech.com`.

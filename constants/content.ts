@@ -67,16 +67,18 @@ export const PRODUCTS_CONTENT = {
 export const PRODUCTOS_CATALOG_CONTENT = {
   heading: 'PRODUCTOS',
   subheading:
-    'Vista previa de las principales categorías. Busca por nombre o explora las primeras líneas.',
-  searchPlaceholder: 'Buscar producto...',
-  emptyMessage: 'No se encontraron productos con ese criterio.',
+    'Busca por nombre, SKU, marca o categoría. Los resultados se consultan en tiempo real.',
+  searchPlaceholder: 'Buscar por nombre, SKU, marca o categoría…',
+  searchHint: 'Escribe al menos {min} caracteres para buscar.',
+  idleMessage: 'Escribe en el buscador para encontrar productos del catálogo.',
+  emptyMessage: 'No se encontraron productos.',
   homeLimitNote: 'Mostramos las primeras 5 categorías en la página de inicio.',
 };
 
-/** Max category cards on the homepage catalog section */
+/** Max category cards on the homepage catalog section (legacy grid) */
 export const PRODUCTOS_HOME_LIMIT = 5;
 
-/** Max items listed inside each category card on home */
+/** Max items listed inside each category card on home (legacy grid) */
 export const PRODUCTOS_PREVIEW_LIMIT = 5;
 
 export const DEFAULT_PRODUCTS = [

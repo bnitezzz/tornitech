@@ -19,7 +19,7 @@ const securityHeaders = [
         ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
         : "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://images.pexels.com https://xlczdqqtdwuniivhztom.supabase.co",
+      "img-src 'self' data: blob: https://images.pexels.com https://xlczdqqtdwuniivhztom.supabase.co https://panamafasteners.com https://*.panamafasteners.com",
       "font-src 'self' data:",
       "connect-src 'self' https://xlczdqqtdwuniivhztom.supabase.co https://*.supabase.co wss://*.supabase.co",
       "frame-ancestors 'none'",
@@ -46,6 +46,16 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'xlczdqqtdwuniivhztom.supabase.co',
         pathname: '/storage/v1/object/public/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'panamafasteners.com',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.panamafasteners.com',
+        pathname: '/wp-content/uploads/**',
       },
     ],
   },
