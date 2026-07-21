@@ -25,12 +25,27 @@ export function HeroSection() {
           className="object-cover object-[center_42%]"
         />
 
+        {/* Desktop: soft left wash so copy sits cleanly over the photo */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             background:
               'linear-gradient(97.74deg, rgba(242,242,242,0.97) 8%, rgba(242,242,242,0.85) 35%, rgba(67,72,73,0) 72%)',
           }}
+          aria-hidden="true"
+        />
+
+        {/* Mobile: keep the photo visible, blur + frosted wash for readable text */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(242,242,242,0.55) 0%, rgba(242,242,242,0.42) 48%, rgba(242,242,242,0.2) 78%, rgba(242,242,242,0.08) 100%)',
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-[78%] backdrop-blur-[3px] md:hidden"
           aria-hidden="true"
         />
 
@@ -39,8 +54,14 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-[640px]"
+            className="relative w-full max-w-[640px]"
           >
+            {/* Extra frosted plate behind copy on small screens */}
+            <div
+              className="pointer-events-none absolute -inset-x-3 -inset-y-4 -z-10 rounded-2xl bg-[#f2f2f2]/70 shadow-[0_8px_32px_-12px_rgba(5,32,66,0.18)] backdrop-blur-md sm:-inset-x-4 sm:-inset-y-5 md:hidden"
+              aria-hidden="true"
+            />
+
             <motion.p
               variants={variants}
               className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-[#316d92]"
