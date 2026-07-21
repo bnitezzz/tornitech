@@ -1,3 +1,9 @@
+## 2026-07-21 — Sectores: líneas de producto por card
+
+### UI / contenido
+- Flip cards de **Sectores que atendemos** con listas reales (Petróleo, Eléctrico, Construcción, Automotriz, Ferretero).
+- Eliminado el rótulo “Soluciones de fijación clave” en el reverso para ganar espacio.
+
 ## 2026-07-20 — Catálogo productos (Excel + búsqueda)
 
 ### Base de datos

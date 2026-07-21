@@ -138,34 +138,69 @@ export const DEFAULT_PRODUCTS = [
 
 export const SECTORS_CONTENT = {
   heading: 'Sectores que atendemos',
-  subheading: 'Seleccione un sector para ver las soluciones de fijación clave.',
+  subheading: 'Seleccione un sector para ver las líneas de fijación disponibles.',
   flipHint: 'Clic para ver soluciones',
   sectors: [
     {
       title: 'Petróleo',
       image: ASSETS.sectors.petroleo,
-      solutions:
-        'Barras Roscadas B-7, B-7M, B8, B8M, L7, Acero Inoxidable y Aleaciones Especiales.',
+      solutions: [
+        'Barras roscadas ASTM A193 Grado B7, B7M, B16, B8 y B8M',
+        'Barras roscadas ASTM A320 Grado L7',
+        'Espárragos ASTM A193 Grado B7, B7M, B16, B8 y B8M',
+        'Espárragos ASTM A320 Grado L7',
+        'Tuerca hex. pesada ASTM A194 2H, 2HM, Grado 4, Grado 7, Grado B8 y Grado B8M',
+      ],
     },
     {
       title: 'Eléctrico',
       image: ASSETS.sectors.electrica,
-      solutions: 'ASTM A394 (Galvanizado en caliente), Bronce Silicio, Acero Inoxidable 304/316.',
+      solutions: [
+        'Tornillos, tuercas y arandelas en bronce silicio',
+        'Tornillos, tuercas y arandelas en acero inoxidable',
+      ],
     },
     {
       title: 'Construcción',
       image: ASSETS.sectors.construccion,
-      solutions: 'Tornillos Estructural (A-325/A-490), Anclajes Mecánicos y Químicos.',
+      solutions: [
+        'Tornillos y tuercas estructurales:',
+        'A-307 Grado A',
+        'A-325',
+        'A-394',
+        'A-490',
+        'Tuerca hex. pesada ASTM A194 2H',
+        'Arandela plana endurecida estructural ASTM F436',
+        'Anclajes',
+      ],
     },
     {
       title: 'Automotriz',
       image: ASSETS.sectors.automotriz,
-      solutions: 'Tornillos Métricos (8.8 y 12.9) y Abrazaderas de Manguera.',
+      solutions: [
+        'Tornillos y tuercas de alta resistencia métricos y pulgadas',
+        'Tornillo y tuerca de rueda',
+        'Tornillo de cámara',
+        'Abrazaderas redonda y cuadrada',
+        'Abrazaderas de manguera',
+        'Espárragos',
+        'Tapón de cárter',
+      ],
     },
     {
       title: 'Ferretero',
       image: ASSETS.sectors.ferretera,
-      solutions: 'Tornillos Grado 2, Guayas y Tensores.',
+      solutions: [
+        'Tornillo hex. Grado 2',
+        'Tornillos autorroscantes',
+        'Tornillos estufa',
+        'Barras roscadas',
+        'Mechas',
+        'Machos',
+        'Remaches',
+        'Herramientas',
+        'Entre otros',
+      ],
     },
   ],
 };

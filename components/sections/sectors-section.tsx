@@ -21,7 +21,7 @@ function SectorFlipCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.06, duration: 0.4 }}
-      className="h-full min-h-[200px] w-full [perspective:1000px] sm:min-h-[220px]"
+      className="h-full min-h-[240px] w-full [perspective:1000px] sm:min-h-[280px]"
     >
       <button
         type="button"
@@ -56,16 +56,27 @@ function SectorFlipCard({
           </div>
 
           {/* Back — soluciones */}
-          <div className="absolute inset-0 flex flex-col justify-center overflow-hidden rounded-[14px] bg-[#052042] px-3.5 py-4 shadow-[0_4px_14px_rgba(0,0,0,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7eb8d4]">
-              Soluciones de fijación clave
-            </p>
-            <h3 className="mt-1 text-sm font-extrabold uppercase tracking-wide text-[#fab43a]">
+          <div className="absolute inset-0 flex flex-col overflow-hidden rounded-[14px] bg-[#052042] px-3 py-3.5 shadow-[0_4px_14px_rgba(0,0,0,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] sm:px-3.5 sm:py-4">
+            <h3 className="shrink-0 text-sm font-extrabold uppercase tracking-wide text-[#fab43a]">
               {sector.title}
             </h3>
-            <p className="mt-2.5 text-xs leading-relaxed text-white sm:text-sm">
-              {sector.solutions}
-            </p>
+            <ul className="mt-2 space-y-1 overflow-y-auto text-[10px] leading-snug text-white sm:mt-2.5 sm:text-[11px] sm:leading-snug">
+              {sector.solutions.map((item) => {
+                const isGroupLabel = item.endsWith(':');
+                return (
+                  <li
+                    key={item}
+                    className={
+                      isGroupLabel
+                        ? 'font-semibold text-white'
+                        : 'pl-0 text-white/95'
+                    }
+                  >
+                    {isGroupLabel ? item : `• ${item}`}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </button>
