@@ -18,6 +18,7 @@ import { FOOTER_CATEGORIES } from '@/constants/content';
 import { ASSETS } from '@/constants/assets';
 import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
+import { getGoogleMapsUrl } from '@/lib/maps';
 import { safeHttpUrl } from '@/lib/security';
 import {
   getPreferredScrollBehavior,
@@ -164,10 +165,15 @@ export function Footer() {
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {contact.email}
               </a>
-              <div className="flex items-start gap-3 text-sm text-white/70">
+              <a
+                href={getGoogleMapsUrl(contact.address)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="focus-ring-inverse flex items-start gap-3 rounded-sm text-sm text-white/70 transition-colors hover:text-[#fab43a]"
+              >
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {contact.address}
-              </div>
+              </a>
               <div className="flex items-start gap-3 text-sm text-white/70">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.75} />
                 {contact.businessHours}

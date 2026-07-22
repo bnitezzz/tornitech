@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { LegalPageShell } from '@/components/layout/legal-page-shell';
 import { SITE_CONFIG } from '@/constants/site';
+import { getGoogleMapsUrl } from '@/lib/maps';
 import { getCachedSiteContactConfig } from '@/lib/site-config';
 
 export const metadata: Metadata = {
@@ -77,7 +78,17 @@ export default async function PrivacidadPage() {
             <ul className="list-none space-y-2">
               <li><strong>Email:</strong> {contact.email}</li>
               <li><strong>Teléfono:</strong> {contact.phone}</li>
-              <li><strong>Dirección:</strong> {contact.address}</li>
+              <li>
+                <strong>Dirección:</strong>{' '}
+                <a
+                  href={getGoogleMapsUrl(contact.address)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-foreground"
+                >
+                  {contact.address}
+                </a>
+              </li>
             </ul>
           </section>
 

@@ -16,6 +16,7 @@ import {
   getSectionIdFromHref,
   scrollToSectionId,
 } from '@/lib/scroll';
+import { getGoogleMapsUrl } from '@/lib/maps';
 
 const NAV_GRADIENT = 'linear-gradient(93.49deg, rgba(49,109,146,1) 0.65%, rgba(160,172,175,1) 84.31%)';
 const NAV_GRADIENT_TRANSPARENT = 'linear-gradient(93.49deg, rgba(49,109,146,0.98) 0.65%, rgba(160,172,175,0.98) 84.31%)';
@@ -25,13 +26,18 @@ const SECTION_IDS = ['inicio', 'productos', 'catalogos', 'nosotros', 'contacto']
 
 function InfoTicker() {
   const contact = useSiteContact();
+  const mapsUrl = getGoogleMapsUrl(contact.address);
   const infoTickerItems = useMemo(
     () => [
       { icon: Clock, text: contact.businessHours },
-      { icon: MapPin, text: contact.address },
-      { icon: Phone, text: contact.phone },
+      { icon: MapPin, text: contact.address, href: mapsUrl },
+      {
+        icon: Phone,
+        text: contact.phone,
+        href: `tel:${contact.phones[0]?.replace(/[^0-9+]/g, '') || ''}`,
+      },
     ],
-    [contact.address, contact.businessHours, contact.phone]
+    [contact.address, contact.businessHours, contact.phone, contact.phones, mapsUrl]
   );
 
   return (
@@ -40,9 +46,25 @@ function InfoTicker() {
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
             {infoTickerItems.map((item, index) => (
-              <li key={`${copy}-${index}`} className="flex shrink-0 items-center gap-2 whitespace-nowrap px-6 text-xs font-medium tracking-wide sm:px-8 sm:text-[13px]">
+              <li
+                key={`${copy}-${index}`}
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap px-6 text-xs font-medium tracking-wide sm:px-8 sm:text-[13px]"
+              >
                 <item.icon className="h-3.5 w-3.5 shrink-0 text-[#fab43a]" strokeWidth={1.75} />
-                <span>{item.text}</span>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    className="rounded-sm transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fab43a]"
+                    {...(item.href.startsWith('http')
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
+                    tabIndex={copy === 1 ? -1 : undefined}
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  <span>{item.text}</span>
+                )}
                 <span className="ml-5 h-1 w-1 shrink-0 rounded-full bg-white/25" aria-hidden="true" />
               </li>
             ))}

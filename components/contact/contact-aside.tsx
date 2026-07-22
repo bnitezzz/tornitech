@@ -5,6 +5,7 @@ import { Phone, Mail, MapPin, Clock, ArrowRight } from 'lucide-react';
 import { WhatsAppLink } from '@/components/ui/whatsapp-link';
 import { useSiteContact } from '@/components/providers/site-contact-provider';
 import { CONTACT_CONTENT } from '@/constants/content';
+import { getGoogleMapsUrl } from '@/lib/maps';
 import type { WhatsAppMessageType } from '@/lib/whatsapp';
 
 const whatsappQuestions: {
@@ -45,13 +46,15 @@ export function ContactAside() {
         icon: MapPin,
         label: 'Dirección',
         value: contact.address,
-        href: undefined as string | undefined,
+        href: getGoogleMapsUrl(contact.address),
+        external: true,
       },
       {
         icon: Clock,
         label: 'Horario',
         value: contact.businessHours,
         href: undefined as string | undefined,
+        external: false,
       },
     ],
     [contact.address, contact.businessHours, contact.email, contact.phones]
@@ -83,6 +86,9 @@ export function ContactAside() {
                 key={`${item.label}-${item.value}`}
                 href={item.href}
                 className="focus-ring block rounded-[10px] transition-opacity hover:opacity-80"
+                {...(item.external
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
               >
                 {inner}
               </a>
