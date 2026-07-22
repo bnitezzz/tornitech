@@ -1,9 +1,3 @@
-## 2026-07-21 — Hero móvil: blur para legibilidad
-
-### UX / UI
-- Hero en móvil: scrim + `backdrop-blur` y placa frosted detrás del copy para que el texto no se pierda, sin ocultar la imagen de fondo.
-- Desktop mantiene el wash lateral original.
-
 ## 2026-07-21 — Sectores: líneas de producto por card
 
 ### UI / contenido
