@@ -35,9 +35,13 @@ export function HeroSection() {
           aria-hidden="true"
         />
 
-        {/* Mobile: translucent layer over the photo for readable copy */}
+        {/* Mobile: soft gradient behind copy — keeps the photo vivid below */}
         <div
-          className="absolute inset-0 bg-[#f2f2f2]/55 md:hidden"
+          className="absolute inset-0 md:hidden"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(242,242,242,0.88) 0%, rgba(242,242,242,0.78) 42%, rgba(242,242,242,0.35) 72%, rgba(242,242,242,0.08) 100%)',
+          }}
           aria-hidden="true"
         />
 
