@@ -137,7 +137,6 @@ export function ProductModal({ product, open, loading, onClose }: ProductModalPr
                       )}
                     </dl>
 
-                    <SpecBlock label="Descripción" value={product.descripcion} />
                     <SpecBlock
                       label="Especificaciones"
                       value={
