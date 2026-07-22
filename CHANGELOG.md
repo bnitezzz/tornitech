@@ -1,17 +1,8 @@
-<<<<<<< Updated upstream
-=======
-## 2026-07-21 — Hero móvil: blur para legibilidad
-
-### UX / UI
-- Hero en móvil: scrim + `backdrop-blur` y placa frosted detrás del copy para que el texto no se pierda, sin ocultar la imagen de fondo.
-- Desktop mantiene el wash lateral original.
-
 ## 2026-07-22 — Dirección → Google Maps
 
 ### UI
 - La dirección en Contacto, footer, ticker del header y páginas legales abre Google Maps en una pestaña nueva.
 
->>>>>>> Stashed changes
 ## 2026-07-21 — Sectores: líneas de producto por card
 
 ### UI / contenido
