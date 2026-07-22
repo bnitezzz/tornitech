@@ -1,3 +1,9 @@
+## 2026-07-22 — Hero móvil: overlay y descripción en negro
+
+### UX / UI
+- Hero en móvil: capa semitransparente sobre la imagen para legibilidad.
+- Descripción del Hero en negro y peso medio en pantallas pequeñas.
+
 ## 2026-07-22 — Dirección → Google Maps
 
 ### UI

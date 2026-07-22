@@ -25,12 +25,19 @@ export function HeroSection() {
           className="object-cover object-[center_42%]"
         />
 
+        {/* Desktop: soft left wash */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             background:
               'linear-gradient(97.74deg, rgba(242,242,242,0.97) 8%, rgba(242,242,242,0.85) 35%, rgba(67,72,73,0) 72%)',
           }}
+          aria-hidden="true"
+        />
+
+        {/* Mobile: translucent layer over the photo for readable copy */}
+        <div
+          className="absolute inset-0 bg-[#f2f2f2]/55 md:hidden"
           aria-hidden="true"
         />
 
@@ -64,7 +71,7 @@ export function HeroSection() {
 
             <motion.p
               variants={variants}
-              className="mt-5 max-w-[560px] text-base leading-relaxed text-[#3c4456]/85 sm:text-lg"
+              className="mt-5 max-w-[560px] text-base font-medium leading-relaxed text-black sm:text-lg md:font-normal md:text-[#3c4456]/85"
             >
               {HERO_CONTENT.description}
             </motion.p>
