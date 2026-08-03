@@ -85,7 +85,7 @@ export const DEFAULT_PRODUCTS = [
   {
     id: '1',
     sku: '2013 / 2014',
-    name: 'Anclaje de ojo y gancho zincados',
+    name: 'ANCLAJE DE OJO Y GANCHO ZINCADOS',
     short_description: 'Anclajes de expansión con ojo o gancho, acabado zincado.',
     description:
       'Referencias 2013 (gancho) y 2014 (ojo) juntas: anclaje de expansión para concreto y mampostería, acabado zincado.',
@@ -98,7 +98,7 @@ export const DEFAULT_PRODUCTS = [
   {
     id: '2',
     sku: '1035',
-    name: 'Anclaje de concreto inoxidable 304',
+    name: 'ANCLAJE DE CONCRETO INOXIDABLE 304',
     short_description: 'Anclaje para concreto en acero inoxidable 304.',
     description:
       'Anclaje de concreto en acero inoxidable AISI 304, orientado a ambientes que requieren mayor resistencia a la corrosión.',
@@ -111,7 +111,7 @@ export const DEFAULT_PRODUCTS = [
   {
     id: '3',
     sku: '2202',
-    name: 'Tornillo hexagonal, rosca corrida en bronce silicio',
+    name: 'TORNILLO HEXAGONAL, ROSCA CORRIDA EN BRONCE SILICIO',
     short_description: 'Tornillo hexagonal de bronce silicio con rosca corrida.',
     description:
       'Tornillo de cabeza hexagonal y rosca corrida fabricado en bronce silicio, adecuado para aplicaciones eléctricas y ambientes corrosivos.',
@@ -124,7 +124,7 @@ export const DEFAULT_PRODUCTS = [
   {
     id: '4',
     sku: '0317',
-    name: 'Tornillo estructural A325 con tuerca A194 grado 2H',
+    name: 'TORNILLO ESTRUCTURAL A325 CON TUERCA A194 GRADO 2H',
     short_description: 'Tornillo estructural A325 con tuerca A194-2H, negro o galvanizado en caliente.',
     description:
       'Tornillo estructural ASTM A325 suministrado con tuerca A194 grado 2H. Disponible en acabado negro y galvanizado en caliente.',
@@ -178,20 +178,20 @@ export const SECTORS_CONTENT = {
       title: 'Automotriz',
       image: ASSETS.sectors.automotriz,
       solutions: [
-        'Tornillos y tuercas de alta resistencia métricos y pulgadas',
-        'Tornillo y tuerca de rueda',
-        'Tornillo de cámara',
-        'Abrazaderas redonda y cuadrada',
+        'Tornillos y tuercas de alta resistencia (métricos y pulgadas)',
+        'Tornillos y tuercas para rueda',
+        'Tornillos para cámara',
+        'Abrazaderas redondas y cuadradas',
         'Abrazaderas de manguera',
         'Espárragos',
-        'Tapón de cárter',
+        'Tapones de cárter',
       ],
     },
     {
       title: 'Ferretero',
       image: ASSETS.sectors.ferretera,
       solutions: [
-        'Tornillo hex. Grado 2',
+        'Tornillos hexagonales Grado 2',
         'Tornillos autorroscantes',
         'Tornillos estufa',
         'Barras roscadas',

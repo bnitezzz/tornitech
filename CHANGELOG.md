@@ -4,6 +4,12 @@
 - Hero en móvil: gradiente suave detrás del texto (mejor que bajar opacidad de toda la foto).
 - Descripción del Hero en negro y peso medio en pantallas pequeñas.
 
+## 2026-08-03 — Sectores y tipografía de productos especiales
+
+### Contenido
+- Listas de flip cards de Sectores actualizadas (Automotriz, Ferretero, Construcción, Eléctrico, Petróleo).
+- Nombres de **Productos Especiales** en mayúsculas; descripciones en oración con ortografía corregida.
+
 ## 2026-07-22 — Dirección → Google Maps
 
 ### UI
