@@ -7,6 +7,9 @@ import { createClient } from '@supabase/supabase-js';
 import ws from 'ws';
 import { loadEnv } from './lib/load-env.mjs';
 
+const env = loadEnv();
+const contactEmail = env.CLIENT_CONTACT_EMAIL?.trim() || env.EMAIL_TO?.trim() || 'info@ccstornitech.com';
+
 const CONTACT_ROWS = [
   {
     key: 'whatsapp_number',
@@ -16,13 +19,13 @@ const CONTACT_ROWS = [
   },
   {
     key: 'contact_email',
-    value: 'info@ccstornitech.com',
+    value: contactEmail,
     description: 'Correo principal de contacto',
     is_public: true,
   },
   {
     key: 'sales_email',
-    value: 'info@ccstornitech.com',
+    value: contactEmail,
     description: 'Correo del equipo comercial',
     is_public: false,
   },
@@ -59,7 +62,6 @@ const SOCIAL_ROW = {
   is_public: true,
 };
 
-const env = loadEnv();
 const url = env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 

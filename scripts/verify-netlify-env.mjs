@@ -42,10 +42,10 @@ const REQUIRED = [
 
 const RECOMMENDED = [
   {
-    key: 'RESEND_API_KEY',
+    key: 'SENDGRID_API_KEY',
     scope: 'runtime (servidor)',
     secret: true,
-    validate: (v) => v.startsWith('re_'),
+    validate: (v) => v.startsWith('SG.'),
   },
   {
     key: 'EMAIL_FROM',
@@ -112,8 +112,8 @@ if (!hasUpstash) {
   warnings += 1;
 }
 
-if (!env.RESEND_API_KEY || isPlaceholder(env.RESEND_API_KEY)) {
-  console.warn('\n⚠ RESEND_API_KEY ausente: formularios guardan en BD pero no envían email.');
+if (!env.SENDGRID_API_KEY || isPlaceholder(env.SENDGRID_API_KEY)) {
+  console.warn('\n⚠ SENDGRID_API_KEY ausente: formularios guardan en BD pero no envían email.');
   warnings += 1;
 }
 

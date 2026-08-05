@@ -7,9 +7,13 @@ import { createClient } from '@supabase/supabase-js';
 import ws from 'ws';
 import { loadEnv } from './lib/load-env.mjs';
 
+const env = loadEnv();
+const url = env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
+
 const EXPECTED = {
   whatsapp_number: '584242818062',
-  contact_email: 'info@ccstornitech.com',
+  contact_email: env.CLIENT_CONTACT_EMAIL?.trim() || env.EMAIL_TO?.trim() || 'info@ccstornitech.com',
   phone: '0212-2398501 / 0212-2358456',
   address: 'Av. tercera transversal de Montecristo entre 1era y 2da Av., Caracas 1071',
   business_hours: 'Lunes a Viernes 8:00am – 5:00pm · Sábado 9:00am – 2:00pm',
@@ -18,10 +22,6 @@ const EXPECTED = {
 const EXPECTED_SOCIAL = {
   instagram: 'https://www.instagram.com/ccstornitech/',
 };
-
-const env = loadEnv();
-const url = env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!url || !serviceKey) {
   console.error('Faltan NEXT_PUBLIC_SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY en .env.local');

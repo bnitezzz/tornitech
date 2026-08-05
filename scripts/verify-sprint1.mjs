@@ -15,7 +15,7 @@ const steps = [
   { name: 'site_config', script: 'verify-site-config.mjs', required: true },
   { name: 'WhatsApp', script: 'verify-whatsapp.mjs', required: true },
   { name: 'Formularios', script: 'verify-forms.mjs', required: true },
-  { name: 'Resend', script: 'verify-resend.mjs', required: false },
+  { name: 'SendGrid', script: 'verify-sendgrid.mjs', required: false },
 ];
 
 let failures = 0;

@@ -9,11 +9,29 @@ type EmailPayload = {
   replyTo?: string;
 };
 
+type ParsedEmailAddress = {
+  email: string;
+  name?: string;
+};
+
 function getEmailConfig() {
   return {
-    apiKey: process.env.RESEND_API_KEY?.trim(),
+    apiKey: process.env.SENDGRID_API_KEY?.trim(),
     from: process.env.EMAIL_FROM?.trim() || `${SITE_CONFIG.name} <noreply@${new URL(SITE_CONFIG.url).hostname}>`,
   };
+}
+
+/** Parses `"Name" <email@domain.com>` or plain `email@domain.com`. */
+export function parseEmailAddress(value: string): ParsedEmailAddress {
+  const trimmed = value.trim();
+  const bracketMatch = trimmed.match(/^(.+?)\s*<([^>]+)>$/);
+
+  if (bracketMatch) {
+    const name = bracketMatch[1].trim().replace(/^["']|["']$/g, '');
+    return { name: name || undefined, email: bracketMatch[2].trim() };
+  }
+
+  return { email: trimmed };
 }
 
 /** Team inbox: EMAIL_TO env, else contact_email from site_config, else constants. */
@@ -29,34 +47,46 @@ export async function getTeamInbox(): Promise<string> {
   }
 }
 
-/** Sends an email via Resend HTTP API. Skips silently when RESEND_API_KEY is not set. */
+/** Sends an email via SendGrid v3 API. Skips silently when SENDGRID_API_KEY is not set. */
 export async function sendEmail(payload: EmailPayload): Promise<boolean> {
   const { apiKey, from } = getEmailConfig();
   if (!apiKey) {
     if (process.env.NODE_ENV === 'development') {
-      console.info('[email] Skipped (RESEND_API_KEY not set):', sanitizeEmailHeader(payload.subject));
+      console.info('[email] Skipped (SENDGRID_API_KEY not set):', sanitizeEmailHeader(payload.subject));
     }
     return false;
   }
 
+  const fromAddress = parseEmailAddress(from);
+  const recipients = Array.isArray(payload.to) ? payload.to : [payload.to];
+
   try {
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from,
-        to: Array.isArray(payload.to) ? payload.to : [payload.to],
+        personalizations: [
+          {
+            to: recipients.map((email) => ({ email })),
+          },
+        ],
+        from: {
+          email: fromAddress.email,
+          ...(fromAddress.name ? { name: fromAddress.name } : {}),
+        },
+        ...(payload.replyTo
+          ? { reply_to: { email: payload.replyTo } }
+          : {}),
         subject: sanitizeEmailHeader(payload.subject),
-        html: payload.html,
-        reply_to: payload.replyTo,
+        content: [{ type: 'text/html', value: payload.html }],
       }),
     });
 
     if (!response.ok) {
-      console.error('[email] Resend error:', response.status);
+      console.error('[email] SendGrid error:', response.status);
       return false;
     }
 

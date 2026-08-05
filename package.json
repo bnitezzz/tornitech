@@ -16,7 +16,7 @@
     "update:site-config": "node scripts/update-site-config.mjs",
     "update:catalogs": "node scripts/update-catalogs.mjs",
     "import:productos": "node scripts/import-productos-excel.mjs",
-    "verify:resend": "node scripts/verify-resend.mjs",
+    "verify:sendgrid": "node scripts/verify-sendgrid.mjs",
     "verify:whatsapp": "node scripts/verify-whatsapp.mjs",
     "verify:forms": "node scripts/verify-forms.mjs",
     "verify:sprint1": "node scripts/verify-sprint1.mjs",

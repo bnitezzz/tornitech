@@ -13,7 +13,7 @@ Este documento define cómo debe escribirse y modificarse el código en este rep
 | Validación | Zod |
 | Animaciones | Framer Motion |
 | Iconos | Lucide React (stroke 1.75px) |
-| Email | Resend (HTTP API, sin SDK) |
+| Email | SendGrid (HTTP API v3, sin SDK) |
 
 > Verificar `package.json` antes de asumir versiones. No actualizar major versions sin solicitud explícita.
 
@@ -60,7 +60,7 @@ supabase/         → Migraciones SQL
 | Descarga PDF | `actions/contact.ts` → `submitCatalogDownload` |
 | Leads | `lib/leads.ts` → `createLead` |
 | Promociones | `accepts_marketing` + `subscribeToMarketing` |
-| Email | `lib/email.ts` → `sendEmail` (Resend) |
+| Email | `lib/email.ts` → `sendEmail` (SendGrid) |
 | WhatsApp | `lib/whatsapp.ts` + `components/ui/whatsapp-link.tsx` |
 
 Flujo contacto: validar → guardar en `contact_submissions` → crear lead → email al equipo + confirmación al usuario → suscripción si acepta marketing.
@@ -103,7 +103,7 @@ Flujo catálogo: validar → crear lead → registrar descarga (si UUID válido)
 
 ## Variables de entorno
 
-Ver `.env.example`. Supabase y Resend son opcionales en desarrollo; la app debe degradar gracefully si faltan.
+Ver `.env.example`. Supabase y SendGrid son opcionales en desarrollo; la app debe degradar gracefully si faltan.
 
 ## Prohibido
 

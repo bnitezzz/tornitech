@@ -12,6 +12,17 @@
 ### Deploy
 - En Netlify: **Clear cache and deploy site** tras publicar este cambio (purga el 304 vacío ya cacheado).
 
+## 2026-08-05 — SendGrid + guía de entrega al cliente
+
+### Email
+- Migración de Resend a **SendGrid** (`lib/email.ts`, API v3).
+- Variable `SENDGRID_API_KEY` reemplaza `RESEND_API_KEY`.
+- Script `npm run verify:sendgrid`.
+
+### Operaciones
+- `docs/ENTREGA-CUENTAS-CLIENTE.md`: checklist para transferir Supabase, Netlify, GitHub y SendGrid al correo del cliente.
+- `CLIENT_CONTACT_EMAIL` en `.env.local` para `update:site-config` y verificación.
+
 ## 2026-07-22 — Hero móvil: overlay y descripción en negro
 
 ### UX / UI

@@ -33,7 +33,7 @@ export function maskSecret(value, visible = 4) {
 
 export function isPlaceholder(value) {
   if (!value) return true;
-  return /your-|re_xxxx|xxxxxxxx|example\.com|your-project/i.test(value);
+  return /your-|re_xxxx|SG\.xxxx|xxxxxxxx|example\.com|your-project/i.test(value);
 }
 
 export const PROJECT_ROOT = root;
