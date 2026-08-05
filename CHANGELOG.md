@@ -1,3 +1,17 @@
+## 2026-08-05 — Fix: enlace compartido abre página en blanco / pegada
+
+### Bug
+- Netlify Durable Cache servía HTML como **HTTP 304 sin cuerpo** a visitantes nuevos (p. ej. abrir el link desde WhatsApp/Mensajes) → pantalla negra / “pegada”.
+- Carga de `site_config` sin timeout podía dejar el shell en “Cargando…”.
+
+### Fix
+- `app/layout.tsx`: `dynamic = 'force-dynamic'` (quita ISR que provocaba el 304 vacío).
+- Headers `Cache-Control` / `Netlify-CDN-Cache-Control` no-store en HTML (`next.config.js`, `netlify.toml`).
+- Timeout 4s + fallback a defaults en `lib/site-config.ts`.
+
+### Deploy
+- En Netlify: **Clear cache and deploy site** tras publicar este cambio (purga el 304 vacío ya cacheado).
+
 ## 2026-07-22 — Hero móvil: overlay y descripción en negro
 
 ### UX / UI

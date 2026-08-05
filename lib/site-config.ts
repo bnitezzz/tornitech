@@ -12,6 +12,9 @@ export { getDefaultSiteContact, parsePhoneList } from '@/lib/site-contact-defaul
 
 type SiteConfigRow = Pick<Tables<'site_config'>, 'key' | 'value' | 'value_json'>;
 
+/** Avoid hanging the whole HTML shell when Supabase is slow/unreachable. */
+const SITE_CONFIG_FETCH_TIMEOUT_MS = 4_000;
+
 const CONTACT_KEYS = [
   'whatsapp_number',
   'contact_email',
@@ -20,6 +23,25 @@ const CONTACT_KEYS = [
   'business_hours',
   'social_links',
 ] as const;
+
+function withTimeout<T>(promise: PromiseLike<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error(`site_config fetch timed out after ${ms}ms`));
+    }, ms);
+
+    Promise.resolve(promise).then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error: unknown) => {
+        clearTimeout(timer);
+        reject(error);
+      }
+    );
+  });
+}
 
 function mergeRows(rows: SiteConfigRow[]): SiteContactConfig {
   const defaults = getDefaultSiteContact();
@@ -53,19 +75,32 @@ async function fetchSiteConfigRows(): Promise<SiteConfigRow[] | null> {
   const supabase = getSupabaseServer() ?? getSupabaseFormsClient();
   if (!supabase) return null;
 
-  const { data, error } = await supabase
-    .from('site_config')
-    .select('key, value, value_json')
-    .in('key', [...CONTACT_KEYS]);
+  try {
+    const { data, error } = await withTimeout(
+      supabase
+        .from('site_config')
+        .select('key, value, value_json')
+        .in('key', [...CONTACT_KEYS]),
+      SITE_CONFIG_FETCH_TIMEOUT_MS
+    );
 
-  if (error) {
+    if (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[site-config] Failed to load site_config:', error.message);
+      }
+      return null;
+    }
+
+    return (data ?? []) as SiteConfigRow[];
+  } catch (err) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('[site-config] Failed to load site_config:', error.message);
+      console.error(
+        '[site-config] site_config unavailable:',
+        err instanceof Error ? err.message : err
+      );
     }
     return null;
   }
-
-  return (data ?? []) as SiteConfigRow[];
 }
 
 /**
@@ -78,7 +113,7 @@ export async function getSiteContactConfig(): Promise<SiteContactConfig> {
   return mergeRows(rows);
 }
 
-/** Cached for ISR — edits in Supabase appear within ~60s without redeploy. */
+/** Cached ~60s — edits in Supabase appear without redeploy; page shell stays dynamic. */
 export const getCachedSiteContactConfig = unstable_cache(
   async () => getSiteContactConfig(),
   ['site-contact-config'],

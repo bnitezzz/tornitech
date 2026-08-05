@@ -4,3 +4,24 @@ publish = ".next"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+# HTML documents only — do not apply to /_next/static (breaks asset caching).
+# Prevents Netlify Durable Cache from serving empty HTTP 304 HTML to first-time
+# visitors (e.g. opening a shared WhatsApp / Messages link → blank stuck page).
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"
+    Netlify-CDN-Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/privacidad"
+  [headers.values]
+    Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"
+    Netlify-CDN-Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/terminos"
+  [headers.values]
+    Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"
+    Netlify-CDN-Cache-Control = "private, no-cache, no-store, max-age=0, must-revalidate"

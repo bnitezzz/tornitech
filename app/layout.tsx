@@ -5,8 +5,14 @@ import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
 import { SiteContactBridge } from '@/components/providers/site-contact-bridge';
 
-/** Refresh contact data from site_config periodically (ISR). */
-export const revalidate = 60;
+/**
+ * Force a full HTML document on every request.
+ * ISR (`revalidate`) on Netlify Durable Cache can serve bare HTTP 304s
+ * (empty body) to first-time visitors — e.g. opening a shared WhatsApp link —
+ * which leaves a blank/stuck page. Contact data still refreshes via
+ * `unstable_cache` in `getCachedSiteContactConfig` (60s).
+ */
+export const dynamic = 'force-dynamic';
 
 const sora = Sora({
   subsets: ['latin'],
