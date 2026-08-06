@@ -89,7 +89,22 @@ export function CatalogDownloadModal({
                   <p className="mt-2 text-sm text-[#316d92]">Gracias por su interés.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isSubmitting}>
+                <form onSubmit={handleSubmit} className="relative space-y-4" aria-busy={isSubmitting}>
+                  <div
+                    className="absolute -left-[9999px] h-px w-px overflow-hidden"
+                    aria-hidden="true"
+                  >
+                    <Label htmlFor="catalog-website">Sitio web</Label>
+                    <Input
+                      id="catalog-website"
+                      name="website"
+                      value={formData.website}
+                      onChange={(e) => updateField('website', e.target.value)}
+                      autoComplete="off"
+                      tabIndex={-1}
+                    />
+                  </div>
+
                   {errors.form && (
                     <div role="alert" className="rounded-[10px] border border-red-200 bg-red-50 p-3">
                       <p className="text-sm font-medium text-red-600">{errors.form}</p>

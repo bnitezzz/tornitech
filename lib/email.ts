@@ -48,6 +48,8 @@ export async function getTeamInbox(): Promise<string> {
 }
 
 /** Sends an email via SendGrid v3 API. Skips silently when SENDGRID_API_KEY is not set. */
+const SENDGRID_TIMEOUT_MS = 10_000;
+
 export async function sendEmail(payload: EmailPayload): Promise<boolean> {
   const { apiKey, from } = getEmailConfig();
   if (!apiKey) {
@@ -67,6 +69,7 @@ export async function sendEmail(payload: EmailPayload): Promise<boolean> {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
+      signal: AbortSignal.timeout(SENDGRID_TIMEOUT_MS),
       body: JSON.stringify({
         personalizations: [
           {
@@ -91,8 +94,11 @@ export async function sendEmail(payload: EmailPayload): Promise<boolean> {
     }
 
     return true;
-  } catch {
-    console.error('[email] Failed to send');
+  } catch (error) {
+    const timedOut =
+      error instanceof Error &&
+      (error.name === 'TimeoutError' || error.name === 'AbortError');
+    console.error(timedOut ? '[email] SendGrid timed out' : '[email] Failed to send');
     return false;
   }
 }

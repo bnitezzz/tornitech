@@ -1,5 +1,5 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Sora } from 'next/font/google';
 import { SITE_CONFIG } from '@/constants/site';
 import { ASSETS } from '@/constants/assets';
@@ -76,8 +76,13 @@ export const metadata: Metadata = {
       'es-VE': '/',
     },
   },
+};
+
+export const viewport: Viewport = {
   themeColor: '#052042',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

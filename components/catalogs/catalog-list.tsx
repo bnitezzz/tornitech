@@ -15,7 +15,7 @@ const catalogPreviews = [
 type CatalogListProps = {
   catalogs: CatalogItem[];
   onDownload: (catalog: CatalogItem) => void;
-  firstDownloadRef?: RefObject<HTMLButtonElement>;
+  firstDownloadRef?: RefObject<HTMLButtonElement | null>;
 };
 
 export function CatalogList({ catalogs, onDownload, firstDownloadRef }: CatalogListProps) {

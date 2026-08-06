@@ -52,8 +52,6 @@ function mapDetail(row: ProductoRow): ProductoDetail {
     url_producto: safeHttpUrl(row.url_producto) ?? null,
     contenido: row.contenido,
     datasheet_url: safeHttpUrl(row.datasheet_url) ?? null,
-    stock: row.stock,
-    price: row.price != null ? Number(row.price) : null,
     orden: row.orden,
     activo: row.activo,
     created_at: row.created_at,

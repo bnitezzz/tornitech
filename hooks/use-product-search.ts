@@ -65,12 +65,7 @@ export function useProductSearch(): UseProductSearchResult {
     let cancelled = false;
     const q = debouncedQuery.trim();
 
-    if (q.length < PRODUCT_SEARCH_MIN_CHARS) {
-      setResults([]);
-      setSearching(false);
-      setError(null);
-      return;
-    }
+    if (q.length < PRODUCT_SEARCH_MIN_CHARS) return;
 
     async function runSearch() {
       setSearching(true);
@@ -118,16 +113,22 @@ export function useProductSearch(): UseProductSearchResult {
   }, []);
 
   const idle = query.trim().length < PRODUCT_SEARCH_MIN_CHARS;
+  const hasValidDebouncedQuery =
+    debouncedQuery.trim().length >= PRODUCT_SEARCH_MIN_CHARS;
   const empty =
-    !idle && !searching && !error && results.length === 0 && debouncedQuery.trim().length >= PRODUCT_SEARCH_MIN_CHARS;
+    !idle &&
+    hasValidDebouncedQuery &&
+    !searching &&
+    !error &&
+    results.length === 0;
 
   return {
     query,
     setQuery,
-    results,
+    results: hasValidDebouncedQuery ? results : [],
     loading: configLoading,
-    searching,
-    error,
+    searching: hasValidDebouncedQuery && searching,
+    error: hasValidDebouncedQuery ? error : null,
     empty,
     idle,
     mostrarSeccion: mostrarSeccion && !configLoading,

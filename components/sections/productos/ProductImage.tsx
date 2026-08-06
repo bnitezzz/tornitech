@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
@@ -25,11 +25,9 @@ export function ProductImage({
   sizes = '96px',
   priority,
 }: ProductImageProps) {
-  const [current, setCurrent] = useState(() => resolveSrc(src));
-
-  useEffect(() => {
-    setCurrent(resolveSrc(src));
-  }, [src]);
+  const resolved = resolveSrc(src);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const current = failedSrc === resolved ? PLACEHOLDER_SRC : resolved;
 
   const unoptimized = current.startsWith('http');
 
@@ -43,7 +41,7 @@ export function ProductImage({
       unoptimized={unoptimized}
       priority={priority}
       onError={() => {
-        if (current !== PLACEHOLDER_SRC) setCurrent(PLACEHOLDER_SRC);
+        if (current !== PLACEHOLDER_SRC) setFailedSrc(resolved);
       }}
     />
   );

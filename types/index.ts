@@ -25,6 +25,14 @@ const personNameSchema = z
   .max(120, 'El nombre es demasiado largo')
   .regex(/^[\p{L}\p{N}\s.'\-]+$/u, 'El nombre contiene caracteres no permitidos');
 
+/** Hidden anti-bot field. Humans leave it empty; generic form bots often fill it. */
+const honeypotSchema = z
+  .string()
+  .max(200)
+  .optional()
+  .transform((value) => value?.trim() ?? '')
+  .default('');
+
 export const contactFormSchema = z.object({
   name: personNameSchema,
   email: z
@@ -46,6 +54,7 @@ export const contactFormSchema = z.object({
     .trim()
     .min(10, 'El mensaje debe tener al menos 10 caracteres')
     .max(5000, 'El mensaje es demasiado largo'),
+  website: honeypotSchema,
   accepts_marketing: z.boolean().optional().default(false),
 });
 
@@ -65,6 +74,7 @@ export const catalogDownloadSchema = z.object({
     .max(200, 'El nombre de la empresa es demasiado largo'),
   city: optionalTrimmed,
   sector: optionalTrimmed,
+  website: honeypotSchema,
   accepts_marketing: z.boolean().optional().default(false),
 });
 

@@ -1,3 +1,30 @@
+## 2026-08-05 — Hardening completo + upgrade Next.js 16
+
+### Framework
+- Upgrade a **Next.js 16.3.0** + **React 19.2.8** + ESLint flat config.
+- `headers()` async, `viewport`/`themeColor` separados, `proxy.ts` (CSP con nonce).
+- Tooling de lint/types movido a `devDependencies`; `engines.node >= 20.9.0`.
+
+### Seguridad
+- PDFs fuera de `public/` → `private-catalogs/` + descarga firmada 5 min (`/api/catalogs/download`).
+- `price`/`stock` fuera del SELECT y UI públicos; migración SQL de column grants (aplicar en Supabase).
+- Honeypot `website` en contacto y catálogo (éxito silencioso si un bot lo rellena).
+- CSP production sin `unsafe-inline` en scripts (nonce + `strict-dynamic`).
+- Hosts Supabase genéricos `*.supabase.co` (sin project ref hardcodeado en CSP/images).
+- Rate limit fail-closed + timeouts SendGrid (10s) / Upstash (3s).
+
+### Deploy
+1. Netlify: Node 20.9+, env `CATALOG_DOWNLOAD_SECRET` (≥32 chars) y **Clear cache and deploy**.
+2. Supabase: aplicar `supabase/migrations/20260805211917_protect_public_catalog_columns.sql`.
+
+## 2026-08-05 — Hardening: rate limit fail-closed + timeouts SendGrid/Upstash
+
+### Seguridad / disponibilidad
+- Rate limit en producción: **fail-closed** si todos los backends (Upstash/RPC) fallan.
+- `sendEmail`: timeout 10s (`AbortSignal.timeout`) + log de timeouts.
+- Upstash: timeout 3s en pipeline/expire.
+- Formularios: log si el email al equipo/confirmación no se envía (el lead en BD sigue siendo la fuente de verdad).
+
 ## 2026-08-05 — Fix: enlace compartido abre página en blanco / pegada
 
 ### Bug

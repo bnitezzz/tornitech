@@ -12,6 +12,7 @@ export type ContactFormFields = {
   company: string;
   subject: string;
   message: string;
+  website: string;
   accepts_marketing: boolean;
 };
 
@@ -23,6 +24,7 @@ const INITIAL_FORM: ContactFormFields = {
   company: '',
   subject: '',
   message: '',
+  website: '',
   accepts_marketing: false,
 };
 
@@ -67,6 +69,7 @@ export function useContactForm() {
         company: formData.company || undefined,
         subject: formData.subject || undefined,
         message: formData.message,
+        website: formData.website,
         accepts_marketing: formData.accepts_marketing,
       };
 

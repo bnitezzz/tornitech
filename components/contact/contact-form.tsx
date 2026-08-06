@@ -38,7 +38,22 @@ export function ContactForm({
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4" aria-busy={isSubmitting}>
+      <form onSubmit={handleSubmit} className="relative space-y-4" aria-busy={isSubmitting}>
+        <div
+          className="absolute -left-[9999px] h-px w-px overflow-hidden"
+          aria-hidden="true"
+        >
+          <Label htmlFor="contact-website">Sitio web</Label>
+          <Input
+            id="contact-website"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            autoComplete="off"
+            tabIndex={-1}
+          />
+        </div>
+
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
             <Label htmlFor="firstName" className="text-sm font-medium text-[#1F2937]">

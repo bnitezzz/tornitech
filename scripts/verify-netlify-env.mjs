@@ -58,10 +58,10 @@ const RECOMMENDED = [
     validate: (v) => v.startsWith('https://'),
   },
   {
-    key: 'UPSTASH_REDIS_REST_TOKEN',
+    key: 'CATALOG_DOWNLOAD_SECRET',
     scope: 'runtime (servidor)',
     secret: true,
-    validate: (v) => v.length >= 16,
+    validate: (v) => v.length >= 32,
   },
 ];
 

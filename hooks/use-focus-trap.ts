@@ -40,6 +40,8 @@ export function useFocusTrap(
     if (!isActive || !containerRef.current) return;
 
     previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
+    const returnTarget =
+      returnFocusRef?.current ?? previouslyFocusedRef.current;
 
     const focusTarget =
       initialFocusRef?.current ??
@@ -79,7 +81,6 @@ export function useFocusTrap(
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      const returnTarget = returnFocusRef?.current ?? previouslyFocusedRef.current;
       returnTarget?.focus();
     };
   }, [containerRef, isActive, returnFocusRef, initialFocusRef]);

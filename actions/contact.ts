@@ -8,6 +8,7 @@ import {
   sendEmail,
 } from '@/lib/email';
 import { resolveCatalogForDownload } from '@/lib/catalogs';
+import { createCatalogDownloadToken } from '@/lib/catalog-download-token';
 import { createLead, subscribeToMarketing, FormsBackendError } from '@/lib/leads';
 import { getFormsBackend } from '@/lib/supabase/forms';
 import { getSupabaseServer } from '@/lib/supabase/server';
@@ -40,6 +41,14 @@ export async function submitContact(
   }
 
   const form = parsed.data;
+
+  // Honeypot filled → pretend success without writing (bots).
+  if (form.website) {
+    return {
+      success: true,
+      message: 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.',
+    };
+  }
 
   const rateLimit = await enforceFormRateLimit({
     scope: 'contact',
@@ -95,7 +104,7 @@ export async function submitContact(
       });
     }
 
-    await Promise.all([
+    const [notifyOk, confirmOk] = await Promise.all([
       sendEmail(
         await buildContactNotificationEmail({
           name: form.name,
@@ -109,6 +118,13 @@ export async function submitContact(
       ),
       sendEmail(buildContactConfirmationEmail({ name: form.name, email: form.email })),
     ]);
+
+    if (!notifyOk || !confirmOk) {
+      console.error('[submitContact] Email delivery incomplete', {
+        notifyOk,
+        confirmOk,
+      });
+    }
 
     return {
       success: true,
@@ -137,6 +153,14 @@ export async function submitCatalogDownload(
   }
 
   const form = parsed.data;
+
+  // Honeypot filled → pretend success without issuing a download token.
+  if (form.website) {
+    return {
+      success: true,
+      message: 'Descarga registrada. El catálogo comenzará a descargar.',
+    };
+  }
 
   const rateLimit = await enforceFormRateLimit({
     scope: 'catalog',
@@ -211,7 +235,7 @@ export async function submitCatalogDownload(
       }
     }
 
-    await sendEmail(
+    const emailOk = await sendEmail(
       await buildCatalogDownloadNotificationEmail({
         name: form.name,
         email: form.email,
@@ -224,12 +248,21 @@ export async function submitCatalogDownload(
       })
     );
 
+    if (!emailOk) {
+      console.error('[submitCatalogDownload] Team notification email failed');
+    }
+
     revalidatePath('/');
+    const downloadToken = createCatalogDownloadToken(catalog.id);
 
     return {
       success: true,
       message: 'Descarga registrada. El catálogo comenzará a descargar.',
-      data: { downloadUrl: catalog.fileUrl },
+      data: {
+        downloadUrl: `/api/catalogs/download?token=${encodeURIComponent(
+          downloadToken
+        )}`,
+      },
     };
   } catch (error) {
     return {

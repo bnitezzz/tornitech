@@ -27,6 +27,8 @@ const RULES: Record<RateLimitScope, { ip: RateLimitRule; email: RateLimitRule }>
 const RATE_LIMIT_MESSAGE =
   'Ha enviado demasiadas solicitudes. Espere unos minutos e intente de nuevo.';
 
+const UPSTASH_TIMEOUT_MS = 3_000;
+
 function getUpstashConfig() {
   const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
   const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
@@ -35,8 +37,8 @@ function getUpstashConfig() {
 }
 
 /** Best-effort client IP for Netlify / reverse proxies. */
-export function getRequestIp(): string {
-  const headerList = headers();
+export async function getRequestIp(): Promise<string> {
+  const headerList = await headers();
   const candidates = [
     headerList.get('x-nf-client-connection-ip'),
     headerList.get('x-forwarded-for')?.split(',')[0]?.trim(),
@@ -78,6 +80,7 @@ async function checkUpstashLimit(
         ['TTL', bucketKey],
       ]),
       cache: 'no-store',
+      signal: AbortSignal.timeout(UPSTASH_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -94,6 +97,7 @@ async function checkUpstashLimit(
         method: 'POST',
         headers: { Authorization: `Bearer ${config.token}` },
         cache: 'no-store',
+        signal: AbortSignal.timeout(UPSTASH_TIMEOUT_MS),
       });
     }
 
@@ -206,7 +210,7 @@ export async function enforceFormRateLimit(options: {
   ip?: string;
 }): Promise<RateLimitResult> {
   const rules = RULES[options.scope];
-  const ip = options.ip ?? getRequestIp();
+  const ip = options.ip ?? (await getRequestIp());
   const email = normalizeEmail(options.email);
 
   const checks = [
@@ -237,6 +241,22 @@ export async function enforceFormRateLimit(options: {
       };
     }
     console.warn('[rate-limit] No backend in development; allowing request.');
+    return { allowed: true };
+  }
+
+  // Fail-closed: backends are configured but every attempted check errored out (null).
+  // Avoids fail-open spam windows when Upstash/RPC are down.
+  const attempted = ip !== 'unknown' ? results : results.slice(1);
+  if (
+    process.env.NODE_ENV === 'production' &&
+    attempted.length > 0 &&
+    attempted.every((result) => result === null)
+  ) {
+    console.error('[rate-limit] All rate-limit backends failed; rejecting (fail-closed).');
+    return {
+      allowed: false,
+      message: RATE_LIMIT_MESSAGE,
+    };
   }
 
   return { allowed: true };

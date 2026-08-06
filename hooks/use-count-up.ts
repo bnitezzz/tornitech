@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { animate } from 'framer-motion';
+import { animate, useReducedMotion } from 'framer-motion';
 
 /**
  * Animates a number from 0 to `target` once `start` becomes true.
@@ -9,18 +9,10 @@ import { animate } from 'framer-motion';
  */
 export function useCountUp(target: number, start: boolean, duration = 1.6) {
   const [value, setValue] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!start) return;
-
-    const prefersReducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) {
-      setValue(target);
-      return;
-    }
+    if (!start || prefersReducedMotion) return;
 
     const controls = animate(0, target, {
       duration,
@@ -29,7 +21,7 @@ export function useCountUp(target: number, start: boolean, duration = 1.6) {
     });
 
     return () => controls.stop();
-  }, [start, target, duration]);
+  }, [start, target, duration, prefersReducedMotion]);
 
-  return value;
+  return start && prefersReducedMotion ? target : value;
 }

@@ -92,7 +92,7 @@ export function useCatalogs(options?: { featured?: boolean }) {
         let query = supabase
           .from('catalogs')
           .select(
-            'id, title, slug, description, file_url, cover_image_url, version, is_featured, is_active, display_order, download_count'
+            'id, title, slug, description, cover_image_url, version, is_featured, is_active, display_order, download_count'
           )
           .eq('is_active', true)
           .order('display_order');

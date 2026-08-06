@@ -123,18 +123,6 @@ export function ProductModal({ product, open, loading, onClose }: ProductModalPr
                       <SpecBlock label="Marca" value={product.brand} />
                       <SpecBlock label="Categoría" value={product.categoria} />
                       <SpecBlock label="Subcategoría" value={product.subcategory} />
-                      {product.price != null && (
-                        <SpecBlock
-                          label="Precio"
-                          value={new Intl.NumberFormat('es-VE', {
-                            style: 'currency',
-                            currency: 'USD',
-                          }).format(product.price)}
-                        />
-                      )}
-                      {product.stock != null && (
-                        <SpecBlock label="Stock" value={String(product.stock)} />
-                      )}
                     </dl>
 
                     <SpecBlock

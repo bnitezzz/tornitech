@@ -13,6 +13,7 @@ export type CatalogDownloadFields = {
   company: string;
   city: string;
   sector: string;
+  website: string;
   accepts_marketing: boolean;
 };
 
@@ -23,6 +24,7 @@ const INITIAL_FORM: CatalogDownloadFields = {
   company: '',
   city: '',
   sector: '',
+  website: '',
   accepts_marketing: false,
 };
 
@@ -108,14 +110,16 @@ export function useCatalogDownload() {
       });
       setIsSubmitting(false);
 
-      if (response.success && response.data?.downloadUrl) {
+      if (response.success) {
         setSuccess(true);
-        const link = document.createElement('a');
-        link.href = response.data.downloadUrl;
-        link.download = `${selectedCatalogTitle}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        if (response.data?.downloadUrl) {
+          const link = document.createElement('a');
+          link.href = response.data.downloadUrl;
+          link.download = `${selectedCatalogTitle}.pdf`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
         setTimeout(() => {
           setModalOpen(false);
           setSuccess(false);
