@@ -1,4 +1,4 @@
-# AGENTS.md — Guía para agentes de IA en Tornitech
+# AGENTS.md — Guía para Tornitech
 
 Este documento define cómo debe escribirse y modificarse el código en este repositorio.
 
@@ -92,10 +92,10 @@ Flujo catálogo: validar → crear lead → registrar descarga (si UUID válido)
 - Paleta de marca: navy `#052042`, blue `#316d92`, yellow `#fab43a`, dark `#3c4456`.
 - Responsive: mobile-first, probar 320 / 375 / 768 / 1024 / 1440 px.
 
-## Flujo de trabajo para agentes
+## Flujo de trabajo
 
 1. **Leer** el código existente y `constants/content.ts` antes de modificar.
-2. **Explicar** cambios importantes al usuario antes de aplicarlos (en el chat).
+2. **Explicar** cambios importantes al usuario antes de aplicarlos.
 3. **Aplicar** el diff mínimo necesario.
 4. **Verificar** con `npm run typecheck` y `npm run build`.
 5. **Documentar** cambios relevantes en `CHANGELOG.md`.
