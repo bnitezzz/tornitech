@@ -431,9 +431,9 @@ INSERT INTO public.catalogs (title, slug, description, file_url, version, is_fea
   (
     'Catálogo Automotriz',
     'catalogo-automotriz',
-    'Tornillería y elementos de fijación para el sector automotriz — Volumen 1, 2025.',
-    '/catalogs/catalogo-automotriz-vol1-2025.pdf',
-    '2025',
+    'Tornillería y elementos de fijación para el sector automotriz — AUT v260826.',
+    '/catalogs/catalogo-automotriz-v260826.pdf',
+    'v260826',
     true,
     2
   )

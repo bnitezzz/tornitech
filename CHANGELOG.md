@@ -1,3 +1,9 @@
+## 2026-08-27 — Catálogo Automotriz AUT-v260826
+
+### Contenido
+- Reemplazo del PDF Automotriz: `catalogo-automotriz-v260826.pdf` en `private-catalogs/` (se elimina `catalogo-automotriz-vol1-2025.pdf`).
+- Referencias actualizadas en fallback, script de sync, CSV de ejemplo y schema seed.
+
 ## 2026-08-05 — Hardening completo + upgrade Next.js 16
 
 ### Framework

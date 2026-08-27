@@ -23,9 +23,9 @@ const CATALOGS = [
     title: 'Catálogo Automotriz',
     slug: 'catalogo-automotriz',
     description:
-      'Tornillería y elementos de fijación para el sector automotriz — Volumen 1, 2025.',
-    file_url: '/catalogs/catalogo-automotriz-vol1-2025.pdf',
-    version: '2025',
+      'Tornillería y elementos de fijación para el sector automotriz — AUT v260826.',
+    file_url: '/catalogs/catalogo-automotriz-v260826.pdf',
+    version: 'v260826',
     is_featured: true,
     is_active: true,
     display_order: 2,
