@@ -8,7 +8,7 @@ import { ASSETS } from '@/constants/assets';
 import type { CatalogItem } from '@/types/catalog';
 
 const catalogPreviews = [
-  { src: ASSETS.catalogs.general, alt: 'Catálogo general' },
+  { src: ASSETS.catalogs.general, alt: 'Portada Catálogo General PFI 2026' },
   { src: ASSETS.catalogs.automotriz, alt: 'Portada Catálogo Automotriz PFI 2026' },
 ];
 
