@@ -9,7 +9,7 @@ import type { CatalogItem } from '@/types/catalog';
 
 const catalogPreviews = [
   { src: ASSETS.catalogs.general, alt: 'Catálogo general' },
-  { src: ASSETS.catalogs.automotriz, alt: 'Catálogo Automotriz' },
+  { src: ASSETS.catalogs.automotriz, alt: 'Portada Catálogo Automotriz PFI 2026' },
 ];
 
 type CatalogListProps = {

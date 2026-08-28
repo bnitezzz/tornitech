@@ -1,3 +1,10 @@
+## 2026-08-28 — Catálogo Automotriz PFI-2026
+
+### Contenido
+- Nuevo PDF `catalogo-automotriz-pfi-2026-v290726.pdf` en `private-catalogs/` (reemplaza v260826).
+- Portada actualizada en `public/images/img-catalogo-automotriz.png`.
+- Referencias y Supabase alineados con versión `v290726`.
+
 ## 2026-08-27 — Catálogo Automotriz AUT-v260826
 
 ### Contenido

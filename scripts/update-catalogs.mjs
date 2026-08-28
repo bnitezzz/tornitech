@@ -22,10 +22,10 @@ const CATALOGS = [
   {
     title: 'Catálogo Automotriz',
     slug: 'catalogo-automotriz',
-    description:
-      'Tornillería y elementos de fijación para el sector automotriz — AUT v260826.',
-    file_url: '/catalogs/catalogo-automotriz-v260826.pdf',
-    version: 'v260826',
+    description: 'Panama Fasteners — Catálogo PFI 2026, Vol. 01.',
+    file_url: '/catalogs/catalogo-automotriz-pfi-2026-v290726.pdf',
+    cover_image_url: '/images/img-catalogo-automotriz.png',
+    version: 'v290726',
     is_featured: true,
     is_active: true,
     display_order: 2,

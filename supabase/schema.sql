@@ -431,9 +431,9 @@ INSERT INTO public.catalogs (title, slug, description, file_url, version, is_fea
   (
     'Catálogo Automotriz',
     'catalogo-automotriz',
-    'Tornillería y elementos de fijación para el sector automotriz — AUT v260826.',
-    '/catalogs/catalogo-automotriz-v260826.pdf',
-    'v260826',
+    'Panama Fasteners — Catálogo PFI 2026, Vol. 01.',
+    '/catalogs/catalogo-automotriz-pfi-2026-v290726.pdf',
+    'v290726',
     true,
     2
   )
