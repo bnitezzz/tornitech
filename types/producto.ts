@@ -45,28 +45,10 @@ export const productSearchQuerySchema = z
 export type ProductoListItem = z.infer<typeof productoListItemSchema>;
 export type ProductoDetail = z.infer<typeof productoDetailSchema>;
 
-/** @deprecated Prefer ProductoListItem / ProductoDetail */
-export interface Producto {
-  id: string;
-  nombre: string;
-  categoria: string;
-  descripcion?: string | null;
-  orden: number;
-  activo: boolean;
-  brand?: string | null;
-  sku?: string | null;
-  url_fotografia?: string | null;
-}
-
 export interface ConfiguracionWeb {
   id: number;
   mostrar_productos: boolean;
   updated_at?: string;
-}
-
-export interface ProductoCategoria {
-  categoria: string;
-  productos: Producto[];
 }
 
 /** Columns selected for list/search queries (no SELECT *). */

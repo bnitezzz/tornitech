@@ -1,3 +1,10 @@
+## 2026-09-27 — Limpieza del catálogo antiguo y páginas de error
+
+### Código
+- Eliminado el listado por categorías que ya no se renderiza: `useProductos`, `ProductosGrid`, `ProductosCard`, `ProductosItem` y `HorizontalScroll`.
+- Eliminadas las fotos sueltas de anclaje que no usa la sección de productos.
+- Páginas 404 y de error con la marca, sin listado de archivos.
+
 ## 2026-08-28 — Catálogo Automotriz PFI-2026
 
 ### Contenido

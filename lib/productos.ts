@@ -5,8 +5,6 @@ import {
   PRODUCTO_LIST_COLUMNS,
   productSearchQuerySchema,
   type ConfiguracionWeb,
-  type Producto,
-  type ProductoCategoria,
   type ProductoDetail,
   type ProductoListItem,
 } from '@/types/producto';
@@ -123,32 +121,6 @@ export async function getProductoById(id: string): Promise<ProductoDetail | null
   return mapDetail(data as unknown as ProductoRow);
 }
 
-/** @deprecated Prefer searchProductos — loads all active rows. */
-export async function getProductos(): Promise<Producto[]> {
-  const supabase = getSupabaseClient();
-  if (!supabase) return [];
-
-  const { data, error } = await supabase
-    .from('productos')
-    .select(`${PRODUCTO_LIST_COLUMNS}, descripcion, orden, activo`)
-    .eq('activo', true)
-    .order('categoria', { ascending: true })
-    .order('orden', { ascending: true });
-
-  if (error) throw error;
-  return ((data ?? []) as unknown as ProductoRow[]).map((row) => ({
-    id: row.id,
-    nombre: row.nombre,
-    categoria: row.categoria,
-    descripcion: row.descripcion,
-    orden: row.orden,
-    activo: row.activo,
-    brand: row.brand,
-    sku: row.sku,
-    url_fotografia: safeHttpUrl(row.url_fotografia) ?? null,
-  }));
-}
-
 /** Web config row (id = 1). Defaults to hidden when unavailable. */
 export async function getConfiguracionProductos(): Promise<ConfiguracionWeb | null> {
   const supabase = getSupabaseClient();
@@ -169,39 +141,4 @@ export async function getConfiguracionProductos(): Promise<ConfiguracionWeb | nu
     mostrar_productos: row.mostrar_productos,
     updated_at: row.updated_at,
   };
-}
-
-/** @deprecated Client-side grouping — prefer server search UI. */
-export function groupProductosByCategoria(productos: Producto[]): ProductoCategoria[] {
-  const map = new Map<string, Producto[]>();
-
-  for (const producto of productos) {
-    const key = producto.categoria.trim();
-    if (!key) continue;
-    const list = map.get(key) ?? [];
-    list.push(producto);
-    map.set(key, list);
-  }
-
-  return Array.from(map.entries())
-    .sort(([a], [b]) => a.localeCompare(b, 'es', { sensitivity: 'base' }))
-    .map(([categoria, items]) => ({
-      categoria,
-      productos: [...items].sort(
-        (a, b) => a.orden - b.orden || a.nombre.localeCompare(b.nombre, 'es')
-      ),
-    }));
-}
-
-/** @deprecated Prefer searchProductos. */
-export function filterProductos(productos: Producto[], query: string): Producto[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return productos;
-
-  return productos.filter((p) => {
-    const haystack = [p.nombre, p.categoria, p.descripcion ?? '', p.brand ?? '', p.sku ?? '']
-      .join(' ')
-      .toLowerCase();
-    return haystack.includes(q);
-  });
 }

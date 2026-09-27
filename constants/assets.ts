@@ -44,8 +44,6 @@ export const ASSETS = {
   },
   products: {
     anclajesOjoGancho: '/images/products/anclajes-ojo-gancho-2013-2014.png',
-    anclajeGancho: '/images/products/anclaje-gancho-2013.png',
-    anclajeOjo: '/images/products/anclaje-ojo-2014.png',
     tornilloBronce2202: '/images/products/tornillo-bronce-2202.png',
     tornilloEstructural0317: '/images/products/tornillo-estructural-0317.png',
   },
