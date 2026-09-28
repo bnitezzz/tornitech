@@ -76,6 +76,7 @@ export function ProductsSection() {
                         alt={product.name}
                         src={imageSrc}
                         fill
+                        quality={70}
                         sizes="(max-width: 640px) 45vw, (max-width: 1024px) 45vw, 280px"
                       />
                     </div>

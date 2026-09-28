@@ -41,7 +41,8 @@ function SectorFlipCard({
               src={sector.image}
               alt=""
               fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              quality={68}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 240px"
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent transition-colors duration-300 group-hover:from-black/55 group-hover:via-black/10" />

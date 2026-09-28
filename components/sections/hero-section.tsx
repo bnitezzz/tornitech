@@ -21,7 +21,8 @@ export function HeroSection() {
           alt="Almacén de tornillería y componentes de fijación industrial"
           fill
           priority
-          sizes="(max-width: 1800px) 100vw, 1800px"
+          quality={70}
+          sizes="100vw"
           className="object-cover object-[center_42%]"
         />
 

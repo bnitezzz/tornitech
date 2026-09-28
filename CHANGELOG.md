@@ -1,3 +1,11 @@
+## 2026-09-28 — Carga más rápida
+
+### Rendimiento
+- Imágenes pesadas recomprimidas sin cambiar rutas ni el aspecto de la marca.
+- La ficha de contacto no bloquea la página más de 1,2 s y se lee una sola vez por visita.
+- Fotos de portada, sectores y productos salen en AVIF/WebP con caché de una semana.
+- El HTML sigue sin cachearse en Netlify para no repetir la página en blanco.
+
 ## 2026-09-27 — Limpieza del catálogo antiguo y páginas de error
 
 ### Código

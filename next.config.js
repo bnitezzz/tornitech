@@ -16,6 +16,9 @@ const nextConfig = {
     '/api/catalogs/download': ['./private-catalogs/**/*.pdf'],
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    qualities: [68, 70, 75],
+    minimumCacheTTL: 60 * 60 * 24 * 7,
     remotePatterns: [
       {
         protocol: 'https',
@@ -87,6 +90,10 @@ const nextConfig = {
       },
     ];
   },
+};
+
+nextConfig.experimental = {
+  optimizePackageImports: ['lucide-react', 'framer-motion'],
 };
 
 module.exports = nextConfig;

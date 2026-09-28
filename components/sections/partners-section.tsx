@@ -64,7 +64,8 @@ export function PartnersSection() {
                   src={PARTNERS_CONTENT.partnerLogo}
                   alt={PARTNERS_CONTENT.partnerName}
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={70}
+                  sizes="(max-width: 1024px) 100vw, 640px"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#052042] via-[#052042]/40 to-transparent" />

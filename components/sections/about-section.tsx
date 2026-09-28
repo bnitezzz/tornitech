@@ -128,6 +128,7 @@ export function AboutSection() {
             src={ASSETS.about}
             alt="Fachada de la tienda física de CCS Tornitech con su logo y eslogan Fijamos Soluciones"
             fill
+            quality={70}
             sizes="(max-width: 880px) 100vw, 880px"
             className="object-cover object-center"
           />

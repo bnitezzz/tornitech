@@ -1,4 +1,5 @@
 import { unstable_cache } from 'next/cache';
+import { cache } from 'react';
 import { getSupabaseFormsClient, getSupabaseServer } from '@/lib/supabase/server';
 import {
   getDefaultSiteContact,
@@ -12,8 +13,8 @@ export { getDefaultSiteContact, parsePhoneList } from '@/lib/site-contact-defaul
 
 type SiteConfigRow = Pick<Tables<'site_config'>, 'key' | 'value' | 'value_json'>;
 
-/** Avoid hanging the whole HTML shell when Supabase is slow/unreachable. */
-const SITE_CONFIG_FETCH_TIMEOUT_MS = 4_000;
+/** Avoid hanging the first paint when Supabase is slow. Defaults in constants/site.ts cover the gap. */
+const SITE_CONFIG_FETCH_TIMEOUT_MS = 1_200;
 
 const CONTACT_KEYS = [
   'whatsapp_number',
@@ -113,9 +114,14 @@ export async function getSiteContactConfig(): Promise<SiteContactConfig> {
   return mergeRows(rows);
 }
 
-/** Cached ~60s — edits in Supabase appear without redeploy; page shell stays dynamic. */
-export const getCachedSiteContactConfig = unstable_cache(
+const getCachedSiteContact = unstable_cache(
   async () => getSiteContactConfig(),
   ['site-contact-config'],
   { revalidate: 60 }
 );
+
+/**
+ * One read per request (layout + page) and ~60s across requests.
+ * The HTML shell stays dynamic so Netlify does not cache an empty 304.
+ */
+export const getCachedSiteContactConfig = cache(getCachedSiteContact);

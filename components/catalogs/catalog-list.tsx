@@ -41,6 +41,7 @@ export function CatalogList({ catalogs, onDownload, firstDownloadRef }: CatalogL
                 alt={img.alt}
                 src={img.src}
                 fill
+                quality={70}
                 sizes="104px"
               />
             </div>
